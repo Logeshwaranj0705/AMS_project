@@ -298,8 +298,8 @@ def hod_data():
     sem = request.form['sem']  # Get semester from form input
     arrear=request.form['arrears']
     data=process_hod_data(year, sem, exam, arrear)
-    return data
-    #return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
+    #return data
+    return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
 @app.route('/upload', methods=['POST'])
 def upload_marks():
     if request.method == 'POST':
