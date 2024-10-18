@@ -1,0 +1,6 @@
+Flask==2.3.2
+pandas==2.1.1
+openpyxl==3.1.2
+twilio==7.18.0
+mysql-connector-python==8.1.0
+asyncio==3.4.3
