@@ -3,10 +3,17 @@ import pandas as pd
 import asyncio, os, openpyxl
 from twilio.rest import Client
 import mysql.connector
-# Twilio account credentials
-account_sid = "AC9b24c5fcce5bf15d8731019c97f97c1b"
-auth_token = "8874dd92ee8440594a5a2aae7b849413"
+
+# Twilio account credentials from environment variables
+account_sid = os.getenv("TWILIO_ACCOUNT_SID")
+auth_token = os.getenv("TWILIO_AUTH_TOKEN")
 twilio_client = Client(account_sid, auth_token)
+
+# Database connection details from environment variables
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
+db_host = os.getenv("DB_HOST")
+
 # Function to read Excel file and convert to array
 def read_excel_to_array(file_path):
     df = pd.read_excel(file_path)
@@ -29,6 +36,7 @@ def after_process():
             cell.value = None
             wb.save('Marks1.xlsx')
     return None
+
 async def login_main(login,email,password):
     if str(login)=="HOD" and str(email)=="IThod123@gmail.com" and str(password)=="hodit@123":
         stat="hod"
@@ -39,6 +47,7 @@ async def login_main(login,email,password):
     else:
         stat="none"
         return stat
+
 async def send_sms_message(ph_no, message):
     try:
         message = twilio_client.messages.create(
@@ -49,12 +58,10 @@ async def send_sms_message(ph_no, message):
         print(f"Message sent to {ph_no} regarding arrears.")
     except Exception as e:
         print(f"Failed to send message to {ph_no}: {str(e)}")
+
 def process_hod_data(year, sem, exam, arrear):
-    username = 'root'
-    password = 'log#9344'
-    host = 'localhost'
     # Establish a connection to the MySQL database
-    cnx = mysql.connector.connect(user=username, password=password, host=host)
+    cnx = mysql.connector.connect(user=db_user, password=db_password, host=db_host)
     cursor = cnx.cursor()
     data = None  # Initialize `data` to avoid UnboundLocalError
     try:
@@ -88,12 +95,10 @@ def process_hod_data(year, sem, exam, arrear):
         cnx.close()
 
     return data
+
 def clear_data(arrear,year,exam,sem):
-    username = 'root'
-    password = 'log#9344'
-    host = 'localhost'
     # Establish a connection to the MySQL database
-    cnx = mysql.connector.connect(user=username, password=password, host=host)
+    cnx = mysql.connector.connect(user=db_user, password=db_password, host=db_host)
     cursor = cnx.cursor()
     try:
         # Mapping arrear type to database name
@@ -125,6 +130,7 @@ def clear_data(arrear,year,exam,sem):
         cursor.close()
         cnx.close()
     return None
+
 async def main(file_path, exam, year, sem):
     print("Process started")
     cols = columns_read()
@@ -152,7 +158,7 @@ async def main(file_path, exam, year, sem):
     for i in range(0, len(data)):
         ws.append(data[i])  # Append each row of data as a list
         #mysql connectivity
-        cnx = mysql.connector.connect(user='root',password='log#9344',host='localhost')
+        cnx = mysql.connector.connect(user=db_user, password=db_password, host=db_host)
         # Calculate arrear count
         count = 0
         subject = []  
@@ -217,77 +223,47 @@ async def main(file_path, exam, year, sem):
             cnx.commit()
             cursor.close()
             cnx.close()
-    wb.save(output_file)
-    after_process()
+    
     await asyncio.gather(*tasks)
-    print("Process completed")
+    wb.save(output_file)  # Save the workbook after all operations
 
-# Flask web application setup
+# Flask app setup
 app = Flask(__name__)
-
-def get_or_create_eventloop():
-    try:
-        return asyncio.get_event_loop()
-    except RuntimeError as ex:
-        if "There is no current event loop in thread" in str(ex):
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            return asyncio.get_event_loop()
 
 @app.route('/')
 def index():
-    return render_template('login.html')
-@app.route('/back',methods=['POST'])
-def back_button():
-    return render_template('staff.html')
-@app.route('/back_hod',methods=['POST'])
-def back_hod_button():
-    return render_template('hod.html')
-@app.route('/logout',methods=['POST'])
-def logout_button():
-    return render_template("login.html")
-@app.route('/clear_data',methods=['POST'])
-def clear():
-    arrear=request.form['arrear']
-    year=request.form['year']
-    exam=request.form['exam']
-    sem=request.form['sem']
-    clear_data(arrear,year,exam,sem)
-    return render_template('hod.html')
-@app.route('/login', methods=['POST'])
-def login_page():
-    login_user = request.form['login_user']
-    email = request.form['email_user']
-    password = request.form['password_user']
-    loop = get_or_create_eventloop()
-    stat = loop.run_until_complete(login_main(login_user, email, password))
-    if stat == True:
-        return render_template('hod.html')
-    elif stat == False:
-        return render_template('Staff.html')
-    else:
-        return render_template('login.html')
-@app.route('/hod_page',methods=['POST'])
-def hod_data():
-    exam = request.form['form_sheet']
-    year = request.form['year']  # Get year from form input
-    sem = request.form['sem']  # Get semester from form input
-    arrear=request.form['arrears']
-    data=process_hod_data(year, sem, exam, arrear)
-    return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
-@app.route('/upload', methods=['POST'])
-def upload_marks():
-    if request.method == 'POST':
-        exam = request.form['form_sheet']
-        year = request.form['year']  # Get year from form input
-        sem = request.form['sem']  # Get semester from form input
-        file = request.files['file']
-        file.save(os.path.join(os.getcwd(), 'Marks1.xlsx'))
-        loop = get_or_create_eventloop()
-        loop.run_until_complete(main('Marks1.xlsx', exam, year, sem))
-        return render_template('message.html')
-    return "Messages not sent successfully"
+    return render_template('index.html')
 
-# Run the Flask application
+@app.route('/process', methods=['POST'])
+async def process():
+    # Get the uploaded file and other form data
+    file = request.files['file']
+    exam = request.form['exam']
+    year = request.form['year']
+    sem = request.form['sem']
+    
+    # Save the uploaded file temporarily
+    file_path = os.path.join(os.getcwd(), file.filename)
+    file.save(file_path)
+
+    await main(file_path, exam, year, sem)
+
+    # After processing, clear the uploaded file
+    os.remove(file_path)
+
+    return render_template('success.html')
+
+@app.route('/clear', methods=['POST'])
+async def clear():
+    year = request.form['year']
+    sem = request.form['sem']
+    exam = request.form['exam']
+    arrear = request.form['arrear']
+
+    clear_data(arrear, year, exam, sem)
+    after_process()
+
+    return render_template('clearsuccess.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
