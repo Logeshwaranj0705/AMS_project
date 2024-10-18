@@ -78,11 +78,11 @@
                                 <tbody>
                                     {% for row in data %}
                                     <tr>
-                                        <td>{{ row[0] }}</td>  <!-- Name -->
-                                        <td>{{ row[1] }}</td>  <!-- Arrear Count -->
-                                        <td>{{ row[2] }}</td>  <!-- Year -->
-                                        <td>{{ row[3] }}</td>  <!-- Semester -->
-                                        <td>{{ row[4] }}</td>  <!-- Exam -->
+                                        <td>{{ row.name }}</td>  <!-- Name -->
+                                        <td>{{ row.arrear_count }}</td>  <!-- Arrear Count -->
+                                        <td>{{ row.year }}</td>  <!-- Year -->
+                                        <td>{{ row.semester }}</td>  <!-- Semester -->
+                                        <td>{{ row.exam }}</td>  <!-- Exam -->
                                     </tr>
                                     {% endfor %}
                                 </tbody>
