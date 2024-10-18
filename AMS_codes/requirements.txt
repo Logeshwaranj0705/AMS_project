@@ -6,4 +6,3 @@ asyncio
 gunicorn
 pandas
 numpy
-os
