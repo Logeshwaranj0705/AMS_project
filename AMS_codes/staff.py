@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request ,send_file
 import pandas as pd
 import asyncio, os, openpyxl
 from twilio.rest import Client
@@ -264,6 +264,12 @@ def back_hod_button():
 @app.route('/logout',methods=['POST'])
 def logout_button():
     return render_template("login.html")
+@app.route('/download')
+def download_file():
+    try:
+        return send_file(os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx'), as_attachment=True)
+    except Exception as e:
+        return str(e)
 @app.route('/clear_data',methods=['POST'])
 def clear():
     arrear=request.form['arrear']
