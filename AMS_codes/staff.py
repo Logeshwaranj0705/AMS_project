@@ -131,7 +131,7 @@ async def main(file_path, exam, year, sem):
     data = read_excel_to_array(file_path)
     header = header_read(file_path)
     tasks = []
-    output_file = os.path.join(os.getcwd(), 'templates','newsheet.xlsx')
+    output_file = os.path.join(os.getcwd(),'newsheet.xlsx')
     
     # Create a new Excel file or load an existing one
     wb = openpyxl.load_workbook(output_file)
