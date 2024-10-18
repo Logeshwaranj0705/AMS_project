@@ -54,6 +54,7 @@ def process_hod_data(year, sem, exam, arrear):
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
     db_host = os.getenv("DB_HOST")
+    db_port=os.getenv("DB_PORT")
     cnx = pymysql.connect(
     cursorclass=pymysql.cursors.DictCursor,
     host=db_host,
@@ -98,6 +99,7 @@ def clear_data(arrear,year,exam,sem):
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
     db_host = os.getenv("DB_HOST")
+    db_port=os.getenv("DB_PORT")
     cnx = pymysql.connect(
     cursorclass=pymysql.cursors.DictCursor,
     host=db_host,
@@ -165,6 +167,7 @@ async def main(file_path, exam, year, sem):
         db_user = os.getenv("DB_USER")
         db_password = os.getenv("DB_PASSWORD")
         db_host = os.getenv("DB_HOST")
+        db_port=os.getenv("DB_PORT")
         cnx = pymysql.connect(
         cursorclass=pymysql.cursors.DictCursor,
         host=db_host,
