@@ -264,12 +264,6 @@ def back_hod_button():
 @app.route('/logout',methods=['POST'])
 def logout_button():
     return render_template("login.html")
-@app.route('/download')
-def download_file():
-    try:
-        return send_file(os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx'), as_attachment=True)
-    except Exception as e:
-        return str(e)
 @app.route('/clear_data',methods=['POST'])
 def clear():
     arrear=request.form['arrear']
@@ -298,7 +292,8 @@ def hod_data():
     sem = request.form['sem']  # Get semester from form input
     arrear=request.form['arrears']
     data=process_hod_data(year, sem, exam, arrear)
-    return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
+    return data
+    #return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
 @app.route('/upload', methods=['POST'])
 def upload_marks():
     if request.method == 'POST':
