@@ -248,7 +248,7 @@ def index():
     return render_template('login.html')
 @app.route('/back',methods=['POST'])
 def back_button():
-    return render_template('staff.html')
+    return render_template('Staff.html')
 @app.route('/back_hod',methods=['POST'])
 def back_hod_button():
     return render_template('hod.html')
