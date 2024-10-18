@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import pandas as pd
 import asyncio, os, openpyxl
 from twilio.rest import Client
-import mysql.connector
+import pymysql
 # Twilio account credentials
 account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
@@ -29,12 +29,6 @@ def after_process():
             cell.value = None
             wb.save('Marks1.xlsx')
     return None
-
-def get_db_connection():
-    db_url = os.getenv("DATABASE_URL")  # New environment variable
-    db_user, db_password, db_host, db_name = db_url.split(':')[1][2:], db_url.split(':')[2].split('@')[0], db_url.split('@')[1].split('/')[0], db_url.split('/')[-1]
-    return mysql.connector.connect(user=db_user, password=db_password, host=db_host, database=db_name)
-
 async def login_main(login,email,password):
     if str(login)=="HOD" and str(email)=="IThod123@gmail.com" and str(password)=="hodit@123":
         stat="hod"
@@ -60,7 +54,12 @@ def process_hod_data(year, sem, exam, arrear):
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
     db_host = os.getenv("DB_HOST")
-    cnx = get_db_connection()
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=db_port,
+    user=db_user,)
     cursor = cnx.cursor()
     data = None  # Initialize `data` to avoid UnboundLocalError
     try:
@@ -99,7 +98,12 @@ def clear_data(arrear,year,exam,sem):
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
     db_host = os.getenv("DB_HOST")
-    cnx = get_db_connection()
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=db_port,
+    user=db_user,)
     cursor = cnx.cursor()
     try:
         # Mapping arrear type to database name
@@ -161,7 +165,12 @@ async def main(file_path, exam, year, sem):
         db_user = os.getenv("DB_USER")
         db_password = os.getenv("DB_PASSWORD")
         db_host = os.getenv("DB_HOST")
-        cnx = get_db_connection()
+        cnx = pymysql.connect(
+        cursorclass=pymysql.cursors.DictCursor,
+        host=db_host,
+        password=db_password,
+        port=db_port,
+        user=db_user,)
         # Calculate arrear count
         count = 0
         subject = []  
