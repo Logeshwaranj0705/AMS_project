@@ -58,7 +58,7 @@ def process_hod_data(year, sem, exam, arrear):
     cursorclass=pymysql.cursors.DictCursor,
     host=db_host,
     password=db_password,
-    port=15274
+    port=15274,
     user=db_user,)
     cursor = cnx.cursor()
     data = None  # Initialize `data` to avoid UnboundLocalError
@@ -102,7 +102,7 @@ def clear_data(arrear,year,exam,sem):
     cursorclass=pymysql.cursors.DictCursor,
     host=db_host,
     password=db_password,
-    port=15274
+    port=15274,
     user=db_user,)
     cursor = cnx.cursor()
     try:
@@ -169,7 +169,7 @@ async def main(file_path, exam, year, sem):
         cursorclass=pymysql.cursors.DictCursor,
         host=db_host,
         password=db_password,
-        port=15274
+        port=15274,
         user=db_user,)
         # Calculate arrear count
         count = 0
