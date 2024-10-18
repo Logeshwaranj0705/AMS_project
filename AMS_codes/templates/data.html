@@ -64,7 +64,7 @@
                     <div class="card-body">
                         <h1>ARREAR DATA</h1>
                         {% if data %}
-                        {%  data  %}
+                        <p>{%  data  %}</p>
                         <div class="table-container">
                             <table>
                                 <thead>
@@ -79,11 +79,11 @@
                                 <tbody>
                                     {% for row in data %}
                                     <tr>
-                                        <td>{{ row[2] }}</td>  <!-- Name -->
-                                        <td>{{ row[0] }}</td>  <!-- Arrear Count -->
-                                        <td>{{ row[4] }}</td>  <!-- Year -->
+                                        <td>{{ row[0] }}</td>  <!-- Name -->
+                                        <td>{{ row[1] }}</td>  <!-- Arrear Count -->
+                                        <td>{{ row[2] }}</td>  <!-- Year -->
                                         <td>{{ row[3] }}</td>  <!-- Semester -->
-                                        <td>{{ row[1] }}</td>  <!-- Exam -->
+                                        <td>{{ row[4] }}</td>  <!-- Exam -->
                                     </tr>
                                     {% endfor %}
                                 </tbody>
