@@ -2,7 +2,6 @@ Flask
 pandas
 openpyxl
 twilio
-mysql-connector-python
 asyncio
 gunicorn
 pymysql
