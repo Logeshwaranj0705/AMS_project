@@ -34,10 +34,10 @@ async def login_main(login,email,password):
     hod_pwd=os.getenv("HOD_PWD")
     staff_email=os.getenv("STAFF_EMAIL")
     staff_pwd=os.getenv("STAFF_PWD")
-    if (str(login)=="HOD" and str(email)==hod_email and str(password)==hod_pwd):
+    if str(login)=="HOD" and str(email)==hod_email and str(password)==hod_pwd:
         stat="hod"
         return True
-    elif (str(login)=="Staff" and str(email)==staff_email and str(password)==staff_pwd):
+    elif str(login)=="Staff" and str(email)==staff_email and str(password)==staff_pwd:
         stat="False"
         return stat
     else:
