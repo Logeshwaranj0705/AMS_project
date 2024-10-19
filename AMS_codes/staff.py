@@ -38,8 +38,8 @@ async def login_main(login,email,password):
         stat="hod"
         return True
     elif str(login)=="Staff" and str(email)==staff_email and str(password)==staff_pwd:
-        stat="False"
-        return stat
+        stat="staff"
+        return False
     else:
         stat='none'
         return stat
@@ -289,7 +289,6 @@ def login_page():
     password = request.form['password_user']
     loop = get_or_create_eventloop()
     stat = loop.run_until_complete(login_main(login_user, email,password))
-    print(stat)
     if stat == True:
         return render_template('hod.html')
     elif stat == False:
