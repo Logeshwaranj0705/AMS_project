@@ -29,19 +29,20 @@ def after_process():
             cell.value = None
             wb.save('Marks1.xlsx')
     return None
-async def login_main(login,email,password,user_email,user_pwd):
-    if (str(login)=="HOD"): 
-        hod_email="HOD_EMAIL"
-        hod_pwd="HOD_PWD"
-        if (str(email)==hod_email and str(password)==hod_pwd):
+async def login_main(login,email,password):
+    hod_email="HOD_EMAIL"
+    hod_pwd="HOD_PWD"
+    staff_email="STAFF_EMAIL"
+    staff_pwd="STAFF_PWD"
+    if str(login)=="HOD" and str(email)==hod_email and str(password)==hod_pwd:
             stat="hod"
             return True
-    elif str(login)=="Staff":
-        staff_email="STAFF_EMAIL"
-        staff_pwd="STAFF_PWD"
-        if (str(email)==staff_email and str(password)==staff_pwd):
-            stat="hod"
-            return True
+    elif str(login)=="Staff" and str(email)==staff_email and str(password)==staff_pwd:
+            stat="False"
+            return stat
+    else:
+        stat='none'
+        return stat
 async def send_sms_message(ph_no, message):
     try:
         message = twilio_client.messages.create(
