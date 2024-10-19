@@ -40,8 +40,8 @@ async def login_main(login,email,password):
         staff_email="STAFF_EMAIL"
         staff_pwd="STAFF_PWD"
         if str(email)==staff_email and str(password)==staff_pwd:
-            stat="staff"
-        return False
+            stat="False"
+        return stat
     else:
         stat="none"
         return stat
