@@ -30,15 +30,18 @@ def after_process():
             wb.save('Marks1.xlsx')
     return None
 async def login_main(login,email,password,user_email,user_pwd):
-    if str(login)=="HOD" and str(email)==user_email and str(password)==user_pwd:
-        stat="hod"
-        return True
-    elif str(login)=="Staff" and  str(email)==user_email and str(password)==user_pwd:
-        stat=False
-        return stat
-    else:
-        stat="none"
-        return stat
+    if (str(login)=="HOD"): 
+        hod_email="HOD_EMAIL"
+        hod_pwd="HOD_PWD"
+        if (str(email)==hod_email and str(password)==hod_pwd):
+            stat="hod"
+            return True
+    elif str(login)=="Staff":
+        staff_email="STAFF_EMAIL"
+        staff_pwd="STAFF_PWD"
+        if (str(email)==staff_email and str(password)==staff_pwd):
+            stat="hod"
+            return True
 async def send_sms_message(ph_no, message):
     try:
         message = twilio_client.messages.create(
@@ -284,14 +287,8 @@ def login_page():
     email = request.form['email_user']
     password = request.form['password_user']
     loop = get_or_create_eventloop()
-    if login_user=="HOD":
-        user_email="HOD_EMAIL"
-        user_pwd="HOD_PWD"
-        stat = loop.run_until_complete(login_main(login_user, email, password,user_email,user_pwd))
-    else:
-        user_email="STAFF_EMAIL"
-        user_pwd="STAFF_PWD"
-        stat = loop.run_until_complete(login_main(login_user, email, password,user_email,user_pwd))
+    stat = loop.run_until_complete(login_main(login_user, email))
+    print(stat)
     if stat == True:
         return render_template('hod.html')
     elif stat == False:
