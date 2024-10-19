@@ -30,11 +30,10 @@ def after_process():
             wb.save('Marks1.xlsx')
     return None
 async def login_main(login,email,password):
-    hod_email="HOD_EMAIL"
-    hod_pwd="HOD_PWD"
-    staff_email="STAFF_EMAIL"
-    staff_pwd="STAFF_PWD"
-    print(hod_email,hod_pwd)
+    hod_email=os.getenv("HOD_EMAIL")
+    hod_pwd=os.getenv("HOD_PWD")
+    staff_email=os.getenv("STAFF_EMAIL")
+    staff_pwd=os.getenv("STAFF_PWD")
     if (str(login)=="HOD" and str(email)==hod_email and str(password)==hod_pwd):
         stat="hod"
         return True
@@ -304,7 +303,6 @@ def hod_data():
     sem = request.form['sem']  # Get semester from form input
     arrear=request.form['arrears']
     data=process_hod_data(year, sem, exam, arrear)
-    #return data
     return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
 @app.route('/upload', methods=['POST'])
 def upload_marks():
