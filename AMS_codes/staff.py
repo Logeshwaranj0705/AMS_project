@@ -30,10 +30,10 @@ def after_process():
             wb.save('Marks1.xlsx')
     return None
 async def login_main(login,email,password):
-    if str(login)=="HOD" and str(email)=="HOD_USER" and str(password)=="HOD_PWD":
+    if str(login)=="HOD" and str(email)=="HOD_EMAIL" and str(password)=="HOD_PWD":
         stat="hod"
         return True
-    elif str(login)=="Staff" and  str(email)=="STAFF_USER" and str(password)=="STAFF_PWD":
+    elif str(login)=="Staff" and  str(email)=="STAFF_EMAIL" and str(password)=="STAFF_PWD":
         stat=False
         return stat
     else:
