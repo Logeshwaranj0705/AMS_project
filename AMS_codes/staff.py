@@ -35,16 +35,16 @@ async def login_main(login,email,password):
         hod_email="HOD_EMAIL"
         hod_pwd="HOD_PWD"
         if str(email)==hod_email and str(password)==hod_pwd:
-            stat=True
+            stat="True"
             return stat
     elif str(login)=="Staff":
         staff_email="STAFF_EMAIL"
         staff_pwd="STAFF_PWD"
         if str(email)==staff_email and str(password)==staff_pwd:
-            stat=False
+            stat="False"
             return stat
     else:
-        stat="none"
+        stat="None"
     return stat
 async def send_sms_message(ph_no, message):
     try:
