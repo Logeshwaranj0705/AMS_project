@@ -35,11 +35,13 @@ async def login_main(login,email,password):
         hod_pwd="HOD_PWD"
         if str(email)==hod_email and str(password)==hod_pwd:
             stat="True"
+            return stat
     elif str(login)=="Staff":
         staff_email="STAFF_EMAIL"
         staff_pwd="STAFF_PWD"
         if str(email)==staff_email and str(password)==staff_pwd:
             stat="False"
+            return stat
     else:
         stat="none"
     return stat
