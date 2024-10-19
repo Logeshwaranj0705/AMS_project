@@ -48,6 +48,7 @@ async def login_main(login,email,password):
     else:
         stat="None"
         return stat
+    print (stat)
     return stat
 async def send_sms_message(ph_no, message):
     try:
