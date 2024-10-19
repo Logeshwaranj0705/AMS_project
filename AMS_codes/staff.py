@@ -287,7 +287,7 @@ def login_page():
     email = request.form['email_user']
     password = request.form['password_user']
     loop = get_or_create_eventloop()
-    stat = loop.run_until_complete(login_main(login_user, email))
+    stat = loop.run_until_complete(login_main(login_user, email,password))
     print(stat)
     if stat == True:
         return render_template('hod.html')
