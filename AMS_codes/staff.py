@@ -188,7 +188,7 @@ async def main(file_path, exam, year, sem):
         
         # Prepare student data to insert into MongoDB
         student_data = {
-            "name": data[i][2],  # Assuming student name is in the second column
+            "name": data[i][3],  # Assuming student name is in the second column
             "phone_number": str(data[i][cols-1]),  # Ensure phone number is a string
             "subjects": subject,
             "arrear_count": count
@@ -204,7 +204,7 @@ async def main(file_path, exam, year, sem):
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][1],count,sem,exam,year)
+            values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
             cursor.close()
@@ -214,7 +214,7 @@ async def main(file_path, exam, year, sem):
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][1],count,sem,exam,year)
+            values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
             cursor.close()
@@ -224,7 +224,7 @@ async def main(file_path, exam, year, sem):
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][1],count,sem,exam,year)
+            values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
             cursor.close()
@@ -234,7 +234,7 @@ async def main(file_path, exam, year, sem):
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][1],count,sem,exam,year)
+            values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
             cursor.close()
