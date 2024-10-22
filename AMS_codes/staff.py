@@ -323,6 +323,7 @@ async def ESE_main(file_path, exam, year, sem):
             "subjects": subject,
             "arrear_count": count
         }
+        print(str(data[i][col-1]))
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} arrears in {exam.upper()}. Please take necessary action."
