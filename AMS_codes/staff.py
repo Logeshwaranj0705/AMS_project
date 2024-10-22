@@ -322,10 +322,51 @@ async def ESE_main(file_path, exam, year, sem):
             "subjects": subject,
             "arrear_count": count
         }
-        if count>=3:
-            print(student_data)
+        if count >= 3:
+            phone_number = "+91" + student_data['phone_number']
+            message = f"Dear {student_data['name']}, you have {count} arrears in {exam.upper()}. Please take necessary action."
+            for subject_detail in subject:
+                message += f"\n{subject_detail}"
+            tasks.append(send_sms_message(phone_number, message))
+            cursor=cnx.cursor()
+            qurey="USE 3_arrear_data"
+            cursor.execute(qurey)
+            query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+            values = (data[i][2],count,sem,exam,year)
+            cursor.execute(query1,values)
+            cnx.commit()
+            cursor.close()
+            cnx.close()
+        elif count == 2:
+            cursor=cnx.cursor()
+            qurey="USE 2_arrear_data"
+            cursor.execute(qurey)
+            query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+            values = (data[i][2],count,sem,exam,year)
+            cursor.execute(query1,values)
+            cnx.commit()
+            cursor.close()
+            cnx.close()
+        elif count == 1:
+            cursor=cnx.cursor()
+            qurey="USE 1_arrear_data"
+            cursor.execute(qurey)
+            query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+            values = (data[i][2],count,sem,exam,year)
+            cursor.execute(query1,values)
+            cnx.commit()
+            cursor.close()
+            cnx.close()
         else:
-            print(student_data)
+            cursor=cnx.cursor()
+            qurey="USE nil_arrear_data"
+            cursor.execute(qurey)
+            query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+            values = (data[i][2],count,sem,exam,year)
+            cursor.execute(query1,values)
+            cnx.commit()
+            cursor.close()
+            cnx.close()
     wb.save(output_file)
     after_process_ese(file_path)
     await asyncio.gather(*tasks)
