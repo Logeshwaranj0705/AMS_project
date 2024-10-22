@@ -316,6 +316,7 @@ async def ESE_main(file_path, exam, year, sem):
                     count+=1
                 else:
                     continue
+        ws.cell(row=i+2, column=max_column).value = count
         student_data = {
             "name": data[i][2],  # Assuming student name is in the second column
             "phone_number": str(data[i][cols-1]),  # Ensure phone number is a string
