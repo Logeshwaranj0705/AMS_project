@@ -240,10 +240,6 @@ async def main(file_path, exam, year, sem):
                 cnx.commit()
                 cursor.close()
                 cnx.close()
-        wb.save(output_file)
-        after_process()
-        await asyncio.gather(*tasks)
-        print("Process completed")
     else:
         for i in range(1, len(data)):
             ws.append(data[i])  # Append each row of data as a list
@@ -318,10 +314,11 @@ async def main(file_path, exam, year, sem):
                 cnx.commit()
                 cursor.close()
                 cnx.close()
-        wb.save(output_file)
-        after_process()
-        await asyncio.gather(*tasks)
-        print("Process completed")
+    wb.save(output_file)
+    after_process()
+    await asyncio.gather(*tasks)
+    print("Process completed")
+
 
 # Flask web application setup
 app = Flask(__name__)
