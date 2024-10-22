@@ -282,6 +282,13 @@ async def ESE_main(file_path, exam, year, sem):
             )
             cursor = cnx.cursor()
 
+            # Ensure database is selected
+            try:
+                cursor.execute("USE your_database_name")
+            except pymysql.MySQLError as e:
+                print(f"Database selection failed: {e}")
+                return
+
             for i in range(1, len(data)):
                 count = 0
                 subject = []
