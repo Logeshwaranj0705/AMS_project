@@ -269,15 +269,26 @@ async def ESE_main(file_path, exam, year, sem):
     data = read_excel_to_array(file_path)
     header = header_read(file_path)
     tasks = []
-    output_file = os.path.join(os.getcwd(), 'templates','newsheet.xlsx')
+    output_file = os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx')
     
-    # Create a new Excel file or load an existing one
-    wb = openpyxl.load_workbook(output_file)
+    # Check if the file exists; if not, create a new workbook
+    if not os.path.exists(output_file):
+        wb = openpyxl.Workbook()  # Create a new workbook
+    else:
+        wb = openpyxl.load_workbook(output_file)  # Load the existing workbook
+        ws = wb.active
+    
+        # Clear existing data in the output file
+        # Unmerge cells first to avoid read-only error
+        for merged_range in list(ws.merged_cells.ranges):
+            ws.unmerge_cells(str(merged_range))
+    
+        # Clear all data by deleting rows and columns
+        ws.delete_cols(1, ws.max_column)
+        ws.delete_rows(1, ws.max_row)
+    
+    # Create or set the active worksheet
     ws = wb.active
-    
-    # Clear existing data in the output file
-    ws.delete_cols(1, ws.max_column)
-    ws.delete_rows(1, ws.max_row)
     
     # Write header to the output file
     ws.append(list(header))  # Convert header to a list
@@ -285,8 +296,6 @@ async def ESE_main(file_path, exam, year, sem):
     # Write data to the output file
     max_column = ws.max_column + 1
     ws.cell(row=1, column=max_column).value = "Arrear count"
-    
-    # Process each student in the uploaded Excel file
     for i in range(0, len(data)):
         ws.append(data[i])  # Append each row of data as a list
         db_user = os.getenv("DB_USER")
@@ -318,7 +327,7 @@ async def ESE_main(file_path, exam, year, sem):
         else:
             print(student_data)
     wb.save(output_file)
-    after_process_ese()
+    after_process_ese(file_pa)
     await asyncio.gather(*tasks)
     print("Process completed")
 # Flask web application setup
