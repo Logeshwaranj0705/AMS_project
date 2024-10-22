@@ -176,8 +176,9 @@ async def main(file_path, exam, year, sem):
         port=15274,
         user=db_user,)
         # Calculate arrear count
+        print(exam)
         count = 0
-        subject = []  
+        subject = []
         for j in range(3, cols-1):
             if int(data[i][j]) < 25:  # Assuming scores below 25 are considered arrears
                 subject.append(header[j] + '-' + str(data[i][j]))
