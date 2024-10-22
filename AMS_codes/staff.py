@@ -327,7 +327,7 @@ async def ESE_main(file_path, exam, year, sem):
         else:
             print(student_data)
     wb.save(output_file)
-    after_process_ese(file_pa)
+    after_process_ese(file_path)
     await asyncio.gather(*tasks)
     print("Process completed")
 # Flask web application setup
