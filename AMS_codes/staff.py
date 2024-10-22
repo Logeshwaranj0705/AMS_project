@@ -218,7 +218,7 @@ async def main(file_path, exam, year, sem):
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()}. Please take necessary action.\n____________________________"
             for subject_detail in subject:
-                message += f"\n|{subject_detail}|"
+                message += f"\n|    {subject_detail}      |"
                 message += f"\n____________________________"
             tasks.append(send_sms_message(phone_number, message))
             cursor=cnx.cursor()
@@ -326,10 +326,10 @@ async def ESE_main(file_path, exam, year, sem):
         }
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
-            message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End semester Exam. Please take necessary action.(Note:RE-APPEAR(RA))\n____________________________"
+            message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End semester Exam. Please take necessary action (Note:RE-APPEAR(RA)).\n_____________________________"
             for subject_detail in subject:
-                message += f"\n|{subject_detail}|(RA)|"
-                message+=f"\n____________________________"
+                message += f"\n|  {subject_detail}  | (RA) |"
+                message += f"\n_____________________________"
             tasks.append(send_sms_message(phone_number, message))
             cursor=cnx.cursor()
             qurey="USE 3_arrear_data"
