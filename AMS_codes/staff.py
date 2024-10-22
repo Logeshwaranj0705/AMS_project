@@ -166,9 +166,15 @@ async def main(file_path, exam, year, sem):
     # Process each student in the uploaded Excel file
     for i in range(0, len(data)):
         ws.append(data[i])  # Append each row of data as a list
-        #mysql connectivity
-        cnx = mysql.connector.connect(user='root',password='log#9344',host='localhost')
-        # Calculate arrear count
+        db_user = os.getenv("DB_USER")
+        db_password = os.getenv("DB_PASSWORD")
+        db_host = os.getenv("DB_HOST")
+        cnx = pymysql.connect(
+        cursorclass=pymysql.cursors.DictCursor,
+        host=db_host,
+        password=db_password,
+        port=15274,
+        user=db_user,)
         count = 0
         subject = []  
         for j in range(3, cols-1):
