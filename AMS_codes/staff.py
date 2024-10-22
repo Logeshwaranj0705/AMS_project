@@ -287,7 +287,7 @@ async def ESE_main(file_path, exam, year, sem):
                     continue
         student_data = {
             "name": data[i][2],  # Assuming student name is in the second column
-            "phone_number": str(int(data[i][cols-1])),  # Ensure phone number is a string
+            "phone_number": str(data[i][cols-1]),  # Ensure phone number is a string
             "subjects": subject,
             "arrear_count": count
         }
