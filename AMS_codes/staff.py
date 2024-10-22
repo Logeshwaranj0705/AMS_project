@@ -164,7 +164,7 @@ async def main(file_path, exam, year, sem):
     ws.cell(row=1, column=max_column).value = "Arrear count"
     
     # Process each student in the uploaded Excel file
-    if exam=="cae1" or exam=="cae2:
+    if exam=="cae1" or exam=="cae2":
         for i in range(0, len(data)):
             ws.append(data[i])  # Append each row of data as a list
             db_user = os.getenv("DB_USER")
