@@ -164,80 +164,155 @@ async def main(file_path, exam, year, sem):
     ws.cell(row=1, column=max_column).value = "Arrear count"
     
     # Process each student in the uploaded Excel file
-    for i in range(0, len(data)):
-        ws.append(data[i])  # Append each row of data as a list
-        db_user = os.getenv("DB_USER")
-        db_password = os.getenv("DB_PASSWORD")
-        db_host = os.getenv("DB_HOST")
-        cnx = pymysql.connect(
-        cursorclass=pymysql.cursors.DictCursor,
-        host=db_host,
-        password=db_password,
-        port=15274,
-        user=db_user,)
-        count = 0
-        subject = []  
-        for j in range(3, cols-1):
-            if int(data[i][j]) < 25:  # Assuming scores below 25 are considered arrears
-                subject.append(header[j] + '-' + str(data[i][j]))
-                count += 1
-        
-        # Add arrear count to the last column
-        ws.cell(row=i+2, column=max_column).value = count
-        
-        # Prepare student data to insert into MongoDB
-        student_data = {
-            "name": data[i][2],  # Assuming student name is in the second column
-            "phone_number": str(data[i][cols-1]),  # Ensure phone number is a string
-            "subjects": subject,
-            "arrear_count": count
-        }
-        # Send SMS if arrears are 3 or more
-        if count >= 3:
-            phone_number = "+91" + student_data['phone_number']
-            message = f"Dear {student_data['name']}, you have {count} arrears in {exam.upper()}. Please take necessary action."
-            for subject_detail in subject:
-                message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(phone_number, message))
-            cursor=cnx.cursor()
-            qurey="USE 3_arrear_data"
-            cursor.execute(qurey)
-            query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
-            cursor.execute(query1,values)
-            cnx.commit()
-            cursor.close()
-            cnx.close()
-        elif count == 2:
-            cursor=cnx.cursor()
-            qurey="USE 2_arrear_data"
-            cursor.execute(qurey)
-            query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
-            cursor.execute(query1,values)
-            cnx.commit()
-            cursor.close()
-            cnx.close()
-        elif count == 1:
-            cursor=cnx.cursor()
-            qurey="USE 1_arrear_data"
-            cursor.execute(qurey)
-            query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
-            cursor.execute(query1,values)
-            cnx.commit()
-            cursor.close()
-            cnx.close()
-        else:
-            cursor=cnx.cursor()
-            qurey="USE nil_arrear_data"
-            cursor.execute(qurey)
-            query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
-            cursor.execute(query1,values)
-            cnx.commit()
-            cursor.close()
-            cnx.close()
+    if exam=="cae1" or exam=="cae2:
+        for i in range(0, len(data)):
+            ws.append(data[i])  # Append each row of data as a list
+            db_user = os.getenv("DB_USER")
+            db_password = os.getenv("DB_PASSWORD")
+            db_host = os.getenv("DB_HOST")
+            cnx = pymysql.connect(
+            cursorclass=pymysql.cursors.DictCursor,
+            host=db_host,
+            password=db_password,
+            port=15274,
+            user=db_user,)
+            count = 0
+            subject = []  
+            for j in range(3, cols-1):
+                if int(data[i][j]) < 25:  # Assuming scores below 25 are considered arrears
+                    subject.append(header[j] + '-' + str(data[i][j]))
+                    count += 1
+            
+            # Add arrear count to the last column
+            ws.cell(row=i+2, column=max_column).value = count
+            
+            # Prepare student data to insert into MongoDB
+            student_data = {
+                "name": data[i][2],  # Assuming student name is in the second column
+                "phone_number": str(data[i][cols-1]),  # Ensure phone number is a string
+                "subjects": subject,
+                "arrear_count": count
+            }
+            # Send SMS if arrears are 3 or more
+            if count >= 3:
+                phone_number = "+91" + student_data['phone_number']
+                message = f"Dear {student_data['name']}, you have {count} arrears in {exam.upper()}. Please take necessary action."
+                for subject_detail in subject:
+                    message += f"\n{subject_detail}"
+                tasks.append(send_sms_message(phone_number, message))
+                cursor=cnx.cursor()
+                qurey="USE 3_arrear_data"
+                cursor.execute(qurey)
+                query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+                values = (data[i][2],count,sem,exam,year)
+                cursor.execute(query1,values)
+                cnx.commit()
+                cursor.close()
+                cnx.close()
+            elif count == 2:
+                cursor=cnx.cursor()
+                qurey="USE 2_arrear_data"
+                cursor.execute(qurey)
+                query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+                values = (data[i][2],count,sem,exam,year)
+                cursor.execute(query1,values)
+                cnx.commit()
+                cursor.close()
+                cnx.close()
+            elif count == 1:
+                cursor=cnx.cursor()
+                qurey="USE 1_arrear_data"
+                cursor.execute(qurey)
+                query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+                values = (data[i][2],count,sem,exam,year)
+                cursor.execute(query1,values)
+                cnx.commit()
+                cursor.close()
+                cnx.close()
+            else:
+                cursor=cnx.cursor()
+                qurey="USE nil_arrear_data"
+                cursor.execute(qurey)
+                query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+                values = (data[i][2],count,sem,exam,year)
+                cursor.execute(query1,values)
+                cnx.commit()
+                cursor.close()
+                cnx.close()
+    else:
+        for i in range(1, len(data)):
+            ws.append(data[i])  # Append each row of data as a list
+            db_user = os.getenv("DB_USER")
+            db_password = os.getenv("DB_PASSWORD")
+            db_host = os.getenv("DB_HOST")
+            cnx = pymysql.connect(
+            cursorclass=pymysql.cursors.DictCursor,
+            host=db_host,
+            password=db_password,
+            port=15274,
+            user=db_user,)
+            count = 0
+            subject = [] 
+            for i in range(1, len(data)): 
+                for j in range(3, cols-1):
+                    if isinstance(data[i][j],int):
+                        if data[i][j+1]=="RA" or data[i][j+1]=="ra":
+                            subject.append(header[j] + '-' + str(data[i][j]))
+                            count+=1
+                        else:
+                            continue
+                ws.cell(row=i+2, column=max_column).value = count
+                student_data = {
+                    "name": data[i][2],  # Assuming student name is in the second column
+                    "phone_number": str(data[i][cols-1]),  # Ensure phone number is a string
+                    "subjects": subject,
+                    "arrear_count": count
+                    }
+                if count>=3:
+                    phone_number = "+91" + student_data['phone_number']
+                    message = f"Dear {student_data['name']}, you have {count} arrears in {exam.upper()}. Please take necessary action."
+                    for subject_detail in subject:
+                        message += f"\n{subject_detail}"
+                    tasks.append(send_sms_message(phone_number, message))
+                    cursor=cnx.cursor()
+                    qurey="USE 3_arrear_data"
+                    cursor.execute(qurey)
+                    query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+                    values = (data[i][2],count,sem,exam,year)
+                    cursor.execute(query1,values)
+                    cnx.commit()
+                    cursor.close()
+                    cnx.close()
+                elif count == 2:
+                    cursor=cnx.cursor()
+                    qurey="USE 2_arrear_data"
+                    cursor.execute(qurey)
+                    query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+                    values = (data[i][2],count,sem,exam,year)
+                    cursor.execute(query1,values)
+                    cnx.commit()
+                    cursor.close()
+                    cnx.close()
+                elif count == 1:
+                    cursor=cnx.cursor()
+                    qurey="USE 1_arrear_data"
+                    cursor.execute(qurey)
+                    query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+                    values = (data[i][2],count,sem,exam,year)
+                    cursor.execute(query1,values)
+                    cnx.commit()
+                    cursor.close()
+                    cnx.close()
+                else:
+                    cursor=cnx.cursor()
+                    qurey="USE nil_arrear_data"
+                    cursor.execute(qurey)
+                    query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+                    values = (data[i][2],count,sem,exam,year)
+                    cursor.execute(query1,values)
+                    cnx.commit()
+                    cursor.close()
+                    cnx.close()
     wb.save(output_file)
     after_process()
     await asyncio.gather(*tasks)
