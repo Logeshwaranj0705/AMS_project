@@ -325,7 +325,7 @@ async def ESE_main(file_path, exam, year, sem):
         }
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
-            message = f"Dear {student_data['name']}, you have {count} Arrears (RA-'Re_appear') in {exam.upper()} End semester Exam. Please take necessary action."
+            message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End semester Exam. Please take necessary action.(RA='re-appear')"
             for subject_detail in subject:
                 message += f"\n{subject_detail} - (RA)"
             tasks.append(send_sms_message(phone_number, message))
