@@ -296,7 +296,7 @@ async def ESE_main(file_path, exam, year, sem):
     # Write data to the output file
     max_column = ws.max_column + 1
     ws.cell(row=1, column=max_column).value = "Arrear count"
-    for i in range(0, len(data)):
+    for i in range(1, len(data)):
         ws.append(data[i])  # Append each row of data as a list
         db_user = os.getenv("DB_USER")
         db_password = os.getenv("DB_PASSWORD")
