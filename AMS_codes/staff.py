@@ -311,7 +311,7 @@ async def ESE_main(file_path, exam, year, sem):
         subject = []  
         for j in range(3, cols-1):
             if isinstance(data[i][j],int):
-                if data[i][j+1]=="RA" or data[i][j+1]=="ra":
+                if data[i][j+1]=="RA" or data[i][j+1]=="ra" or data[i][j+1]=="A" or data[i][j+1]=="a":
                     subject.append(header[j] + '-' + str(data[i][j]))
                     count+=1
                 else:
@@ -325,9 +325,10 @@ async def ESE_main(file_path, exam, year, sem):
         }
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
-            message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End semester Exam. Please take necessary action.(RA='re-appear')"
+            message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End semester Exam. Please take necessary action.(Note:RE-APPEAR(RA))\n____________________________"
             for subject_detail in subject:
-                message += f"\n{subject_detail} - (RA)"
+                message += f"\n|{subject_detail}|(RA)|"
+                message+=f"____________________________"
             tasks.append(send_sms_message(phone_number, message))
             cursor=cnx.cursor()
             qurey="USE 3_arrear_data"
