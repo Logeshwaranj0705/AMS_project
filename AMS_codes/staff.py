@@ -2,7 +2,7 @@ from flask import Flask, render_template, request ,send_file
 import pandas as pd
 import asyncio, os, openpyxl
 from twilio.rest import Client
-import pymysql
+import pymysql,math
 # Twilio account credentials
 account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
@@ -319,11 +319,10 @@ async def ESE_main(file_path, exam, year, sem):
         ws.cell(row=i+2, column=max_column).value = count
         student_data = {
             "name": data[i][2],  # Assuming student name is in the second column
-            "phone_number": str(data[i][cols-1]),  # Ensure phone number is a string
+            "phone_number": str(math.floor(data[i][cols-1])),  # Ensure phone number is a string
             "subjects": subject,
             "arrear_count": count
         }
-        print(str(data[i][cols-1]))
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} arrears in {exam.upper()}. Please take necessary action."
