@@ -20,7 +20,29 @@ def columns_read():
     wb = openpyxl.load_workbook('Marks1.xlsx')
     ws = wb.active
     return len(list(ws.iter_cols(values_only=True)))
+import openpyxl
+from openpyxl.cell import MergedCell
 
+def after_process_ese(file_path):
+    # Load the workbook and select the active sheet
+    wb = openpyxl.load_workbook(file_path)
+    ws = wb.active
+
+    # Step 1: Unmerge all merged cells (if you want to modify merged cells)
+    merged_ranges = list(ws.merged_cells.ranges)
+    for merged_range in merged_ranges:
+        ws.unmerge_cells(str(merged_range))
+
+    # Step 2: Process cells after unmerging
+    for row in ws.iter_rows():
+        for cell in row:
+            # Check if the cell is not a MergedCell and set its value to None
+            if not isinstance(cell, MergedCell):
+                cell.value = None
+
+    # Step 3: Save and close the workbook
+    wb.save(file_path)
+    wb.close()
 def after_process():
     wb = openpyxl.load_workbook('Marks1.xlsx') 
     ws = wb.active
@@ -296,7 +318,7 @@ async def ESE_main(file_path, exam, year, sem):
         else:
             print(student_data)
     wb.save(output_file)
-    after_process()
+    after_process_ese()
     await asyncio.gather(*tasks)
     print("Process completed")
 # Flask web application setup
