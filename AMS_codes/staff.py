@@ -306,7 +306,7 @@ async def ESE_main(file_path, exam, year, sem):
                         tasks.append(send_sms_message(phone_number, message))
                     except Exception as e:
                         print(f"Failed to send SMS to {phone_number}: {e}")
-                    qurey1="use 3_arrear_data"
+                    query1="use 3_arrear_data"
                     cursor.execute(query1)
                     query = "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
                     values = (data[i][2], count, sem, exam, year)
@@ -320,7 +320,7 @@ async def ESE_main(file_path, exam, year, sem):
                         tasks.append(send_sms_message(phone_number, message))
                     except Exception as e:
                         print(f"Failed to send SMS to {phone_number}: {e}")
-                    qurey1="use 2_arrear_data"
+                    query1="use 2_arrear_data"
                     cursor.execute(query1)
                     query = "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
                     values = (data[i][2], count, sem, exam, year)
@@ -334,7 +334,7 @@ async def ESE_main(file_path, exam, year, sem):
                         tasks.append(send_sms_message(phone_number, message))
                     except Exception as e:
                         print(f"Failed to send SMS to {phone_number}: {e}")
-                    qurey1="use 1_arrear_data"
+                    query1="use 1_arrear_data"
                     cursor.execute(query1)
                     query = "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
                     values = (data[i][2], count, sem, exam, year)
@@ -348,7 +348,7 @@ async def ESE_main(file_path, exam, year, sem):
                        tasks.append(send_sms_message(phone_number, message))
                     except Exception as e:
                         print(f"Failed to send SMS to {phone_number}: {e}")
-                    qurey1="use nil_arrear_data"
+                    query1="use nil_arrear_data"
                     cursor.execute(query1)
                     query = "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
                     values = (data[i][2], count, sem, exam, year)
