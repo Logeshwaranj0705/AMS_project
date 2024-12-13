@@ -2,7 +2,7 @@ from flask import Flask, render_template, request ,send_file
 import pandas as pd
 import asyncio, os, openpyxl
 from twilio.rest import Client
-import pymysql,math,cryptography
+import pymysql,math
 # Twilio account credentials
 account_sid = os.getenv("TWILIO_ACCOUNT_SID")
 auth_token = os.getenv("TWILIO_AUTH_TOKEN")
