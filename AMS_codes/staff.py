@@ -198,7 +198,6 @@ def process_message_data():
     data1 = cursor.fetchall()
     cursor.close()
     cnx.close()
-    print(data1)
     return data1
 async def main(file_path, exam, year, sem):
     print("Process started")
