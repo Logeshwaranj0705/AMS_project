@@ -8,10 +8,11 @@
 </head>
 <style>p.next_para{text-transform: uppercase;color:rgb(134, 4, 62)}
     p{text-align: center;}
+    img{width:200px; height:55px}
     #buttontag{display:block;margin:auto}
     .table-container {max-height:250px;overflow-y:auto;overflow-x:auto;margin-top: 20px;}
     table {width: 100%;border-collapse: collapse; }
-    table th, table td {text-align: center;padding: 10px;vertical-align: middle;}
+    table th, table td {text-align: center;padding: 10px;vertical-align: middle;color:black}
     table th {background-color: rgb(134, 4, 62);color: white;}
     h1{text-align: center;}
     nav{background-color: rgb(134, 4, 62);}
@@ -39,12 +40,18 @@
     padding: 10px 0; 
     text-align: center;
     margin: 0; 
-    left: 0;  }</style>
+    left: 0;  }
+    @media (min-width:20px) and (max-width:500px){
+        img{width:170px}
+        .container{padding-right:0px}
+        .card{width:95%}
+    }
+    </style>
 <body>
     <header class="sticky-top">
         <nav class="navbar navbar-dark navbar-expand-lg">
             <div class="container">
-                <img style="width:200px; height:55px" src="https://erp.sathyabama.ac.in/assets/images/sathyabama_header-logo-A++.jpg">
+                <img src="https://erp.sathyabama.ac.in/assets/images/sathyabama_header-logo-A++.jpg">
                 <div class="d-flex ms-auto me-3">
                     <form action="/back_hod" method="post" enctype="multipart/form-data">
                         <button class="btn btn-primary text-white me-2" id="back">BACK</button>
