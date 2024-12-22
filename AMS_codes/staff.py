@@ -198,7 +198,7 @@ def process_message_data():
     data1 = cursor.fetchall()
     cursor.close()
     cnx.close()
-    return data1()
+    return data1
 async def main(file_path, exam, year, sem):
     print("Process started")
     cols = columns_read()
@@ -495,7 +495,7 @@ def upload_marks():
             loop=get_or_create_eventloop()
             loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
         data1=process_message_data()
-        #return render_template('message.html',data1=data1)
+        return render_template('message.html',data1=data1)
     return "Messages not sent successfully"
 
 # Run the Flask application
