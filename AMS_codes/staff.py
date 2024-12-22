@@ -258,8 +258,6 @@ async def main(file_path, exam, year, sem):
         values = (data[i][2],count,sem,exam,year)
         cursor.execute(query1,values)
         cnx.commit()
-        cursor.close()
-        cnx.close()
         # Send SMS if arrears are 3 or more
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
@@ -267,7 +265,6 @@ async def main(file_path, exam, year, sem):
             for subject_detail in subject:
                 message += f"\n{subject_detail}"
             tasks.append(send_sms_message(phone_number, message))
-            cursor=cnx.cursor()
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -277,7 +274,6 @@ async def main(file_path, exam, year, sem):
             cursor.close()
             cnx.close()
         elif count == 2:
-            cursor=cnx.cursor()
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -287,7 +283,6 @@ async def main(file_path, exam, year, sem):
             cursor.close()
             cnx.close()
         elif count == 1:
-            cursor=cnx.cursor()
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -297,7 +292,6 @@ async def main(file_path, exam, year, sem):
             cursor.close()
             cnx.close()
         else:
-            cursor=cnx.cursor()
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -377,15 +371,12 @@ async def ESE_main(file_path, exam, year, sem):
         values = (data[i][2],count,sem,exam,year)
         cursor.execute(query1,values)
         cnx.commit()
-        cursor.close()
-        cnx.close()
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action (Note:RE-APPEAR(RA))."
             for subject_detail in subject:
                 message += f"\{subject_detail} (RA)"
             tasks.append(send_sms_message(phone_number, message))
-            cursor=cnx.cursor()
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -395,7 +386,6 @@ async def ESE_main(file_path, exam, year, sem):
             cursor.close()
             cnx.close()
         elif count == 2:
-            cursor=cnx.cursor()
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -405,7 +395,6 @@ async def ESE_main(file_path, exam, year, sem):
             cursor.close()
             cnx.close()
         elif count == 1:
-            cursor=cnx.cursor()
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -415,7 +404,6 @@ async def ESE_main(file_path, exam, year, sem):
             cursor.close()
             cnx.close()
         else:
-            cursor=cnx.cursor()
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
