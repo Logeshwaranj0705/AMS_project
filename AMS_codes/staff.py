@@ -161,6 +161,44 @@ def clear_data(arrear,year,exam,sem):
         cursor.close()
         cnx.close()
     return None
+def staff_del_data():
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=15274,
+    user=db_user,)
+    cursor=cnx.cursor()
+    query="USE all_data"
+    cursor.execute(query)
+    query1="DELETE FROM all_data1"
+    cursor.execute(query1)
+    cnx.commit()
+    cursor.close()
+    cnx.close()
+def process_message_data():
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=15274,
+    user=db_user,)
+    cursor = cnx.cursor()
+    data1 = None 
+    query="USE all_data"
+    cursor.execute(query)
+    query1="SELECT * FROM all_data1"
+    cursor.execute(query1)
+    data1 = cursor.fetchall()
+    cursor.close()
+    cnx.close()
+    return data1()
 async def main(file_path, exam, year, sem):
     print("Process started")
     cols = columns_read()
@@ -213,6 +251,15 @@ async def main(file_path, exam, year, sem):
             "subjects": subject,
             "arrear_count": count
         }
+        cursor=cnx.cursor()
+        qurey="USE all_data"
+        cursor.execute(qurey)
+        query1= "INSERT INTO all_data1 (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+        values = (data[i][2],count,sem,exam,year)
+        cursor.execute(query1,values)
+        cnx.commit()
+        cursor.close()
+        cnx.close()
         # Send SMS if arrears are 3 or more
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
@@ -323,6 +370,15 @@ async def ESE_main(file_path, exam, year, sem):
             "subjects": subject,
             "arrear_count": count
         }
+        cursor=cnx.cursor()
+        qurey="USE all_data"
+        cursor.execute(qurey)
+        query1= "INSERT INTO all_data1 (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
+        values = (data[i][2],count,sem,exam,year)
+        cursor.execute(query1,values)
+        cnx.commit()
+        cursor.close()
+        cnx.close()
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action (Note:RE-APPEAR(RA))."
@@ -389,12 +445,17 @@ def index():
     return render_template('login.html')
 @app.route('/back',methods=['POST'])
 def back_button():
+    staff_del_data()
     return render_template('Staff.html')
 @app.route('/back_hod',methods=['POST'])
 def back_hod_button():
     return render_template('hod.html')
 @app.route('/logout',methods=['POST'])
 def logout_button():
+    return render_template("login.html")
+@app.route('/logout_data',methods=['POST'])
+def logout_data():
+    staff_del_data()
     return render_template("login.html")
 @app.route('/download')
 def download_file():
@@ -445,7 +506,8 @@ def upload_marks():
         else:
             loop=get_or_create_eventloop()
             loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
-        return render_template('message.html')
+        data1=process_message_data()
+        return render_template('message.html',data1=data1)
     return "Messages not sent successfully"
 
 # Run the Flask application
