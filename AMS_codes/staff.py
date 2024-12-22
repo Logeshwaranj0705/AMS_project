@@ -495,7 +495,7 @@ def upload_marks():
             loop=get_or_create_eventloop()
             loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
         data1=process_message_data()
-        return render_template('message.html',data1=data1)
+        #return render_template('message.html',data1=data1)
     return "Messages not sent successfully"
 
 # Run the Flask application
