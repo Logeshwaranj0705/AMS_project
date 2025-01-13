@@ -6,4 +6,5 @@ asyncio
 gunicorn
 pymysql
 Jinja2
+cryptography
 
