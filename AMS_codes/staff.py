@@ -375,7 +375,7 @@ async def ESE_main(file_path, exam, year, sem):
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action (Note:RE-APPEAR(RA))."
             for subject_detail in subject:
-                message += f"\{subject_detail} (RA)"
+                message += f"\n{subject_detail} (RA)"
             tasks.append(send_sms_message(phone_number, message))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
