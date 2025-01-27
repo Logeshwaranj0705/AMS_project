@@ -140,7 +140,7 @@ footer {
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="marksSelect" class="form-label">Year:</label>
-                                                            <select class="form-select" id="marksSelect" name="year">
+                                                            <select class="form-select" id="yearSelect" name="year" onchange="updateSemesters">
                                                                     <option value="1-year">1-year</option>
                                                                     <option value="2-year">2-year</option>
                                                                     <option value="3-year">3-year</option>
@@ -149,15 +149,8 @@ footer {
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="marksSelect" class="form-label">Semester:</label>
-                                                                    <select class="form-select" id="marksSelect" name="sem">
+                                                                    <select class="form-select" id="semSelect" name="sem">
                                                                             <option value="sem-1">Sem 1</option>
-                                                                            <option value="sem-2">Sem 2</option>
-                                                                            <option value="sem-3">Sem 3</option>
-                                                                            <option value="sem-4">Sem 4</option>
-                                                                            <option value="sem-5">Sem 5</option>
-                                                                            <option value="sem-6">Sem 6</option>
-                                                                            <option value="sem-7">Sem 7</option>
-                                                                            <option value="sem-8">Sem 8</option>
                                                                 </select>
                                                         </div>
                                                 <!-- File Upload Input -->
@@ -172,6 +165,38 @@ footer {
                                 </div>
                             </div>
     </main>
+    <script>
+    function updateSemesters() {
+        // Get selected year
+        var yearSelect = document.getElementById("yearSelect");
+        var semSelect = document.getElementById("semSelect");
+        var selectedYear = yearSelect.value;
+
+        // Clear existing semester options
+        semSelect.innerHTML = "";
+
+        // Add options based on selected year
+        if (selectedYear == "1-year") {
+            var options = ["Sem 1", "Sem 2"];
+        } else if (selectedYear == "2-year") {
+            var options = ["Sem 3", "Sem 4"];
+        } else if (selectedYear == "3-year") {
+            var options = ["Sem 5", "Sem 6"];
+        } else if (selectedYear == "4-year") {
+            var options = ["Sem 7", "Sem 8"];
+        } else {
+            var options = [];
+        }
+
+        // Populate the semester dropdown with the new options
+        options.forEach(function(optionText) {
+            var option = document.createElement("option");
+            option.value = optionText.toLowerCase().replace(" ", "-");  // Convert to format like "sem-1"
+            option.text = optionText;
+            semSelect.appendChild(option);
+        });
+    }
+    </script>
     <footer class="p-3 mt-5">
         &copy; 2023 Sathyabama Institute of Science and Technology. All rights reserved.
     </footer>
