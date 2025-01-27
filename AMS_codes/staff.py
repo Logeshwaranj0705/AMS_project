@@ -238,10 +238,10 @@ async def main(file_path, exam, year, sem):
         subject = []  
         for j in range(3, cols-1):
             if int(data[i][j]) < 25:  # Assuming scores below 25 are considered arrears
-                subject.append(header[j] + ' - ' + str(data[i][j])+'\tFAIL')
+                subject.append(header[j] + ' - ' + str(data[i][j])+'/t   (FAIL)')
                 count += 1
             else:
-                subject.append(header[j] + ' - ' + str(data[i][j])+'\tPASS')
+                subject.append(header[j] + ' - ' + str(data[i][j])+'/t   (PASS)')
                 
         
         # Add arrear count to the last column
@@ -356,10 +356,10 @@ async def ESE_main(file_path, exam, year, sem):
         for j in range(3, cols-1):
             if isinstance(data[i][j],int):
                 if data[i][j+1]=="RA" or data[i][j+1]=="ra" or data[i][j+1]=="A" or data[i][j+1]=="a":
-                    subject.append(header[j] + '-' + str(data[i][j])+'\tFAIL')
+                    subject.append(header[j] + ' - ' + str(data[i][j])+'/t   (FAIL)')
                     count+=1
                 else:
-                    subject.append(header[j] + ' - ' + str(data[i][j])+'\tPASS')
+                    subject.append(header[j] + ' - ' + str(data[i][j])+'/t   (PASS)')
                     continue
         ws.cell(row=i+2, column=max_column).value = count
         student_data = {
