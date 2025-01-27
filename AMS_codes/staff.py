@@ -238,10 +238,10 @@ async def main(file_path, exam, year, sem):
         subject = []  
         for j in range(3, cols-1):
             if int(data[i][j]) < 25:  # Assuming scores below 25 are considered arrears
-                subject.append(header[j] + '-' + str(data[i][j]))
+                subject.append(header[j] + ' - ' + str(data[i][j])+'\tFAIL')
                 count += 1
             else:
-                subject.append(header[j] + '-' + str(data[i][j]))
+                subject.append(header[j] + ' - ' + str(data[i][j])+'\tPASS')
                 
         
         # Add arrear count to the last column
@@ -356,9 +356,10 @@ async def ESE_main(file_path, exam, year, sem):
         for j in range(3, cols-1):
             if isinstance(data[i][j],int):
                 if data[i][j+1]=="RA" or data[i][j+1]=="ra" or data[i][j+1]=="A" or data[i][j+1]=="a":
-                    subject.append(header[j] + '-' + str(data[i][j]))
+                    subject.append(header[j] + '-' + str(data[i][j])+'\tFAIL')
                     count+=1
                 else:
+                    subject.append(header[j] + ' - ' + str(data[i][j])+'\tPASS')
                     continue
         ws.cell(row=i+2, column=max_column).value = count
         student_data = {
@@ -376,9 +377,9 @@ async def ESE_main(file_path, exam, year, sem):
         cnx.commit()
         if count >= 3:
             phone_number = "+91" + student_data['phone_number']
-            message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action (Note:RE-APPEAR(RA))."
+            message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action."
             for subject_detail in subject:
-                message += f"\n{subject_detail} (RA)"
+                message += f"\n{subject_detail}"
             tasks.append(send_sms_message(phone_number, message))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
