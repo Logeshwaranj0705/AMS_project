@@ -454,12 +454,28 @@ def login_page():
         return render_template('login.html')
 @app.route('/hod_page',methods=['POST'])
 def hod_data():
-    exam = request.form['form_sheet']
-    year = request.form['year']  # Get year from form input
-    sem = request.form['sem']  # Get semester from form input
-    arrear=request.form['arrears']
-    data=process_hod_data(year, sem, exam, arrear)
-    return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
+    flag=0
+    try:
+        db_user = os.getenv("DB_USER")
+        db_password = os.getenv("DB_PASSWORD")
+        db_host = os.getenv("DB_HOST")
+        cnx = pymysql.connect(
+            cursorclass=pymysql.cursors.DictCursor,
+            host=db_host,
+            password=db_password,
+            port=15274,
+            user=db_user,)
+    except pymysql.MySQLError as e:
+        flag=1
+    if(flag==0):
+        exam = request.form['form_sheet']
+        year = request.form['year']  # Get year from form input
+        sem = request.form['sem']  # Get semester from form input
+        arrear=request.form['arrears']
+        data=process_hod_data(year, sem, exam, arrear)
+        return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
+    else:
+        return render_template('hod.html',flag=flag)
 @app.route('/upload', methods=['POST'])
 def upload_marks():
     flag=0
@@ -481,19 +497,17 @@ def upload_marks():
         sem = request.form['sem']  # Get semester from form input
         file = request.files['file']
         file.save(os.path.join(os.getcwd(), 'Marks1.xlsx'))
-        print(flag)
         if(flag==0):
             if exam=="cae1" or exam=="cae2":
                 loop = get_or_create_eventloop()
                 loop.run_until_complete(main('Marks1.xlsx', exam, year, sem))
-                print(flag)
             else:
                 loop=get_or_create_eventloop()
                 loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
                 data1=process_message_data()
                 return render_template('message.html',data1=data1)
         else:
-            render_template('staff.html',flag=flag)
+            return render_template('staff.html',flag=flag)
 # Run the Flask application
 if __name__ == '__main__':
     app.run(debug=True)
