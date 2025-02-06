@@ -79,18 +79,18 @@ def process_hod_data(year, sem, exam, arrear):
     # Establish a connection to the MySQL database
     flag=0
     try:
-            db_user = os.getenv("DB_USER")
-            db_password = os.getenv("DB_PASSWORD")
-            db_host = os.getenv("DB_HOST")
-            cnx = pymysql.connect(
-            cursorclass=pymysql.cursors.DictCursor,
-            host=db_host,
-            password=db_password,
-            port=15274,
-            user=db_user,)
-        except pymysql.MySQLError as e:
-            flag=1
-            return flag
+        db_user = os.getenv("DB_USER")
+        db_password = os.getenv("DB_PASSWORD")
+        db_host = os.getenv("DB_HOST")
+        cnx = pymysql.connect(
+        cursorclass=pymysql.cursors.DictCursor,
+        host=db_host,
+        password=db_password,
+        port=15274,
+        user=db_user,)
+    except pymysql.MySQLError as e:
+        flag=1
+        return flag
     cursor = cnx.cursor()
     data = None  # Initialize `data` to avoid UnboundLocalError
     try:
