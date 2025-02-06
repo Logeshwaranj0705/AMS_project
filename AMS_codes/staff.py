@@ -492,7 +492,7 @@ def upload_marks():
                 data1=process_message_data()
                 return render_template('message.html',data1=data1)
         else:
-            return render_template('staff.html',flag=flag)
+            return render_template('Staff.html',flag=flag)
 # Run the Flask application
 if __name__ == '__main__':
     app.run(debug=True)
