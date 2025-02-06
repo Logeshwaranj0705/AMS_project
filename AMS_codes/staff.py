@@ -206,7 +206,6 @@ def process_message_data():
     return data1
 async def main(file_path, exam, year, sem):
     print("Process started")
-    flag=0
     cols = columns_read()
     data = read_excel_to_array(file_path)
     header = header_read(file_path)
@@ -221,19 +220,6 @@ async def main(file_path, exam, year, sem):
     ws.cell(row=1, column=max_column).value = "Arrear count"
     for i in range(0, len(data)):
         ws.append(data[i])  # Append each row of data as a list
-        try:
-            db_user = os.getenv("DB_USER")
-            db_password = os.getenv("DB_PASSWORD")
-            db_host = os.getenv("DB_HOST")
-            cnx = pymysql.connect(
-            cursorclass=pymysql.cursors.DictCursor,
-            host=db_host,
-            password=db_password,
-            port=15274,
-            user=db_user,)
-        except pymysql.MySQLError as e:
-            flag=1
-            return flag
         count = 0
         subject = []  
         for j in range(3, cols-1):
@@ -309,7 +295,6 @@ async def main(file_path, exam, year, sem):
     print("Process completed")
 async def ESE_main(file_path, exam, year, sem):
     print("Process started")
-    flag=0
     cols = columns_read()
     data = read_excel_to_array(file_path)
     header = header_read(file_path)
@@ -343,19 +328,6 @@ async def ESE_main(file_path, exam, year, sem):
     ws.cell(row=1, column=max_column).value = "Arrear count"
     for i in range(1, len(data)):
         ws.append(data[i])  # Append each row of data as a list
-        try:
-            db_user = os.getenv("DB_USER")
-            db_password = os.getenv("DB_PASSWORD")
-            db_host = os.getenv("DB_HOST")
-            cnx = pymysql.connect(
-            cursorclass=pymysql.cursors.DictCursor,
-            host=db_host,
-            password=db_password,
-            port=15274,
-            user=db_user,)
-        except pymysql.MySQLError as e:
-            flag=1
-            return flag
         count = 0
         subject = []  
         for j in range(3, cols-1):
@@ -491,24 +463,36 @@ def hod_data():
 @app.route('/upload', methods=['POST'])
 def upload_marks():
     flag=0
+    try:
+        db_user = os.getenv("DB_USER")
+        db_password = os.getenv("DB_PASSWORD")
+        db_host = os.getenv("DB_HOST")
+        cnx = pymysql.connect(
+            cursorclass=pymysql.cursors.DictCursor,
+            host=db_host,
+            password=db_password,
+            port=15274,
+            user=db_user,)
+    except pymysql.MySQLError as e:
+        flag=1
     if request.method == 'POST':
         exam = request.form['form_sheet']
         year = request.form['year']  # Get year from form input
         sem = request.form['sem']  # Get semester from form input
         file = request.files['file']
         file.save(os.path.join(os.getcwd(), 'Marks1.xlsx'))
-        if exam=="cae1" or exam=="cae2":
-            loop = get_or_create_eventloop()
-            loop.run_until_complete(main('Marks1.xlsx', exam, year, sem))
-            print(flag)
+        if(flag==0):
+            if exam=="cae1" or exam=="cae2":
+                loop = get_or_create_eventloop()
+                loop.run_until_complete(main('Marks1.xlsx', exam, year, sem))
+                print(flag)
+            else:
+                loop=get_or_create_eventloop()
+                loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem)
+                data1=process_message_data()
+                return render_template('message.html',data1=data1)
         else:
-            loop=get_or_create_eventloop()
-            loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
-        if(flag==1):
-            return render_template('staff.html',flag=flag)
-        else:
-            data1=process_message_data()
-            return render_template('message.html',data1=data1)
+            render_template('staff.html',flag=flag)
 # Run the Flask application
 if __name__ == '__main__':
     app.run(debug=True)
