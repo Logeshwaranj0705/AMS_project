@@ -225,15 +225,19 @@ async def main(file_path, exam, year, sem):
     # Process each student in the uploaded Excel file
     for i in range(0, len(data)):
         ws.append(data[i])  # Append each row of data as a list
-        db_user = os.getenv("DB_USER")
-        db_password = os.getenv("DB_PASSWORD")
-        db_host = os.getenv("DB_HOST")
-        cnx = pymysql.connect(
-        cursorclass=pymysql.cursors.DictCursor,
-        host=db_host,
-        password=db_password,
-        port=15274,
-        user=db_user,)
+        try:
+            db_user = os.getenv("DB_USER")
+            db_password = os.getenv("DB_PASSWORD")
+            db_host = os.getenv("DB_HOST")
+            cnx = pymysql.connect(
+            cursorclass=pymysql.cursors.DictCursor,
+            host=db_host,
+            password=db_password,
+            port=15274,
+            user=db_user,)
+        except pymysql.MySQLError as e:
+            flag=1
+            return flag
         count = 0
         subject = []  
         for j in range(3, cols-1):
@@ -486,6 +490,7 @@ def hod_data():
     return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
 @app.route('/upload', methods=['POST'])
 def upload_marks():
+    flag=0
     if request.method == 'POST':
         exam = request.form['form_sheet']
         year = request.form['year']  # Get year from form input
@@ -498,10 +503,11 @@ def upload_marks():
         else:
             loop=get_or_create_eventloop()
             loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
-        data1=process_message_data()
-        return render_template('message.html',data1=data1)
-    return "Messages not sent successfully"
-
+        if(flag==1):
+            return render_template('staff.html',flag=flag)
+        else:
+            data1=process_message_data()
+            return render_template('message.html',data1=data1)
 # Run the Flask application
 if __name__ == '__main__':
     app.run(debug=True)
