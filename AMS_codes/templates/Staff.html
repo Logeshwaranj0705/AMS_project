@@ -121,7 +121,7 @@
         <div style="font-size:x-large;"><h3></h3><b>Server Under Maintance</b></h3></div>
         <p>@Contact the admin for any quries or to report any problem</p>
     </div>
-    <input type="hidden" id="flag" value="{{ flag if flag is 1 else 0 }}">
+    <input type="hidden" id="flag" value="{{ flag if flag is not none else 0 }}">
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <img style="width:200px; height:55px" class="navbar-brand px-2" src="https://erp.sathyabama.ac.in/assets/images/sathyabama_header-logo-A++.jpg">
@@ -200,7 +200,7 @@
             document.getElementById('newpopup').style.display = 'none';
         }
         window.onload = function() {
-            if (flag == 1) {
+            if (flag == 0) {
                 showPopup();
             } else {
                 shownewPopup();
