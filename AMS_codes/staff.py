@@ -481,6 +481,7 @@ def upload_marks():
         sem = request.form['sem']  # Get semester from form input
         file = request.files['file']
         file.save(os.path.join(os.getcwd(), 'Marks1.xlsx'))
+        print(flag)
         if(flag==0):
             if exam=="cae1" or exam=="cae2":
                 loop = get_or_create_eventloop()
