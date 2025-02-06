@@ -189,7 +189,7 @@ def process_message_data():
     cursor.close()
     cnx.close()
     return data1
-async def main(file_path, exam, year, sem):
+async def main(file_path, exam, year, sem, cnx):
     print("Process started")
     cols = columns_read()
     data = read_excel_to_array(file_path)
@@ -278,7 +278,7 @@ async def main(file_path, exam, year, sem):
     after_process()
     await asyncio.gather(*tasks)
     print("Process completed")
-async def ESE_main(file_path, exam, year, sem):
+async def ESE_main(file_path, exam, year, sem, cnx):
     print("Process started")
     cols = columns_read()
     data = read_excel_to_array(file_path)
@@ -457,7 +457,7 @@ def hod_data():
         year = request.form['year']  # Get year from form input
         sem = request.form['sem']  # Get semester from form input
         arrear=request.form['arrears']
-        data=process_hod_data(year, sem, exam, arrear)
+        data=process_hod_data(year, sem, exam, arrear, cnx)
         return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
     else:
         return render_template('hod.html',flag=flag)
@@ -485,10 +485,10 @@ def upload_marks():
         if(flag==0):
             if exam=="cae1" or exam=="cae2":
                 loop = get_or_create_eventloop()
-                loop.run_until_complete(main('Marks1.xlsx', exam, year, sem))
+                loop.run_until_complete(main('Marks1.xlsx', exam, year, sem, cnx))
             else:
                 loop=get_or_create_eventloop()
-                loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
+                loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx))
                 data1=process_message_data()
                 return render_template('message.html',data1=data1)
         else:
