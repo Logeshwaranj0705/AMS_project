@@ -237,6 +237,7 @@ async def main(file_path, exam, year, sem):
             user=db_user,)
         except pymysql.MySQLError as e:
             flag=1
+            print(1)
             return flag
         count = 0
         subject = []  
@@ -504,6 +505,7 @@ def upload_marks():
             loop=get_or_create_eventloop()
             loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
         if(flag==1):
+            print(2)
             return render_template('staff.html',flag=flag)
         else:
             data1=process_message_data()
