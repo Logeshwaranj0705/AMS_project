@@ -228,6 +228,20 @@ footer {
                                 </div>
                             </div>
     </main>
+    <script>
+        var flag = document.getElementById('flag').value;
+        function shownewPopup() {
+            document.getElementById('newpopup').style.display = 'block';
+        }
+        function newclosePopup() {
+            document.getElementById('newpopup').style.display = 'none';
+        }
+        window.onload = function() {
+            if (flag == 1) {
+                newshowPopup();
+            }
+        };
+    </script>
     <footer class="p-3 mt-5">
         &copy; 2023 Sathyabama Institute of Science and Technology. All rights reserved.
     </footer>
