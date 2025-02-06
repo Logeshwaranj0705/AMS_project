@@ -508,7 +508,6 @@ def upload_marks():
         if exam=="cae1" or exam=="cae2":
             loop = get_or_create_eventloop()
             loop.run_until_complete(main('Marks1.xlsx', exam, year, sem))
-            print(flag)
         else:
             loop=get_or_create_eventloop()
             loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
