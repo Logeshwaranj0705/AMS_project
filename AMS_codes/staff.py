@@ -77,15 +77,19 @@ async def send_sms_message(ph_no, message):
         print(f"Failed to send message to {ph_no}: {str(e)}")
 def process_hod_data(year, sem, exam, arrear):
     # Establish a connection to the MySQL database
-    db_user = os.getenv("DB_USER")
-    db_password = os.getenv("DB_PASSWORD")
-    db_host = os.getenv("DB_HOST")
-    cnx = pymysql.connect(
-    cursorclass=pymysql.cursors.DictCursor,
-    host=db_host,
-    password=db_password,
-    port=15274,
-    user=db_user,)
+    try:
+            db_user = os.getenv("DB_USER")
+            db_password = os.getenv("DB_PASSWORD")
+            db_host = os.getenv("DB_HOST")
+            cnx = pymysql.connect(
+            cursorclass=pymysql.cursors.DictCursor,
+            host=db_host,
+            password=db_password,
+            port=15274,
+            user=db_user,)
+        except pymysql.MySQLError as e:
+            flag=1
+            return flag
     cursor = cnx.cursor()
     data = None  # Initialize `data` to avoid UnboundLocalError
     try:
@@ -238,7 +242,6 @@ async def main(file_path, exam, year, sem):
         except pymysql.MySQLError as e:
             flag=1
             return flag
-        print(1)
         count = 0
         subject = []  
         for j in range(3, cols-1):
@@ -347,15 +350,19 @@ async def ESE_main(file_path, exam, year, sem):
     ws.cell(row=1, column=max_column).value = "Arrear count"
     for i in range(1, len(data)):
         ws.append(data[i])  # Append each row of data as a list
-        db_user = os.getenv("DB_USER")
-        db_password = os.getenv("DB_PASSWORD")
-        db_host = os.getenv("DB_HOST")
-        cnx = pymysql.connect(
-        cursorclass=pymysql.cursors.DictCursor,
-        host=db_host,
-        password=db_password,
-        port=15274,
-        user=db_user,)
+        try:
+            db_user = os.getenv("DB_USER")
+            db_password = os.getenv("DB_PASSWORD")
+            db_host = os.getenv("DB_HOST")
+            cnx = pymysql.connect(
+            cursorclass=pymysql.cursors.DictCursor,
+            host=db_host,
+            password=db_password,
+            port=15274,
+            user=db_user,)
+        except pymysql.MySQLError as e:
+            flag=1
+            return flag
         count = 0
         subject = []  
         for j in range(3, cols-1):
@@ -501,11 +508,11 @@ def upload_marks():
         if exam=="cae1" or exam=="cae2":
             loop = get_or_create_eventloop()
             loop.run_until_complete(main('Marks1.xlsx', exam, year, sem))
+            print(flag)
         else:
             loop=get_or_create_eventloop()
             loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem))
         if(flag==1):
-            print(2)
             return render_template('staff.html',flag=flag)
         else:
             data1=process_message_data()
