@@ -9,6 +9,7 @@
 <style>
         .newpopup{
             display:none;position:fixed;top: 50%;left: 50%;
+            transform: translate(-50%, -50%);
             text-align:center;
             width: 40%;
             height: 50%;
@@ -57,30 +58,30 @@
             background-color:red;
             color:white;
         }
-    .caution{
-        font-size:50px;
-        color:red;
-        border:solid 6px;
-        text-align: center;
-        border-radius:50%;
-        width:40px;
-        height:55px;
-        animation:moveup 1s ease-in-out infinite;
-    }
-    .caution-block{
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        height:40%;
-    }
-    @keyframes moveup{
-        50%{
-            font-size:55px;
-        }
-        100%{
+        .caution{
             font-size:50px;
+            color:red;
+            border:solid 6px;
+            text-align: center;
+            border-radius:50%;
+            width:40px;
+            height:55px;
+            animation:moveup 1s ease-in-out infinite;
         }
-    }
+        .caution-block{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            height:40%;
+        }
+        @keyframes moveup{
+            50%{
+                font-size:55px;
+            }
+            100%{
+                font-size:50px;
+            }
+        }
     nav{background-color: rgb(134, 4, 62);}
     html,body{ background-image: url('https://www.sathyabama.ac.in/sites/default/files/2020-01/LIBERAY.jpg') ; background-size: cover;background-repeat: no-repeat;height:100% }
     .navbar {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);}
@@ -114,7 +115,7 @@
         <iframe src="./images/Screenshot 2024-12-22 173514.png" title="Image2" allowfullscreen></iframe>
     </div>
     <div class="newpopup" id="newpopup">
-        <button class="close-btn" onclick="newclosepopup()"><b>X</b></button>
+        <button class="close-btn" onclick="newclosePopup()"><b>X</b></button>
         <div class="caution-block">
         <div class="caution"><b>!</b>
         </div></div>
