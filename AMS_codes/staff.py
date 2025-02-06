@@ -77,6 +77,7 @@ async def send_sms_message(ph_no, message):
         print(f"Failed to send message to {ph_no}: {str(e)}")
 def process_hod_data(year, sem, exam, arrear):
     # Establish a connection to the MySQL database
+    flag=0
     try:
             db_user = os.getenv("DB_USER")
             db_password = os.getenv("DB_PASSWORD")
@@ -122,7 +123,7 @@ def process_hod_data(year, sem, exam, arrear):
         cursor.close()
         cnx.close()
 
-    return data
+    return data,flag
 def clear_data(arrear,year,exam,sem):
     # Establish a connection to the MySQL database
     db_user = os.getenv("DB_USER")
@@ -205,28 +206,19 @@ def process_message_data():
     return data1
 async def main(file_path, exam, year, sem):
     print("Process started")
+    flag=0
     cols = columns_read()
     data = read_excel_to_array(file_path)
     header = header_read(file_path)
     tasks = []
     output_file = os.path.join(os.getcwd(), 'templates','newsheet.xlsx')
-    
-    # Create a new Excel file or load an existing one
     wb = openpyxl.load_workbook(output_file)
     ws = wb.active
-    
-    # Clear existing data in the output file
     ws.delete_cols(1, ws.max_column)
     ws.delete_rows(1, ws.max_row)
-    
-    # Write header to the output file
     ws.append(list(header))  # Convert header to a list
-    
-    # Write data to the output file
     max_column = ws.max_column + 1
     ws.cell(row=1, column=max_column).value = "Arrear count"
-    
-    # Process each student in the uploaded Excel file
     for i in range(0, len(data)):
         ws.append(data[i])  # Append each row of data as a list
         try:
@@ -317,6 +309,7 @@ async def main(file_path, exam, year, sem):
     print("Process completed")
 async def ESE_main(file_path, exam, year, sem):
     print("Process started")
+    flag=0
     cols = columns_read()
     data = read_excel_to_array(file_path)
     header = header_read(file_path)
@@ -434,7 +427,6 @@ async def ESE_main(file_path, exam, year, sem):
     print("Process completed")
 # Flask web application setup
 app = Flask(__name__)
-
 def get_or_create_eventloop():
     try:
         return asyncio.get_event_loop()
