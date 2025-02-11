@@ -75,8 +75,7 @@ async def send_sms_message(ph_no, message):
         print(f"Message sent to {ph_no} regarding arrears.")
     except Exception as e:
         print(f"Failed to send message to {ph_no}: {str(e)}")
-def process_hod_data(year, sem, exam, arrear):
-    cursor = cnx.cursor()
+def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
     try:
         # Mapping arrear type to database name
@@ -102,12 +101,6 @@ def process_hod_data(year, sem, exam, arrear):
             data = cursor.fetchall()
         else:
             print("Invalid arrear type")
-
-    finally:
-        # Close the cursor and connection in the `finally` block to ensure they are always closed
-        cursor.close()
-        cnx.close()
-
     return data,flag
 def clear_data(arrear,year,exam,sem):
     # Establish a connection to the MySQL database
@@ -189,7 +182,7 @@ def process_message_data():
     cursor.close()
     cnx.close()
     return data1
-async def main(file_path, exam, year, sem, cnx):
+async def main(file_path, exam, year, sem, cnx, cursor):
     print("Process started")
     cols = columns_read()
     data = read_excel_to_array(file_path)
@@ -245,8 +238,6 @@ async def main(file_path, exam, year, sem, cnx):
             values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
-            cursor.close()
-            cnx.close()
         elif count == 2:
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
@@ -254,8 +245,6 @@ async def main(file_path, exam, year, sem, cnx):
             values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
-            cursor.close()
-            cnx.close()
         elif count == 1:
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
@@ -263,8 +252,6 @@ async def main(file_path, exam, year, sem, cnx):
             values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
-            cursor.close()
-            cnx.close()
         else:
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
@@ -272,13 +259,11 @@ async def main(file_path, exam, year, sem, cnx):
             values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
-            cursor.close()
-            cnx.close()
     wb.save(output_file)
     after_process()
     await asyncio.gather(*tasks)
     print("Process completed")
-async def ESE_main(file_path, exam, year, sem, cnx):
+async def ESE_main(file_path, exam, year, sem, cnx, cursor):
     print("Process started")
     cols = columns_read()
     data = read_excel_to_array(file_path)
@@ -330,7 +315,6 @@ async def ESE_main(file_path, exam, year, sem, cnx):
             "subjects": subject,
             "arrear_count": count
         }
-        cursor=cnx.cursor()
         qurey="USE all_data"
         cursor.execute(qurey)
         query1= "INSERT INTO all_data1 (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -349,8 +333,6 @@ async def ESE_main(file_path, exam, year, sem, cnx):
             values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
-            cursor.close()
-            cnx.close()
         elif count == 2:
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
@@ -358,8 +340,6 @@ async def ESE_main(file_path, exam, year, sem, cnx):
             values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
-            cursor.close()
-            cnx.close()
         elif count == 1:
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
@@ -367,8 +347,6 @@ async def ESE_main(file_path, exam, year, sem, cnx):
             values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
-            cursor.close()
-            cnx.close()
         else:
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
@@ -376,8 +354,6 @@ async def ESE_main(file_path, exam, year, sem, cnx):
             values = (data[i][2],count,sem,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
-            cursor.close()
-            cnx.close()
     wb.save(output_file)
     after_process_ese(file_path)
     await asyncio.gather(*tasks)
@@ -450,6 +426,7 @@ def hod_data():
             password=db_password,
             port=15274,
             user=db_user,)
+        cursor=cnx.cursor()
     except pymysql.MySQLError as e:
         flag=1
     if(flag==0):
@@ -457,7 +434,9 @@ def hod_data():
         year = request.form['year']  # Get year from form input
         sem = request.form['sem']  # Get semester from form input
         arrear=request.form['arrears']
-        data=process_hod_data(year, sem, exam, arrear, cnx)
+        data=process_hod_data(year, sem, exam, arrear, cnx, cursor)
+        cursor.close()
+        cnx.close()
         return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
     else:
         return render_template('hod.html',flag=flag)
@@ -474,6 +453,7 @@ def upload_marks():
             password=db_password,
             port=15274,
             user=db_user,)
+        cursor=cnx.cursor()
     except pymysql.MySQLError as e:
         flag=1
     if request.method == 'POST':
@@ -485,10 +465,14 @@ def upload_marks():
         if(flag==0):
             if exam=="cae1" or exam=="cae2":
                 loop = get_or_create_eventloop()
-                loop.run_until_complete(main('Marks1.xlsx', exam, year, sem, cnx))
+                loop.run_until_complete(main('Marks1.xlsx', exam, year, sem, cnx, cursor))
+                cursor.close()
+                cnx.close()
             else:
                 loop=get_or_create_eventloop()
-                loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx))
+                loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx, cursor))
+                cursor.close()
+                cnx.close()
                 data1=process_message_data()
                 return render_template('message.html',data1=data1)
         else:
