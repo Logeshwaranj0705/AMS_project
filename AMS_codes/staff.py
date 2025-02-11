@@ -100,7 +100,7 @@ def process_hod_data(year, sem, exam, arrear,cnx,cursor):
         data = cursor.fetchall()
     else:
         print("Invalid arrear type")
-    return data,flag
+    return data
 def clear_data(arrear,year,exam,sem):
     # Establish a connection to the MySQL database
     db_user = os.getenv("DB_USER")
