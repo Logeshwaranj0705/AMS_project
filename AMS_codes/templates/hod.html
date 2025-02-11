@@ -161,6 +161,7 @@ footer {
     </nav>
     </header>
     <main>
+        <div id="flagDisplay" style="font-size: 20px; font-weight: bold; color: green;"></div>
             <div class="container">
                 <div class="row mt-5">
                     <div class="col-12 ">
@@ -231,6 +232,7 @@ footer {
     </main>
     <script>
         var flag = document.getElementById('flag').value;
+        document.getElementById('flagDisplay').innerText = "Flag value is: " + flag;
         function shownewPopup() {
             document.getElementById('newpopup').style.display = 'block';
         }
