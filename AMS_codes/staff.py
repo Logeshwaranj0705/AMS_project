@@ -77,30 +77,29 @@ async def send_sms_message(ph_no, message):
         print(f"Failed to send message to {ph_no}: {str(e)}")
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
-    try:
         # Mapping arrear type to database name
-        if arrear == 'three_arrear':
-            cursor.execute("USE 3_arrear_data")
-            query = "SELECT name, arrear_count,year,sem,exam FROM 3_arrear WHERE year = %s AND sem = %s AND exam = %s"
-            cursor.execute(query, (year, sem, exam))
-            data = cursor.fetchall()
-        elif arrear == 'two_arrear':
-            cursor.execute("USE 2_arrear_data")
-            query = "SELECT name, arrear_count,year,sem,exam FROM 2_arrear WHERE year = %s AND sem = %s AND exam = %s"
-            cursor.execute(query, (year, sem, exam))
-            data = cursor.fetchall()
-        elif arrear == 'one_arrear':
-            cursor.execute("USE 1_arrear_data")
-            query = "SELECT name, arrear_count,year,sem,exam FROM 1_arrear WHERE year = %s AND sem = %s AND exam = %s"
-            cursor.execute(query, (year, sem, exam))
-            data = cursor.fetchall()
-        elif arrear == 'nil_arrear':
-            cursor.execute("USE nil_arrear_data")
-            query = "SELECT name, arrear_count,year,sem,exam FROM nil_arrear WHERE year = %s AND sem = %s AND exam = %s"
-            cursor.execute(query, (year, sem, exam))
-            data = cursor.fetchall()
-        else:
-            print("Invalid arrear type")
+    if arrear == 'three_arrear':
+        cursor.execute("USE 3_arrear_data")
+        query = "SELECT name, arrear_count,year,sem,exam FROM 3_arrear WHERE year = %s AND sem = %s AND exam = %s"
+        cursor.execute(query, (year, sem, exam))
+        data = cursor.fetchall()
+    elif arrear == 'two_arrear':
+        cursor.execute("USE 2_arrear_data")
+        query = "SELECT name, arrear_count,year,sem,exam FROM 2_arrear WHERE year = %s AND sem = %s AND exam = %s"
+        cursor.execute(query, (year, sem, exam))
+        data = cursor.fetchall()
+    elif arrear == 'one_arrear':
+        cursor.execute("USE 1_arrear_data")
+        query = "SELECT name, arrear_count,year,sem,exam FROM 1_arrear WHERE year = %s AND sem = %s AND exam = %s"
+        cursor.execute(query, (year, sem, exam))
+        data = cursor.fetchall()
+    elif arrear == 'nil_arrear':
+        cursor.execute("USE nil_arrear_data")
+        query = "SELECT name, arrear_count,year,sem,exam FROM nil_arrear WHERE year = %s AND sem = %s AND exam = %s"
+        cursor.execute(query, (year, sem, exam))
+        data = cursor.fetchall()
+    else:
+        print("Invalid arrear type")
     return data,flag
 def clear_data(arrear,year,exam,sem):
     # Establish a connection to the MySQL database
