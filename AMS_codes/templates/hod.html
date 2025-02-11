@@ -149,7 +149,7 @@ footer {
         <div style="font-size:x-large;"><h3></h3><b>Server Under Maintance</b></h3></div>
         <p>@Contact the admin for any quries or to report any problem</p>
     </div>
-    <input type="hidden" id="flag" value="{{ flag if flag is not 1 else 0 }}">
+    <input type="hidden" id="flag" value="{{ flag }}">
     <header class="sticky-top" >
     <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="container">
@@ -239,10 +239,9 @@ footer {
         function newclosePopup() {
             document.getElementById('newpopup').style.display = 'none';
         }
-        window.onload = function() {
-            if (flag == 1) {
-                newshowPopup();
-            }
+        if (flag == 1) {
+            newshowPopup();
+        }
         };
     </script>
     <footer class="p-3 mt-5">
