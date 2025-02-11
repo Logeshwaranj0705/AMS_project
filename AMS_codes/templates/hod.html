@@ -239,9 +239,10 @@ footer {
         function newclosePopup() {
             document.getElementById('newpopup').style.display = 'none';
         }
-        if (flag == 1) {
-            shownewPopup();
-        }
+        window.onload = function() {
+            if (flag == 1) {
+                shownewPopup();
+            }
         };
     </script>
     <footer class="p-3 mt-5">
