@@ -29,6 +29,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             padding: 20px;
             margin-top:10px;
+            z-index: 999;
         }
         .popup iframe {
             width: 100%;
@@ -189,11 +190,11 @@
         var flag = document.getElementById('flag').value;
         function newPopup(){
             document.getElementById('popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';                        
+            //document.getElementById('overlay').style.display = 'block';                        
         }
         function newclose(){
             document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';                        
+            //document.getElementById('overlay').style.display = 'none';                        
         }
         function shownewPopup() {
             document.getElementById('newpopup').style.display = 'block';
