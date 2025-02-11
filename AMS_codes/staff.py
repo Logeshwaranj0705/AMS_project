@@ -427,6 +427,7 @@ def hod_data():
             user=db_user,)
         cursor=cnx.cursor()
     except pymysql.MySQLError as e:
+        print(1)
         flag=1
     if(flag==0):
         exam = request.form['form_sheet']
@@ -454,6 +455,7 @@ def upload_marks():
             user=db_user,)
         cursor=cnx.cursor()
     except pymysql.MySQLError as e:
+        print(1)
         flag=1
     if request.method == 'POST':
         exam = request.form['form_sheet']
