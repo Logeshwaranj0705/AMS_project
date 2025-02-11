@@ -469,7 +469,8 @@ def upload_marks():
                 loop.run_until_complete(main('Marks1.xlsx', exam, year, sem, cnx, cursor))
                 cursor.close()
                 cnx.close()
-                return render_template('message.html',flag=flag)
+                data1=process_message_data()
+                return render_template('message.html',data1=data1)
             else:
                 loop=get_or_create_eventloop()
                 loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx, cursor))
