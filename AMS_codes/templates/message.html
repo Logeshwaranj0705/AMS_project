@@ -97,19 +97,17 @@
             {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
                 <td>{{ row[column] }}</td>
             {% endfor %}
+            {% endfor %}
             <td>
-                {% for row in l1 %}
-                {% if row.status == 'DONE' %}
-                    <!-- Do something for DONE status, if needed -->
+            {% for row in l1 %}
+                {% if row == 'DONE' %}
                     Done
                 {% else %}
-                    <!-- Do something else for other statuses -->
                     Pending
                 {% endif %}
                 {% endfor %}
             </td>
         </tr>
-        {% endfor %}
     </tbody>
 </table>
                           </div>
