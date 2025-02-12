@@ -92,16 +92,15 @@
     </tr>
 </thead>
 <tbody>
-    {% for row, status in data1 | zip(l1) %}
+    {% for row in data1 %}
     <tr>
         {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
             <td>{{ row[column] }}</td>
         {% endfor %}
-        <td>{{ status }}</td>
+        <td>{{ l1[loop.index0] }}</td>  <!-- Access the status using the loop index -->
     </tr>
     {% endfor %}
 </tbody>
-
              </table>
                           </div>
                           {% else %}
