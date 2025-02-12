@@ -81,29 +81,35 @@
                           {% if data1 %}
                           <div class="table-container">
                               <table>
-                                  <thead>
-                                      <tr>
-                                          <th>NAME</th>
-                                          <th>ARREAR COUNT</th>
-                                          <th>YEAR</th>
-                                          <th>SEMESTER</th>
-                                          <th>EXAM</th>
-                                          <th>STATUS</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody>
-                                      {% for row in data1 %}
-                                      <tr>
-                                          <td>{{ row.name }}</td>  <!-- Name -->
-                                          <td>{{ row.arrear_count }}</td>  <!-- Arrear Count -->
-                                          <td>{{ row.year }}</td>  <!-- Year -->
-                                          <td>{{ row.sem }}</td>  <!-- Semester -->
-                                          <td>{{ row.exam }}</td>  <!-- Exam -->
-                                          <td>{{row.status }}</td>
-                                      </tr>
-                                      {% endfor %}
-                                  </tbody>
-                              </table>
+    <thead>
+        <tr>
+            <th>NAME</th>
+            <th>ARREAR COUNT</th>
+            <th>YEAR</th>
+            <th>SEMESTER</th>
+            <th>EXAM</th>
+            <th>STATUS</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in data1 %}
+        <tr>
+            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
+                <td>{{ row[column] }}</td>
+            {% endfor %}
+            <td>
+                {% if row.status == 'DONE' %}
+                    <!-- Do something for DONE status, if needed -->
+                    Done
+                {% else %}
+                    <!-- Do something else for other statuses -->
+                    Pending
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
                           </div>
                           {% else %}
                               <p class="next_para"><b>No arrear data available for the selected criteria.</b></p>
