@@ -97,7 +97,6 @@
         {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
             <td>{{ row[column] }}</td>
         {% endfor %}
-        <td>{{ l1[loop.index0] }}</td>  <!-- Access the status using the loop index -->
     </tr>
     {% endfor %}
 </tbody>
