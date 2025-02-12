@@ -73,16 +73,8 @@ async def send_sms_message(name, ph_no, message, cursor, cnx):
             body=message
         )
         print(f"Message sent to {ph_no} regarding arrears.")
-        query="use all_data"
-        cursor.execute(query)
-        cursor.execute("UPDATE all_data1 SET status='DONE' WHERE name=?", (name,))
-        cnx.commit()
     except Exception as e:
         print(f"Failed to send message to {ph_no}: {str(e)}")
-        query="use all_data"
-        cursor.execute(query)
-        cursor.execute("UPDATE all_data1 SET status='DONE' WHERE name=?", (name,))
-        cnx.commit()
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
         # Mapping arrear type to database name
