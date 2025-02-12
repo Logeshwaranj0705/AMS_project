@@ -65,7 +65,7 @@ async def login_main(login,email,password):
     else:
         stat='none'
         return stat
-async def send_sms_message(ph_no, message):
+async def send_sms_message(ph_no, message, cursor, cnx):
     try:
         message = twilio_client.messages.create(
             from_='+13087734059',
@@ -230,7 +230,7 @@ async def main(file_path, exam, year, sem, cnx, cursor):
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()}. Please take necessary action."
             for subject_detail in subject:
                 message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(phone_number, message))
+            tasks.append(send_sms_message(phone_number, message, cursor, cnx))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -325,7 +325,7 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action."
             for subject_detail in subject:
                 message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(phone_number, message))
+            tasks.append(send_sms_message(phone_number, message, cursor, cnx))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
