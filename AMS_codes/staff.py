@@ -65,7 +65,7 @@ async def login_main(login,email,password):
     else:
         stat='none'
         return stat
-async def send_sms_message(ph_no, message, cursor, cnx):
+async def send_sms_message(l1, ph_no, message, cursor, cnx):
     try:
         message = twilio_client.messages.create(
             from_='+13087734059',
@@ -73,8 +73,14 @@ async def send_sms_message(ph_no, message, cursor, cnx):
             body=message
         )
         print(f"Message sent to {ph_no} regarding arrears.")
+        text="DONE"
+        l1.append(text)
+        return l1
     except Exception as e:
         print(f"Failed to send message to {ph_no}: {str(e)}")
+        text="ERROR"
+        l1.append(text)
+        return l1
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
         # Mapping arrear type to database name
@@ -195,6 +201,7 @@ async def main(file_path, exam, year, sem, cnx, cursor):
     ws.append(list(header))  # Convert header to a list
     max_column = ws.max_column + 1
     ws.cell(row=1, column=max_column).value = "Arrear count"
+    l1=[]
     for i in range(0, len(data)):
         ws.append(data[i])  # Append each row of data as a list
         count = 0
@@ -225,7 +232,6 @@ async def main(file_path, exam, year, sem, cnx, cursor):
         cnx.commit()
         # Send SMS if arrears are 3 or more
         if count >= 3:
-            l1=[]
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()}. Please take necessary action."
             for subject_detail in subject:
@@ -238,6 +244,8 @@ async def main(file_path, exam, year, sem, cnx, cursor):
             cursor.execute(query1,values)
             cnx.commit()
         elif count == 2:
+            text="DONE"
+            l1.append(text)
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -245,6 +253,8 @@ async def main(file_path, exam, year, sem, cnx, cursor):
             cursor.execute(query1,values)
             cnx.commit()
         elif count == 1:
+            text="DONE"
+            l1.append(text)
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -252,6 +262,8 @@ async def main(file_path, exam, year, sem, cnx, cursor):
             cursor.execute(query1,values)
             cnx.commit()
         else:
+            text="DONE"
+            l1.append(text)
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -262,6 +274,7 @@ async def main(file_path, exam, year, sem, cnx, cursor):
     after_process()
     await asyncio.gather(*tasks)
     print("Process completed")
+    return l1
 async def ESE_main(file_path, exam, year, sem, cnx, cursor):
     print("Process started")
     cols = columns_read()
@@ -295,6 +308,7 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
     # Write data to the output file
     max_column = ws.max_column + 1
     ws.cell(row=1, column=max_column).value = "Arrear count"
+    l1=[]
     for i in range(1, len(data)):
         ws.append(data[i])  # Append each row of data as a list
         count = 0
@@ -321,7 +335,6 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
         cursor.execute(query1,values)
         cnx.commit()
         if count >= 3:
-            l1=[]
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action."
             for subject_detail in subject:
@@ -334,6 +347,8 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
             cursor.execute(query1,values)
             cnx.commit()
         elif count == 2:
+            text="DONE"
+            l1.append(text)
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -341,6 +356,8 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
             cursor.execute(query1,values)
             cnx.commit()
         elif count == 1:
+            text="DONE"
+            l1.append(text)
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -348,6 +365,8 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
             cursor.execute(query1,values)
             cnx.commit()
         else:
+            text="DONE"
+            l1.append(text)
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -358,6 +377,7 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
     after_process_ese(file_path)
     await asyncio.gather(*tasks)
     print("Process completed")
+    return l1
 # Flask web application setup
 app = Flask(__name__)
 def get_or_create_eventloop():
@@ -467,18 +487,18 @@ def upload_marks():
         if(flag==0):
             if exam=="cae1" or exam=="cae2":
                 loop = get_or_create_eventloop()
-                loop.run_until_complete(main('Marks1.xlsx', exam, year, sem, cnx, cursor))
+                l1=loop.run_until_complete(main('Marks1.xlsx', exam, year, sem, cnx, cursor))
                 cursor.close()
                 cnx.close()
                 data1=process_message_data()
-                return render_template('message.html',data1=data1)
+                return render_template('message.html',data1=data1,l1=l1)
             else:
                 loop=get_or_create_eventloop()
-                loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx, cursor))
+                l1=loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx, cursor))
                 cursor.close()
                 cnx.close()
                 data1=process_message_data()
-                return render_template('message.html',data1=data1)
+                return render_template('message.html',data1=data1,l1=l1)
         else:
             return render_template('Staff.html',flag=flag)
 # Run the Flask application
