@@ -75,14 +75,14 @@ async def send_sms_message(name, ph_no, message, cursor, cnx):
         print(f"Message sent to {ph_no} regarding arrears.")
         query="use all_data"
         cursor.execute(query)
-        query1=f"update all_data1 set status=DONE where name={name}"
+        query1=f"update all_data1 set status='DONE' where name={name}"
         cursor.execute(query1)
         cnx.commit()
     except Exception as e:
         print(f"Failed to send message to {ph_no}: {str(e)}")
         query="use all_data"
         cursor.execute(query)
-        query1=f"update all_data1 set status=ERROR where name={name}"
+        query1=f"update all_data1 set status='ERROR' where name={name}"
         cursor.execute(query1)
         cnx.commit()
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
@@ -235,11 +235,12 @@ async def main(file_path, exam, year, sem, cnx, cursor):
         cnx.commit()
         # Send SMS if arrears are 3 or more
         if count >= 3:
+            name= data[i][2]
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()}. Please take necessary action."
             for subject_detail in subject:
                 message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(name,phone_number, message, cursor, cnx))
+            tasks.append(send_sms_message(name, phone_number, message, cursor, cnx))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -330,11 +331,12 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
         cursor.execute(query1,values)
         cnx.commit()
         if count >= 3:
+            name= data[i][2]
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action."
             for subject_detail in subject:
                 message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(name,phone_number, message, cursor, cnx))
+            tasks.append(send_sms_message(name, phone_number, message, cursor, cnx))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
