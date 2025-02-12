@@ -80,34 +80,29 @@
                           <h1 class="text-center-data">DATA PREVIEW</h1>
                           {% if data1 %}
                           <div class="table-container">
-                              <table>
-    <thead>
-        <tr>
-            <th>NAME</th>
-            <th>ARREAR COUNT</th>
-            <th>YEAR</th>
-            <th>SEMESTER</th>
-            <th>EXAM</th>
-            <th>STATUS</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for row in data1 %}
-        <tr>
-            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
-                <td>{{ row[column] }}</td>
-            {% endfor %}
-            <td>
-                {% if l1[row] == 'DONE' %}
-                    Done
-                {% else %}
-                    Pending
-                {% endif %}
-            </td>
-        </tr>
+                            <table>
+                <thead>
+    <tr>
+        <th>NAME</th>
+        <th>ARREAR COUNT</th>
+        <th>YEAR</th>
+        <th>SEMESTER</th>
+        <th>EXAM</th>
+        <th>STATUS</th>
+    </tr>
+</thead>
+<tbody>
+    {% for row, status in data1 | zip(l1) %}
+    <tr>
+        {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
+            <td>{{ row[column] }}</td>
         {% endfor %}
-    </tbody>
-</table>
+        <td>{{ status }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+             </table>
                           </div>
                           {% else %}
                               <p class="next_para"><b>No arrear data available for the selected criteria.</b></p>
