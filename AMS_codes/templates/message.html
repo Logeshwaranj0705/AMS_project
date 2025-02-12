@@ -98,6 +98,7 @@
                 <td>{{ row[column] }}</td>
             {% endfor %}
             <td>
+                {% for row in l1 %}
                 {% if row.status == 'DONE' %}
                     <!-- Do something for DONE status, if needed -->
                     Done
@@ -105,6 +106,7 @@
                     <!-- Do something else for other statuses -->
                     Pending
                 {% endif %}
+                {% endfor %}
             </td>
         </tr>
         {% endfor %}
