@@ -108,6 +108,7 @@
     }
     </style>
 <body>
+    <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
         <button class="close-btn" onclick="closePopup()"><b>X</b></button>
         <h2 style="color:whitesmoke">CAE Exam Formate:</h2>
@@ -189,11 +190,11 @@
         var flag = document.getElementById('flag').value;
         function newPopup(){
             document.getElementById('popup').style.display = 'block';
-            //document.getElementById('overlay').style.display = 'block';                        
+            document.getElementById('overlay').style.display = 'block';                        
         }
         function closePopup(){
             document.getElementById('popup').style.display = 'none';
-            //document.getElementById('overlay').style.display = 'none';                        
+            document.getElementById('overlay').style.display = 'none';                        
         }
         function shownewPopup() {
             document.getElementById('newpopup').style.display = 'block';
