@@ -261,7 +261,6 @@ async def main(file_path, exam, year, sem, cnx, cursor):
     after_process()
     await asyncio.gather(*tasks)
     print("Process completed")
-    return l1
 async def ESE_main(file_path, exam, year, sem, cnx, cursor):
     print("Process started")
     cols = columns_read()
