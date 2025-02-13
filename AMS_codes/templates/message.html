@@ -87,6 +87,14 @@
     #container1{
         max-height:400px;
     }
+    #container2{
+        display:none;
+    }
+    .next_page{
+        display:flex;
+        justify-content: center;
+        padding:10px;
+    }
 </style>
 <body class="bg-light">
     <div class="overlay" id="overlay"></div>
@@ -131,6 +139,49 @@
                 </div>
             </div>
         </div>
+        <div class="container" id="container2">
+            <div>
+                <div class="col-md-6">
+                    <!-- Card for Marks Upload -->
+                    <div class="card" id="card-data1">
+                        <div class="card-body" id="card-body-data">
+                            <h1 class="text-center-data">RECORD DATA</h1>
+                            {% if data1 %}
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>NAME</th>
+                                            <th>ARREAR COUNT</th>
+                                            <th>YEAR</th>
+                                            <th>SEMESTER</th>
+                                            <th>EXAM</th>
+                                            <th>STATUS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for row in data3 %}
+                                        <tr>
+                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','Status'] %}
+                                                <td>{{ row[column] }}</td>
+                                            {% endfor %}
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% else %}
+                                <p class="next_para"><b>No arrear data available for the selected criteria.</b></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="next_page"><button class="btn btn-primary" style="margin:10px;margin-bottom:5px;" onclick="messagePage()">prev</button>
+            <button class="btn btn-primary" style="margin:10px;margin-bottom:5px;" onclick="recordPage()">next</button>
+        </div>
+
     </div>
     <header class="sticky-top">
         <nav class="navbar navbar-dark navbar-expand-lg">
@@ -206,6 +257,14 @@
         function closePopup(){
             document.getElementById('popup').style.display = 'none';
             document.getElementById('overlay').style.display = 'none';
+        }
+        function messagePage(){
+            document.getElementById('container2').style.display = 'none';
+            document.getElementById('container1').style.display = 'flex';
+        }
+        function recordPage(){
+            document.getElementById('container1').style.display = 'none';
+            document.getElementById('container2').style.display = 'flex';
         }
     </script>
     <footer class="p-3 mt-5">
