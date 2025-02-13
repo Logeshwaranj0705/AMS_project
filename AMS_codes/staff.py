@@ -72,7 +72,7 @@ async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx)
             to=f"{ph_no}",
             body=message
         )
-        query="use stauts"
+        query="use status"
         cursor.execute(query)
         status="DONE"
         query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s)"
@@ -80,7 +80,7 @@ async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx)
         cursor.execute(query1,values)
         print(f"Message sent to {ph_no} regarding arrears.")
     except Exception as e:
-        query="use stauts"
+        query="use status"
         cursor.execute(query)
         status="PENDING"
         query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s)"
