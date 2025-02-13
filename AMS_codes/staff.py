@@ -65,15 +65,27 @@ async def login_main(login,email,password):
     else:
         stat='none'
         return stat
-async def send_sms_message(ph_no, message, cursor, cnx):
+async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx):
     try:
         message = twilio_client.messages.create(
             from_='+13087734059',
             to=f"{ph_no}",
             body=message
         )
+        query="use stauts"
+        cursor.execute(query)
+        status="DONE"
+        query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s)"
+        values=[name,count,sem,exam,year,status]
+        cursor.execute(query1,values)
         print(f"Message sent to {ph_no} regarding arrears.")
     except Exception as e:
+        query="use stauts"
+        cursor.execute(query)
+        status="PENDING"
+        query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s)"
+        values=[name,count,sem,exam,year,status]
+        cursor.execute(query1,values)
         print(f"Failed to send message to {ph_no}: {str(e)}")
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
@@ -181,6 +193,26 @@ def process_message_data():
     cursor.close()
     cnx.close()
     return data1
+def process_message_data1():
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=15274,
+    user=db_user,)
+    cursor = cnx.cursor()
+    data2 = None 
+    query="USE status"
+    cursor.execute(query)
+    query1="SELECT * FROM status_data"
+    cursor.execute(query1)
+    data2 = cursor.fetchall()
+    cursor.close()
+    cnx.close()
+    return data2
 async def main(file_path, exam, year, sem, cnx, cursor):
     print("Process started")
     cols = columns_read()
@@ -225,11 +257,12 @@ async def main(file_path, exam, year, sem, cnx, cursor):
         cnx.commit()
         # Send SMS if arrears are 3 or more
         if count >= 3:
+            name=data[i][2]
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()}. Please take necessary action."
             for subject_detail in subject:
                 message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(phone_number, message, cursor, cnx))
+            tasks.append(send_sms_message(name,count,sem,exam,year,phone_number, message, cursor, cnx))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -324,7 +357,7 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action."
             for subject_detail in subject:
                 message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(phone_number, message, cursor, cnx))
+            tasks.append(send_sms_message(name,count,sem,exam,year,phone_number, message, cursor, cnx))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
             query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
@@ -468,7 +501,8 @@ def upload_marks():
                 cursor.close()
                 cnx.close()
                 data1=process_message_data()
-                return render_template('message.html',data1=data1)
+                data2=process_message_data1()
+                return render_template('message.html',data1=data1,data2=data2)
             else:
                 loop=get_or_create_eventloop()
                 loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx, cursor))
