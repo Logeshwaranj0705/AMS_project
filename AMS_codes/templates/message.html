@@ -42,8 +42,45 @@
   .no-hover:hover {transform: none;box-shadow: none;}
   #card-data h3, .card h3 {font-family: 'Montserrat', sans-serif;color: #333;}
   #card-body-data {background-color: #f1f1f1;border-radius: 10px;width:100%}
+  .popup {display: none;position: fixed;top: 50%;left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50%;
+            height: 73%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin-top:10px;
+            z-index: 999;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .close-btn {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            border:0px;
+            padding: 5px 10px;
+            border-top-right-radius:10px;
+        }
+        .close-btn:hover{
+            background-color:red;
+            color:white;
+        }
   </style>
 <body class="bg-light">
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <button class="close-btn" onclick="closePopup()"><b>X</b></button>
+    </div>
     <header class="sticky-top">
         <nav class="navbar navbar-dark navbar-expand-lg">
           <div class="container">
@@ -65,7 +102,8 @@
                   <h4 class="text-center pb-3"><span class="new-span">Download</span> Updated New Excel Sheet Here &#8595;</h4>
                       <div class="text-center">
                           <div class="mb-2">
-                          <a href="{{url_for('download_file')}}" download="newsheet.xlsx">Download Excel File</a></form>
+                            <a href="{{url_for('download_file')}}" download="newsheet.xlsx">Download Excel File</a>
+                            <a style="color:white" onclick="statuspopup()">Message Status</a>
                       </div>
                       </div>
                   </div>
@@ -109,6 +147,17 @@
               </div>
           </div>
       </div>
+      <script>
+        function statuspopup(){
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+        function closePopup(){
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+                     
+        </script>
     <footer class="p-3 mt-5">
         &copy; 2023 Sathyabama Institute of Science and Technology. All rights reserved.
     </footer>
