@@ -502,6 +502,7 @@ def upload_marks():
                 cnx.close()
                 data1=process_message_data()
                 data2=process_message_data1()
+                print(data2)
                 return render_template('message.html',data1=data1,data2=data2)
             else:
                 loop=get_or_create_eventloop()
@@ -509,7 +510,8 @@ def upload_marks():
                 cursor.close()
                 cnx.close()
                 data1=process_message_data()
-                return render_template('message.html',data1=data1)
+                data2=process_message_data1()
+                return render_template('message.html',data1=data1,data2=data2)
         else:
             return render_template('Staff.html',flag=flag)
 # Run the Flask application
