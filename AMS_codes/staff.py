@@ -75,34 +75,20 @@ async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx)
         query="use status"
         cursor.execute(query)
         status="DONE"
-        query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s,%s)"
-        values=[name,count,sem,exam,year,status]
-        cursor.execute(query1,values)
-        cnx.commit()
-        query2="use status_rec"
-        cursor.execute(query2)
-        status="DONE"
         now = datetime.datetime.now()
-        query3="insert into status_data(name,arrear_count,sem,exam,year,Status,DATE) values (%s,%s,%s,%s,%s,%s,%s)"
+        query1="insert into status_data(name,arrear_count,sem,exam,year,Status,date) values (%s,%s,%s,%s,%s,%s,%s)"
         values=[name,count,sem,exam,year,status,now]
-        cursor.execute(query3,values)
+        cursor.execute(query1,values)
         cnx.commit()
         print(f"Message sent to {ph_no} regarding arrears.")
     except Exception as e:
         query="use status"
         cursor.execute(query)
         status="PENDING"
-        query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s,%s)"
-        values=[name,count,sem,exam,year,status]
-        cursor.execute(query1,values)
-        cnx.commit()
-        query2="use status_rec"
-        cursor.execute(query2)
-        status="PENDING"
         now = datetime.datetime.now()
-        query3="insert into status_data(name,arrear_count,sem,exam,year,Status,DATE) values (%s,%s,%s,%s,%s,%s,%s)"
+        query1="insert into status_data(name,arrear_count,sem,exam,year,Status,date) values (%s,%s,%s,%s,%s,%s,%s)"
         values=[name,count,sem,exam,year,status,now]
-        cursor.execute(query3,values)
+        cursor.execute(query1,values)
         cnx.commit()
         print(f"Failed to send message to {ph_no}: {str(e)}")
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
@@ -231,26 +217,6 @@ def process_message_data1():
     cursor.close()
     cnx.close()
     return data2
-def process_message_data2():
-    db_user = os.getenv("DB_USER")
-    db_password = os.getenv("DB_PASSWORD")
-    db_host = os.getenv("DB_HOST")
-    cnx = pymysql.connect(
-    cursorclass=pymysql.cursors.DictCursor,
-    host=db_host,
-    password=db_password,
-    port=15274,
-    user=db_user,)
-    cursor = cnx.cursor()
-    data3 = None 
-    query="USE status_rec"
-    cursor.execute(query)
-    query1="SELECT * FROM status_data"
-    cursor.execute(query1)
-    data3 = cursor.fetchall()
-    cursor.close()
-    cnx.close()
-    return data3
 async def main(file_path, exam, year, sem, cnx, cursor):
     print("Process started")
     cols = columns_read()
@@ -540,8 +506,7 @@ def upload_marks():
                 cnx.close()
                 data1=process_message_data()
                 data2=process_message_data1()
-                data3=process_message_data2()
-                return render_template('message.html',data1=data1,data2=data2,data3=data3)
+                return render_template('message.html',data1=data1,data2=data2)
             else:
                 loop=get_or_create_eventloop()
                 loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx, cursor))
@@ -549,8 +514,7 @@ def upload_marks():
                 cnx.close()
                 data1=process_message_data()
                 data2=process_message_data1()
-                data3=process_message_data2()
-                return render_template('message.html',data1=data1,data2=data2,data3=data3)
+                return render_template('message.html',data1=data1,data2=data2)
         else:
             return render_template('Staff.html',flag=flag)
 # Run the Flask application
