@@ -228,15 +228,29 @@ def process_message_data1():
     query1="SELECT * FROM status_data"
     cursor.execute(query1)
     data2 = cursor.fetchall()
+    cursor.close()
+    cnx.close()
+    return data2
+def process_message_data2():
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=15274,
+    user=db_user,)
+    cursor = cnx.cursor()
     data3 = None 
-    query2="USE status_rec"
-    cursor.execute(query2)
-    query3="SELECT * FROM status_data"
-    cursor.execute(query3)
+    query="USE status_rec"
+    cursor.execute(query)
+    query1="SELECT * FROM status_data"
+    cursor.execute(query1)
     data3 = cursor.fetchall()
     cursor.close()
     cnx.close()
-    return data2,data3
+    return data3
 async def main(file_path, exam, year, sem, cnx, cursor):
     print("Process started")
     cols = columns_read()
@@ -525,7 +539,8 @@ def upload_marks():
                 cursor.close()
                 cnx.close()
                 data1=process_message_data()
-                data2,data3=process_message_data1()
+                data2=process_message_data1()
+                data3=process_message_data2()
                 return render_template('message.html',data1=data1,data2=data2,data3=data3)
             else:
                 loop=get_or_create_eventloop()
@@ -533,7 +548,8 @@ def upload_marks():
                 cursor.close()
                 cnx.close()
                 data1=process_message_data()
-                data2,data3=process_message_data1()
+                data2=process_message_data1()
+                data3=process_message_data2()
                 return render_template('message.html',data1=data1,data2=data2,data3=data3)
         else:
             return render_template('Staff.html',flag=flag)
