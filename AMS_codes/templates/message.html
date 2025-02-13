@@ -80,6 +80,45 @@
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
         <button class="close-btn" onclick="closePopup()"><b>X</b></button>
+         <div class="container mt-5">
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                  <!-- Card for Marks Upload -->
+                  <div class="card" id="card-data">
+                      <div class="card-body" id="card-body-data">
+                          <h1 class="text-center-data">DATA PREVIEW</h1>
+                          {% if data1 %}
+                          <div class="table-container">
+                            <table>
+                <thead>
+    <tr>
+        <th>NAME</th>
+        <th>ARREAR COUNT</th>
+        <th>YEAR</th>
+        <th>SEMESTER</th>
+        <th>EXAM</th>
+        <th>STATUS</th>
+    </tr>
+</thead>
+<tbody>
+    {% for row in data2 %}
+    <tr>
+        {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','Status] %}
+            <td>{{ row[column] }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</tbody>
+             </table>
+                          </div>
+                          {% else %}
+                              <p class="next_para"><b>No arrear data available for the selected criteria.</b></p>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
     </div>
     <header class="sticky-top">
         <nav class="navbar navbar-dark navbar-expand-lg">
