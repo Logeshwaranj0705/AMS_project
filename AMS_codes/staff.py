@@ -78,6 +78,7 @@ async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx)
         query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s,%s)"
         values=[name,count,sem,exam,year,status]
         cursor.execute(query1,values)
+        cnx.commit()
         print(f"Message sent to {ph_no} regarding arrears.")
     except Exception as e:
         query="use status"
@@ -86,6 +87,7 @@ async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx)
         query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s,%s)"
         values=[name,count,sem,exam,year,status]
         cursor.execute(query1,values)
+        cnx.commit()
         print(f"Failed to send message to {ph_no}: {str(e)}")
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
