@@ -186,7 +186,7 @@ def clear_rec_data():
     cursor = cnx.cursor()
     try:
         cursor.execute("USE status_rec")
-        quary='delete from status_data'
+        query='delete from status_data'
         cursor.execute(query)
         cnx.commit()
     finally:
