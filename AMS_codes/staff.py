@@ -492,6 +492,7 @@ def logout_button():
 @app.route('/logout_data',methods=['POST'])
 def logout_data():
     staff_del_data()
+    message_del_data()
     return render_template("login.html")
 @app.route('/download')
 def download_file():
