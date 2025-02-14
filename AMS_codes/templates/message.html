@@ -95,6 +95,14 @@
         justify-content: center;
         padding:10px;
     }
+    #clear_button{
+        display:none;
+        justify-content: center;
+    }
+    .button_clear{
+        display:flex;
+        justify-content: center;
+    }
 </style>
 <body class="bg-light">
     <div class="overlay" id="overlay"></div>
@@ -173,15 +181,22 @@
                             {% else %}
                                 <p class="next_para"><b>No arrear data available for the selected criteria.</b></p>
                             {% endif %}
+                            <form action="/clear_data" method="post">
+                                <input type="hidden" name="arrear" value="{{ arrear }}">
+                                <input type="hidden" name="sem" value="{{ sem }}">
+                                <input type="hidden" name="exam" value="{{ exam }}">
+                                <input type="hidden" name="year" value="{{ year }}">
+                                <div class="button_clear">
+                                <button class="btn btn-primary text-white" id="buttontag">CLEAR RECORD</button></div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="next_page"><button class="btn btn-primary" style="margin:10px;margin-bottom:5px;" onclick="messagePage()">prev</button>
-            <button class="btn btn-primary" style="margin:10px;margin-bottom:5px;" onclick="recordPage()">next</button>
+        <div class="next_page"><button id="prev" class="btn btn-primary" style="margin:10px;margin-bottom:0px" onclick="messagePage()">prev</button>
+            <button id="next" class="btn btn-primary" style="margin:10px;margin-bottom:0px" onclick="recordPage()">next</button>
         </div>
-
     </div>
     <header class="sticky-top">
         <nav class="navbar navbar-dark navbar-expand-lg">
@@ -261,10 +276,15 @@
         function messagePage(){
             document.getElementById('container2').style.display = 'none';
             document.getElementById('container1').style.display = 'flex';
+            document.getElementById('prev').style.marginTop = '10px';
+            document.getElementById('next').style.marginTop = '10px';
+
         }
         function recordPage(){
             document.getElementById('container1').style.display = 'none';
             document.getElementById('container2').style.display = 'flex';
+            document.getElementById('prev').style.marginTop = '0px';
+            document.getElementById('next').style.marginTop = '0px';
         }
     </script>
     <footer class="p-3 mt-5">
