@@ -165,12 +165,13 @@
                                             <th>SEMESTER</th>
                                             <th>EXAM</th>
                                             <th>STATUS</th>
+                                            <th>DATE</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for row in data3 %}
                                         <tr>
-                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','Status'] %}
+                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','Status','DATE'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                         </tr>
@@ -181,7 +182,7 @@
                             {% else %}
                                 <p class="next_para"><b>No arrear data available for the selected criteria.</b></p>
                             {% endif %}
-                            <form action="/clear_rec" method="post">
+                            <form action="/clear_data" method="post">
                                 <input type="hidden" name="arrear" value="{{ arrear }}">
                                 <input type="hidden" name="sem" value="{{ sem }}">
                                 <input type="hidden" name="exam" value="{{ exam }}">
@@ -278,6 +279,7 @@
             document.getElementById('container1').style.display = 'flex';
             document.getElementById('prev').style.marginTop = '10px';
             document.getElementById('next').style.marginTop = '10px';
+            document.getElementById('popup').style.width = '50%';
 
         }
         function recordPage(){
@@ -285,6 +287,7 @@
             document.getElementById('container2').style.display = 'flex';
             document.getElementById('prev').style.marginTop = '0px';
             document.getElementById('next').style.marginTop = '0px';
+            document.getElementById('popup').style.width = '55%';
         }
     </script>
     <footer class="p-3 mt-5">
