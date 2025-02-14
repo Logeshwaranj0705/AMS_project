@@ -499,7 +499,7 @@ def download_file():
         return send_file(os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx'), as_attachment=True)
     except Exception as e:
         return str(e)
-@app.route('/clear_rec',methods=['POST]')
+@app.route('/clear_rec',methods=['POST'])
 def clear_rec():
     arrear=request.form['arrear']
     year=request.form['year']
