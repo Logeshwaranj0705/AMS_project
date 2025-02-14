@@ -504,6 +504,8 @@ def download_file():
 @app.route('/clear_rec',methods=['POST'])
 def clear_rec():
     clear_rec_data()
+    staff_del_data()
+    message_del_data()
     return render_template('Staff.html')
 @app.route('/clear_data',methods=['POST'])
 def clear():
