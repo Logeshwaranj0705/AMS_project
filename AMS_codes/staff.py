@@ -187,8 +187,9 @@ def clear_rec_data():
     try:
         cursor.execute("USE status_rec")
         quary='delete from status_data'
-    finally:
+        cursor.execute(query)
         cnx.commit()
+    finally:
         cursor.close()
         cnx.close()
     return None
@@ -503,7 +504,10 @@ def download_file():
 @app.route('/clear_rec',methods=['POST'])
 def clear_rec():
     clear_rec_data()
-    return render_template('message.html')
+    data1=process_message_data()
+    data2=process_message_data1()
+    data3=[]
+    return render_template('message.html'data1=data1,data2=data2,data3=data3)
 @app.route('/clear_data',methods=['POST'])
 def clear():
     arrear=request.form['arrear']
