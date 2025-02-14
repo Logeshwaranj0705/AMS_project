@@ -173,7 +173,7 @@ def clear_data(arrear,year,exam,sem):
         cursor.close()
         cnx.close()
     return None
-def clear_rec(arrear,year,exam,sem):
+def clear_rec():
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
     db_host = os.getenv("DB_HOST")
@@ -502,11 +502,7 @@ def download_file():
         return str(e)
 @app.route('/clear_rec',methods=['POST'])
 def clear_rec():
-    arrear=request.form['arrear']
-    year=request.form['year']
-    exam=request.form['exam']
-    sem=request.form['sem']
-    clear_rec(arrear,year,exam,sem)
+    clear_rec()
     return render_template('message.html')
 @app.route('/clear_data',methods=['POST'])
 def clear():
