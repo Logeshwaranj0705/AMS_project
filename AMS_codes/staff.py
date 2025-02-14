@@ -173,6 +173,25 @@ def clear_data(arrear,year,exam,sem):
         cursor.close()
         cnx.close()
     return None
+def clear_rec(arrear,year,exam,sem):
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=15274,
+    user=db_user,)
+    cursor = cnx.cursor()
+    try:
+        cursor.execute("USE status_rec")
+        quary='delete from status_data'
+    finally:
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+    return None
 def staff_del_data():
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
@@ -187,6 +206,24 @@ def staff_del_data():
     query="USE all_data"
     cursor.execute(query)
     query1="DELETE FROM all_data1"
+    cursor.execute(query1)
+    cnx.commit()
+    cursor.close()
+    cnx.close()
+def message_del_data():
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=15274,
+    user=db_user,)
+    cursor=cnx.cursor()
+    query="USE status"
+    cursor.execute(query)
+    query1="DELETE FROM status_data"
     cursor.execute(query1)
     cnx.commit()
     cursor.close()
@@ -444,6 +481,7 @@ def index():
 @app.route('/back',methods=['POST'])
 def back_button():
     staff_del_data()
+    message_del_data()
     return render_template('Staff.html')
 @app.route('/back_hod',methods=['POST'])
 def back_hod_button():
@@ -461,6 +499,14 @@ def download_file():
         return send_file(os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx'), as_attachment=True)
     except Exception as e:
         return str(e)
+@app.route('/clear_rec',methods=['POST]')
+def clear_rec():
+    arrear=request.form['arrear']
+    year=request.form['year']
+    exam=request.form['exam']
+    sem=request.form['sem']
+    clear_rec(arrear,year,exam,sem)
+    return render_template('message.html')
 @app.route('/clear_data',methods=['POST'])
 def clear():
     arrear=request.form['arrear']
@@ -497,7 +543,6 @@ def hod_data():
             user=db_user,)
         cursor=cnx.cursor()
     except pymysql.MySQLError as e:
-        print(1)
         flag=1
     if(flag==0):
         exam = request.form['form_sheet']
