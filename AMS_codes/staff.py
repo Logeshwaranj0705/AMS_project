@@ -478,7 +478,7 @@ def get_or_create_eventloop():
 
 @app.route('/')
 def index():
-    return render_template('login.html')
+    return render_template('home.html')
 @app.route('/back',methods=['POST'])
 def back_button():
     staff_del_data()
