@@ -109,8 +109,8 @@
     .cross{
         display:flex;
         background-color:red;
-        width:50px;
-        height:50px;
+        width:35px;
+        height:35px;
         border-radius:100%;
         justify-content: center;
         align-items: center;
@@ -118,8 +118,8 @@
     .tick{
         display:flex;
         background-color:green;
-        width:50px;
-        height:50px;
+        width:35px;
+        height:35px;
         border-radius:100%;
         justify-content: center;
         align-items: center;
@@ -155,7 +155,7 @@
                                             {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
-                                            <tb>{% if row.Status == 'PENDING' %}
+                                            <td>{% if row.Status == 'PENDING' %}
                                                     <div class="cross">
                                                         <div class="cross_t1"></div>
                                                         <div class="cross_t2"></div>
@@ -166,7 +166,7 @@
                                                         <div class="tick_t2"></div>
                                                     </div> 
                                                 {% endif %}
-                                                </tb>
+                                                </td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -207,7 +207,7 @@
                                             {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','DATE'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
-                                            <tb>{% if row.Status == 'PENDING' %}
+                                            <td>{% if row.Status == 'PENDING' %}
                                                     <div class="cross">
                                                         <div class="cross_t1"></div>
                                                         <div class="cross_t2"></div>
@@ -218,7 +218,7 @@
                                                         <div class="tick_t2"></div>
                                                     </div> 
                                                 {% endif %}
-                                                </tb>
+                                                </td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
