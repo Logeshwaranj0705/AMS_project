@@ -13,7 +13,7 @@
 nav{
     background-color: black;
     color: white;
-    padding: 15px;
+    padding:5px;
 }
 li,h4,ul{
     display: inline;
@@ -66,37 +66,48 @@ body {
     background-color:rgba(0,0,0,0.5);
 }
 .about{
+    margin:10px;
+    color:white;
     background-color: black;
-    margin: 10px;
-    padding: 0px;
+    padding: 5px;
+    border:0px;
 }
 .home{
+    margin:10px;
+    color:white;
     background-color: black;
-    margin: 10px;
-    padding: 0px;
-    margin-left: 0px;
+    padding: 5px;
+    margin-left: 3px;
+    border:0px;
 }
 .login{
+    margin:10px;
+    color:white;
     background-color: black;
-    margin: 10px;
-    padding: 0px;
+    padding: 5px;
+    border:0px;
 }
 .about:hover{
+    margin:0px 10px 0px 10px;
+    margin-top:0px;
     background-color: white;
     color: black;
-    padding: 12px 5px 10px 5px;
+    padding: 15px 5px 10px 5px;
     transition-duration: 0.4s;
 }
 .home:hover{
+    margin:0px 10px 0px 10px;
+    margin-top:0px;
     background-color: white;
     color: black;
-    padding: 12px 5px 10px 5px;
+    padding: 15px 5px 10px 5px;
     transition-duration: 0.4s;
 }
 .login:hover{
+    margin:0px 10px 0px 10px;
     background-color: white;
     color: black;
-    padding: 12px 5px 10px 5px;
+    padding: 15px 5px 10px 5px;
     transition-duration: 0.4s;
 }
 a{
@@ -109,9 +120,9 @@ a{
     <div class="header">
         <nav>
             <form action="/logout" method="post" enctype="multipart/form-data">
-                <button class="btn btn-primary" name="home">HOME</button>
-                <button class="btn btn-primary" name="about">ABOUT</button>
-                <button class="btn btn-primary" name="login">LOGIN</button>
+                <button class="home" name="home">HOME</button>
+                <button class="about" name="about">ABOUT</button>
+                <button class="login" name="login">LOGIN</button>
             </form>
         </nav>
     </div>
