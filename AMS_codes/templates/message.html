@@ -138,7 +138,7 @@
         transform: rotate(-35deg);
     }
     .tick_t2{
-        margin:6px 6px 0px 0px;
+        margin:6px 6px 6px 0px;
         transform: rotate(55deg);
         background-color:white;
         width:15%;
@@ -238,11 +238,10 @@
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
-                                                    <div class="cross">
-                                                        <div class="box-t1">
-                                                        <div class="cross_t1"></div>
-                                                        <div class="cross_t2"></div></div>
-                                                    </div>
+                                                    <div class="circle">
+                                                        <div class="line line1"></div>
+                                                        <div class="line line2"></div>
+                                                      </div>
                                                 {% else %}
                                                     <div class="tick">
                                                         <div class="tick_t1"></div>
