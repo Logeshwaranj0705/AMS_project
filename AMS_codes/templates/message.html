@@ -106,32 +106,30 @@
         display:flex;
         justify-content: center;
     }
-    .cross{
-        width:100%;
-        display:flex;
-        background-color:red;
-        width:35px;
-        height:35px;
-        border-radius:100%;
-        justify-content: center;
-        align-items: center;
+    .circle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 35px;
+      height: 35px;
+      background-color: red;
+      border-radius: 50%;
+      position: relative; /* To keep everything inside the circle */
     }
-    .cross_t1{
-        padding-bottom:5px;
-        background-color:white;
-        position:relative;
-        width:10%;
-        height:50%;
-        transform:rotate(45deg);
+  
+    .line {
+      position: absolute;
+      background-color: white;
+      width: 60%;
+      height: 10px;
     }
-    .cross_t2{
-        padding-bottom:5px;
-        background-color:white;
-        position:relative;
-        float:left;
-        width:10%;
-        height:50%;
-        transform:rotate(-45deg);
+  
+    .line1 {
+      transform: rotate(45deg); /* Rotate the first line */
+    }
+  
+    .line2 {
+      transform: rotate(-45deg); /* Rotate the second line */
     }
     .tick_t1{
         background-color:white;
@@ -188,10 +186,10 @@
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
-                                                    <div class="cross">
-                                                        <div class="cross_t1"></div>
-                                                        <div class="cross_t2"></div>
-                                                    </div>
+                                                    <div class="circle">
+                                                        <div class="line line1"></div>
+                                                        <div class="line line2"></div>
+                                                      </div>
                                                 {% else %}
                                                     <div class="tick">
                                                         <div class="tick_t1"></div>
@@ -241,8 +239,9 @@
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
                                                     <div class="cross">
+                                                        <div class="box-t1">
                                                         <div class="cross_t1"></div>
-                                                        <div class="cross_t2"></div>
+                                                        <div class="cross_t2"></div></div>
                                                     </div>
                                                 {% else %}
                                                     <div class="tick">
