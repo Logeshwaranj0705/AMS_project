@@ -68,7 +68,7 @@ async def login_main(login,email,password):
 async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx):
     try:
         message = twilio_client.messages.create(
-            from_='+13087734059',
+            from_='+13179619874',
             to=f"{ph_no}",
             body=message
         )
