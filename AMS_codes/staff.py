@@ -65,7 +65,13 @@ async def login_main(login,email,password):
     else:
         stat='none'
         return stat
-def sendadmin_msg(message,ph_no):
+def sendadmin1_msg(message,ph_no):
+    message = twilio_client.messages.create(
+            from_='+15392212587',
+            to=f"{ph_no}",
+            body=message
+        )
+def sendadmin2_msg(message,ph_no):
     message = twilio_client.messages.create(
             from_='+15392212587',
             to=f"{ph_no}",
@@ -515,10 +521,13 @@ def back_button():
         message_del_data()
         return render_template('Staff.html',flag=flag)
     else:
-        phone_no=os.getenv("PH_NO")
-        ph_no="+91"+str(phone_no)
+        phone_no1=os.getenv("PH_NO1")
+        ph_no1="+91"+str(phone_no1)
+        phone_no2=os.getenv("PH_NO2")
+        ph_no1="+91"+str(phone_no2)
         message="SERVER UNDER MAINTANCE"
-        sendadmin_msg(message,ph_no)
+        sendadmin1_msg(message,ph_no1)
+        sendadmin2_msg(message,ph_no2)
         return render_template('Staff.html',flag=flag) 
 @app.route('/back_hod',methods=['POST'])
 def back_hod_button():
@@ -547,11 +556,14 @@ def logout_data():
         message_del_data()
         return render_template("login.html",flag=flag)
     else:
-        phone_no=os.getenv("PH_NO")
-        ph_no="+91"+str(phone_no)
+        phone_no1=os.getenv("PH_NO1")
+        ph_no1="+91"+str(phone_no1)
+        phone_no2=os.getenv("PH_NO2")
+        ph_no1="+91"+str(phone_no2)
         message="SERVER UNDER MAINTANCE"
-        sendadmin_msg(message,ph_no)
-        return render_template("Staff.html",flag=flag)
+        sendadmin1_msg(message,ph_no1)
+        sendadmin2_msg(message,ph_no2)
+        return render_template('Staff.html',flag=flag)
 @app.route('/download')
 def download_file():
     try:
@@ -580,10 +592,13 @@ def clear_rec():
         message_del_data()
         return render_template('Staff.html',flag=flag)
     else:
-        phone_no=os.getenv("PH_NO")
-        ph_no="+91"+str(phone_no)
+        phone_no1=os.getenv("PH_NO1")
+        ph_no1="+91"+str(phone_no1)
+        phone_no2=os.getenv("PH_NO2")
+        ph_no1="+91"+str(phone_no2)
         message="SERVER UNDER MAINTANCE"
-        sendadmin_msg(message,ph_no)
+        sendadmin1_msg(message,ph_no1)
+        sendadmin2_msg(message,ph_no2)
         return render_template('Staff.html',flag=flag)
 @app.route('/clear_data',methods=['POST'])
 def clear():
@@ -632,11 +647,14 @@ def hod_data():
         cnx.close()
         return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
     else:
-        phone_no=os.getenv("PH_NO")
-        ph_no="+91"+str(phone_no)
+        phone_no1=os.getenv("PH_NO1")
+        ph_no1="+91"+str(phone_no1)
+        phone_no2=os.getenv("PH_NO2")
+        ph_no1="+91"+str(phone_no2)
         message="SERVER UNDER MAINTANCE"
-        sendadmin_msg(message,ph_no)
-        return render_template('hod.html',flag=flag)
+        sendadmin1_msg(message,ph_no1)
+        sendadmin2_msg(message,ph_no2)
+        return render_template('Staff.html',flag=flag)
 @app.route('/upload', methods=['POST'])
 def upload_marks():
     flag=0
@@ -679,10 +697,13 @@ def upload_marks():
                 data3=process_message_data2()
                 return render_template('message.html',data1=data1,data2=data2,data3=data3)
         else:
-            phone_no=os.getenv("PH_NO")
-            ph_no="+91"+str(phone_no)
+            phone_no1=os.getenv("PH_NO1")
+            ph_no1="+91"+str(phone_no1)
+            phone_no2=os.getenv("PH_NO2")
+            ph_no1="+91"+str(phone_no2)
             message="SERVER UNDER MAINTANCE"
-            sendadmin_msg(message,ph_no)
+            sendadmin1_msg(message,ph_no1)
+            sendadmin2_msg(message,ph_no2)
             return render_template('Staff.html',flag=flag)
 # Run the Flask application
 if __name__ == '__main__':
