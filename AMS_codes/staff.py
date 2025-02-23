@@ -65,7 +65,7 @@ async def login_main(login,email,password):
     else:
         stat='none'
         return stat
-async def sendadmin_msg(message,phno):
+def sendadmin_msg(message,ph_no):
     message = twilio_client.messages.create(
             from_='+15392212587',
             to=f"{ph_no}",
