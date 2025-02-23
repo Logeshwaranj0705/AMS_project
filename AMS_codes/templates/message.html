@@ -132,18 +132,18 @@
       transform: rotate(-45deg); /* Rotate the second line */
     }
     .tick_t1{
-        margin-top:1px 1px 0px 0px;
+        margin:0px 5px 10px 0px;
         background-color:white;
-        width:15%;
-        height:20%;
-        transform: rotate(-35deg);
-    }
-    .tick_t2{
-        margin:5px 6px 3px 4px;
-        transform: rotate(55deg);
-        background-color:white;
-        width:15%;
-        height:55%;
+        width:100%;
+        height:90%;
+        clip-path: polygon(
+                90% 30%,   /* Top center */
+                100% 40%, /* Top right */
+                45% 95%, /* Bottom right */
+                20% 70%, /* Bottom left */
+                30% 60%,   /* Top left */
+                45% 75%   /* Bottom center */
+            );
     }
     .tick{
         width:100%;
@@ -155,8 +155,61 @@
         justify-content: center;
         align-items: center;
     }
+    .popup_done{
+        display:flex;
+        position:fixed;
+        top:35%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        width: 15%;
+        height: 25%;
+        background-color: rgba(255,255,255,0.9);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        margin-top: 10px;
+        z-index: 999;
+        overflow-y: auto;
+        justify-content:center;
+    }
+    .tick_t2{
+        margin:0px 15px 15px 0px;
+        background-color:white;
+        width:100%;
+        height:90%;
+        clip-path: polygon(
+                90% 30%,   /* Top center */
+                100% 40%, /* Top right */
+                45% 95%, /* Bottom right */
+                20% 70%, /* Bottom left */
+                30% 60%,   /* Top left */
+                45% 75%   /* Bottom center */
+            );
+        animation:donemove 2s ease-in-out infinite;
+    }
+    .tick2{
+        position: absolute;
+        width:100%;
+        display:flex;
+        background-color:green;
+        width:45%;
+        height:45%;
+        border-radius:100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .DONE{
+        position: absolute;
+        top:65%
+    }
 </style>
 <body class="bg-light">
+    <div class="popup_done" id="popup_done">
+        <div class="tick2">
+            <div class="tick_t2"></div>
+        </div> 
+        <h2 class="DONE">DONE!</h2>
+    </div>
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup" style="padding-top:60px;padding-bottom:5px">
         <button class="close-btn" onclick="closePopup()"><b>X</b></button>
@@ -194,7 +247,6 @@
                                                 {% else %}
                                                     <div class="tick">
                                                         <div class="tick_t1"></div>
-                                                        <div class="tick_t2"></div>
                                                     </div> 
                                                 {% endif %}
                                                 </td>
@@ -246,7 +298,6 @@
                                                 {% else %}
                                                     <div class="tick">
                                                         <div class="tick_t1"></div>
-                                                        <div class="tick_t2"></div>
                                                     </div> 
                                                 {% endif %}
                                                 </td>
@@ -361,6 +412,13 @@
             document.getElementById('next').style.marginTop = '0px';
             document.getElementById('popup').style.width = '55%';
         }
+          window.onload = function() {
+            document.querySelector('.popup_done').style.display = 'flex';
+
+    setTimeout(function() {
+        document.querySelector('.popup_done').style.display = 'none';
+    }, 4000); 
+    };
     </script>
     <footer class="p-3 mt-5">
         &copy; 2023 Sathyabama Institute of Science and Technology. All rights reserved.
