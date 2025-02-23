@@ -518,7 +518,7 @@ def back_button():
         phone_no=os.getenv("PH_NO")
         ph_no="+91"+str(phone_no)
         message="SERVER UNDER MAINTANCE"
-        sendadmin_msg(message,phno)
+        sendadmin_msg(message,ph_no)
         return render_template('Staff.html',flag=flag) 
 @app.route('/back_hod',methods=['POST'])
 def back_hod_button():
@@ -550,7 +550,7 @@ def logout_data():
         phone_no=os.getenv("PH_NO")
         ph_no="+91"+str(phone_no)
         message="SERVER UNDER MAINTANCE"
-        sendadmin_msg(message,phno)
+        sendadmin_msg(message,ph_no)
         return render_template("Staff.html",flag=flag)
 @app.route('/download')
 def download_file():
@@ -583,7 +583,7 @@ def clear_rec():
         phone_no=os.getenv("PH_NO")
         ph_no="+91"+str(phone_no)
         message="SERVER UNDER MAINTANCE"
-        sendadmin_msg(message,phno)
+        sendadmin_msg(message,ph_no)
         return render_template('Staff.html',flag=flag)
 @app.route('/clear_data',methods=['POST'])
 def clear():
@@ -635,7 +635,7 @@ def hod_data():
         phone_no=os.getenv("PH_NO")
         ph_no="+91"+str(phone_no)
         message="SERVER UNDER MAINTANCE"
-        sendadmin_msg(message,phno)
+        sendadmin_msg(message,ph_no)
         return render_template('hod.html',flag=flag)
 @app.route('/upload', methods=['POST'])
 def upload_marks():
@@ -682,7 +682,7 @@ def upload_marks():
             phone_no=os.getenv("PH_NO")
             ph_no="+91"+str(phone_no)
             message="SERVER UNDER MAINTANCE"
-            sendadmin_msg(message,phno)
+            sendadmin_msg(message,ph_no)
             return render_template('Staff.html',flag=flag)
 # Run the Flask application
 if __name__ == '__main__':
