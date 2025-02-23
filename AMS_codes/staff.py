@@ -524,7 +524,7 @@ def back_button():
         phone_no1=os.getenv("PH_NO1")
         ph_no1="+91"+str(phone_no1)
         phone_no2=os.getenv("PH_NO2")
-        ph_no1="+91"+str(phone_no2)
+        ph_no2="+91"+str(phone_no2)
         message="SERVER UNDER MAINTANCE"
         sendadmin1_msg(message,ph_no1)
         sendadmin2_msg(message,ph_no2)
@@ -559,7 +559,7 @@ def logout_data():
         phone_no1=os.getenv("PH_NO1")
         ph_no1="+91"+str(phone_no1)
         phone_no2=os.getenv("PH_NO2")
-        ph_no1="+91"+str(phone_no2)
+        ph_no2="+91"+str(phone_no2)
         message="SERVER UNDER MAINTANCE"
         sendadmin1_msg(message,ph_no1)
         sendadmin2_msg(message,ph_no2)
@@ -595,7 +595,7 @@ def clear_rec():
         phone_no1=os.getenv("PH_NO1")
         ph_no1="+91"+str(phone_no1)
         phone_no2=os.getenv("PH_NO2")
-        ph_no1="+91"+str(phone_no2)
+        ph_no2="+91"+str(phone_no2)
         message="SERVER UNDER MAINTANCE"
         sendadmin1_msg(message,ph_no1)
         sendadmin2_msg(message,ph_no2)
@@ -650,7 +650,7 @@ def hod_data():
         phone_no1=os.getenv("PH_NO1")
         ph_no1="+91"+str(phone_no1)
         phone_no2=os.getenv("PH_NO2")
-        ph_no1="+91"+str(phone_no2)
+        ph_no2="+91"+str(phone_no2)
         message="SERVER UNDER MAINTANCE"
         sendadmin1_msg(message,ph_no1)
         sendadmin2_msg(message,ph_no2)
@@ -700,7 +700,7 @@ def upload_marks():
             phone_no1=os.getenv("PH_NO1")
             ph_no1="+91"+str(phone_no1)
             phone_no2=os.getenv("PH_NO2")
-            ph_no1="+91"+str(phone_no2)
+            ph_no2="+91"+str(phone_no2)
             message="SERVER UNDER MAINTANCE"
             sendadmin1_msg(message,ph_no1)
             sendadmin2_msg(message,ph_no2)
