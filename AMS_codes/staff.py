@@ -524,7 +524,7 @@ def clear():
     sem=request.form['sem']
     clear_data(arrear,year,exam,sem)
     return render_template('hod.html')
-@app.route('/login', methods=['POST'])
+@app.route('/login_page', methods=['POST'])
 def login_page():
     login_user = request.form['login_user']
     email = request.form['email_user']
