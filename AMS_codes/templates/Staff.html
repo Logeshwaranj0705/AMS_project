@@ -102,12 +102,76 @@
     footer {background-color: rgb(134, 4, 62);color: #fff;}
     footer a {color: #fff;text-decoration: none;}
     footer {background-color: rgb(134, 4, 62); color: #fff; bottom: 0; width: 100%; text-align: center; position: fixed; }
-    <@media (min-width:20px) and (max-width:500px){
+    @media (min-width:20px) and (max-width:500px){
         .popup{height:60%;width:75%}
         .newpopup{top:34%;left:25;width:50%;height:32%}
     }
+    .circle1{
+        margin:2px;
+        background-color: white;
+        width:2%;
+        height:8%;
+        border-radius: 100%;
+        animation:scaleanimation 2s infinite;
+    }
+    .circle2{background-color: white;
+        margin:2px;
+        width:2%;
+        height:8%;
+        border-radius: 100%;
+        animation:scaleanimation 2s infinite 0.5s;}
+    .circle3{background-color: white;
+        margin:2px;
+        width:2%;
+        height:8%;
+        border-radius: 100%;
+        animation:scaleanimation 2s infinite 1s;}
+    .popup_load{
+        display: none;position: fixed;top: 50%;left: 50%;
+        transform: translate(-50%, -50%);
+        width: 30%;
+        height: 20%;
+        background-color: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        padding: 20px;
+        margin-top:10px;
+        z-index: 999;
+        justify-content: center;
+        align-items: center; 
+    }
+    @keyframes scaleanimation{
+        0%{
+            transform: scale(0);
+            opacity:0;
+        }
+        50%{
+            tranfrom:scale(1);
+            opacity:1;
+        }
+        100%{
+            tranform:scale(0.5)
+        }
+
+    }
+    @media (min-width:20px) and (max-width:768px){
+        .circle1{
+            width:4%;
+        }
+        .circle2{
+            width:4%;
+        }
+        .circle3{
+            width:4%;
+        }
+    }
     </style>
 <body>
+    <div class="popup_load" id="popup_load"><h6 style="color:white;margin:5px">PROCESSING DATA</h6>
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+    </div>
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
         <button class="close-btn" onclick="closePopup()"><b>X</b></button>
@@ -178,7 +242,7 @@
                             </div>
                             <!-- Submit Button -->
                             <div class="text-center">
-                                <button class="btn btn-primary" id="submitButton">Submit Marks</button>
+                                <button class="btn btn-primary" id="submitButton" onlclick="loadingscreen()">Submit Marks</button>
                             </div>
                         </form>
                     </div>
@@ -201,6 +265,9 @@
         }
         function newclosePopup() {
             document.getElementById('newpopup').style.display = 'none';
+        }
+        function loadingscreen(){
+            document.getElementById('popup_load').style.display = 'flex';
         }
         window.onload = function() {
             if (flag == 1) {
