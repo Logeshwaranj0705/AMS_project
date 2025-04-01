@@ -250,7 +250,6 @@
                                             <th>NAME</th>
                                             <th>ARREAR COUNT</th>
                                             <th>YEAR</th>
-                                            <th>SEMESTER</th>
                                             <th>EXAM</th>
                                             <th>STATUS</th>
                                         </tr>
@@ -258,7 +257,7 @@
                                     <tbody>
                                         {% for row in data2 %}
                                         <tr>
-                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
+                                            {% for column in ['name', 'arrear_count', 'year',  'exam'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
@@ -300,7 +299,6 @@
                                             <th>NAME</th>
                                             <th>ARREAR COUNT</th>
                                             <th>YEAR</th>
-                                            <th>SEMESTER</th>
                                             <th>EXAM</th>
                                             <th>DATE</th>
                                             <th>STATUS</th>
@@ -309,7 +307,7 @@
                                     <tbody>
                                         {% for row in data3 %}
                                         <tr>
-                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','DATE'] %}
+                                            {% for column in ['name', 'arrear_count', 'year', 'exam','DATE'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
@@ -387,14 +385,13 @@
                                         <th>NAME</th>
                                         <th>ARREAR COUNT</th>
                                         <th>YEAR</th>
-                                        <th>SEMESTER</th>
                                         <th>EXAM</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for row in data1 %}
                                     <tr>
-                                        {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
+                                        {% for column in ['name', 'arrear_count', 'year', 'exam'] %}
                                             <td>{{ row[column] }}</td>
                                         {% endfor %}
                                     </tr>
