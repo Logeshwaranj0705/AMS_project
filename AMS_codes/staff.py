@@ -351,7 +351,7 @@ async def main(file_path, exam, year, cnx, cursor):
                 continue
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s)"
+            query1= "INSERT INTO 3_arrear (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
             values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
