@@ -77,7 +77,7 @@ def sendadmin2_msg(message,ph_no):
             to=f"{ph_no}",
             body=message
         )
-async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx):
+async def send_sms_message(name,count,exam,year,ph_no, message, cursor, cnx):
     try:
         message = twilio_client.messages.create(
             from_='+15392212587',
@@ -88,15 +88,15 @@ async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx)
         cursor.execute(query)
         status="DONE"
         query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s,%s)"
-        values=[name,count,sem,exam,year,status]
+        values=[name,count,exam,year,status]
         cursor.execute(query1,values)
         cnx.commit()
         query2="use status_rec"
         cursor.execute(query2)
         status="DONE"
         now = datetime.datetime.now()
-        query3="insert into status_data(name,arrear_count,sem,exam,year,Status,DATE) values (%s,%s,%s,%s,%s,%s,%s)"
-        values=[name,count,sem,exam,year,status,now]
+        query3="insert into status_data(name,arrear_count,exam,year,Status,DATE) values (%s,%s,%s,%s,%s,%s)"
+        values=[name,count,exam,year,status,now]
         cursor.execute(query3,values)
         cnx.commit()
         print(f"Message sent to {ph_no} regarding arrears.")
@@ -104,46 +104,46 @@ async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx)
         query="use status"
         cursor.execute(query)
         status="PENDING"
-        query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s,%s)"
-        values=[name,count,sem,exam,year,status]
+        query1="insert into status_data(name,arrear_count,exam,year,Status) values (%s,%s,%s,%s,%s)"
+        values=[name,count,exam,year,status]
         cursor.execute(query1,values)
         cnx.commit()
         query2="use status_rec"
         cursor.execute(query2)
         status="PENDING"
         now = datetime.datetime.now()
-        query3="insert into status_data(name,arrear_count,sem,exam,year,Status,DATE) values (%s,%s,%s,%s,%s,%s,%s)"
-        values=[name,count,sem,exam,year,status,now]
+        query3="insert into status_data(name,arrear_count,exam,year,Status,DATE) values (%s,%s,%s,%s,%s,%s)"
+        values=[name,count,exam,year,status,now]
         cursor.execute(query3,values)
         cnx.commit()
         print(f"Failed to send message to {ph_no}: {str(e)}")
-def process_hod_data(year, sem, exam, arrear,cnx,cursor):
+def process_hod_data(year, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
         # Mapping arrear type to database name
     if arrear == 'three_arrear':
         cursor.execute("USE 3_arrear_data")
-        query = "SELECT name, arrear_count,year,sem,exam FROM 3_arrear WHERE year = %s AND sem = %s AND exam = %s"
-        cursor.execute(query, (year, sem, exam))
+        query = "SELECT name, arrear_count,year,exam FROM 3_arrear WHERE year = %s AND exam = %s"
+        cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     elif arrear == 'two_arrear':
         cursor.execute("USE 2_arrear_data")
-        query = "SELECT name, arrear_count,year,sem,exam FROM 2_arrear WHERE year = %s AND sem = %s AND exam = %s"
-        cursor.execute(query, (year, sem, exam))
+        query = "SELECT name, arrear_count,year,exam FROM 2_arrear WHERE year = %s AND sem = %s"
+        cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     elif arrear == 'one_arrear':
         cursor.execute("USE 1_arrear_data")
-        query = "SELECT name, arrear_count,year,sem,exam FROM 1_arrear WHERE year = %s AND sem = %s AND exam = %s"
-        cursor.execute(query, (year, sem, exam))
+        query = "SELECT name, arrear_count,year,sem,exam FROM 1_arrear WHERE year = %s AND sem = %s"
+        cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     elif arrear == 'nil_arrear':
         cursor.execute("USE nil_arrear_data")
-        query = "SELECT name, arrear_count,year,sem,exam FROM nil_arrear WHERE year = %s AND sem = %s AND exam = %s"
-        cursor.execute(query, (year, sem, exam))
+        query = "SELECT name, arrear_count,year,sem,exam FROM nil_arrear WHERE year = %s AND sem = %s"
+        cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     else:
         print("Invalid arrear type")
     return data
-def clear_data(arrear,year,exam,sem):
+def clear_data(arrear,year,exam):
     # Establish a connection to the MySQL database
     db_user = os.getenv("DB_USER")
     db_password = os.getenv("DB_PASSWORD")
@@ -159,23 +159,23 @@ def clear_data(arrear,year,exam,sem):
         # Mapping arrear type to database name
         if arrear == 'three_arrear':
             cursor.execute("USE 3_arrear_data")
-            quary='delete from 3_arrear where year=%s and exam=%s and sem=%s'
-            values=(year,exam,sem)
+            quary='delete from 3_arrear where year=%s and exam=%s'
+            values=(year,exam)
             cursor.execute(quary,values)
         elif arrear == 'two_arrear':
             cursor.execute("USE 2_arrear_data")
-            quary='delete from 2_arrear where year=%s and exam=%s and sem=%s'
-            values=(year,exam,sem)
+            quary='delete from 2_arrear where year=%s and exam=%s'
+            values=(year,exam)
             cursor.execute(quary,values) 
         elif arrear == 'one_arrear':
             cursor.execute("USE 1_arrear_data")
-            quary='delete from 1_arrear where year=%s and exam=%s and sem=%s'
-            values=(year,exam,sem)
+            quary='delete from 1_arrear where year=%s and exam=%s'
+            values=(year,exam)
             cursor.execute(quary,values)
         elif arrear == 'nil_arrear':
             cursor.execute("USE nil_arrear_data")
-            quary='delete from nil_arrear where year=%s and exam=%s and sem=%s'
-            values=(year,exam,sem)
+            quary='delete from nil_arrear where year=%s and exam=%s'
+            values=(year,exam)
             cursor.execute(quary,values)
         else:
             print("Invalid arrear type")
@@ -301,7 +301,7 @@ def process_message_data2():
     cursor.close()
     cnx.close()
     return data3
-async def main(file_path, exam, year, sem, cnx, cursor):
+async def main(file_path, exam, year, cnx, cursor):
     print("Process started")
     cols = columns_read()
     data = read_excel_to_array(file_path)
@@ -316,31 +316,26 @@ async def main(file_path, exam, year, sem, cnx, cursor):
     max_column = ws.max_column + 1
     ws.cell(row=1, column=max_column).value = "Arrear count"
     for i in range(0, len(data)):
-        ws.append(data[i])  # Append each row of data as a list
+        ws.append(data[i])
         count = 0
         subject = []  
         for j in range(3, cols-1):
-            if int(data[i][j]) < 25:  # Assuming scores below 25 are considered arrears
+            if int(data[i][j]) < 25:
                 subject.append(header[j] + ' - ' + str(data[i][j])+'   (FAIL)')
                 count += 1
             else:
                 subject.append(header[j] + ' - ' + str(data[i][j])+'   (PASS)')
-                
-        
-        # Add arrear count to the last column
         ws.cell(row=i+2, column=max_column).value = count
-        
-        # Prepare student data to insert into MongoDB
         student_data = {
-            "name": data[i][2],  # Assuming student name is in the second column
-            "phone_number": str(data[i][cols-1]),  # Ensure phone number is a string
+            "name": data[i][2],
+            "phone_number": str(data[i][cols-1]),
             "subjects": subject,
             "arrear_count": count
         }
         qurey="USE all_data"
         cursor.execute(qurey)
-        query1= "INSERT INTO all_data1 (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-        values = (data[i][2],count,sem,exam,year)
+        query1= "INSERT INTO all_data1 (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s, %s)"
+        values = (data[i][2],count,exam,year)
         cursor.execute(query1,values)
         cnx.commit()
         # Send SMS if arrears are 3 or more
@@ -348,41 +343,44 @@ async def main(file_path, exam, year, sem, cnx, cursor):
             name=data[i][2]
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()}. Please take necessary action."
-            for subject_detail in subject:
-                message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(name,count,sem,exam,year,phone_number, message, cursor, cnx))
+            if(count>=5):
+                for subject_detail in subject:
+                    message += f"\n{subject_detail}"
+                tasks.append(send_sms_message(name,count,exam,year,phone_number, message, cursor, cnx))
+            else:
+                continue
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
+            query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s)"
+            values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
         elif count == 2:
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
+            query1= "INSERT INTO 2_arrear (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
+            values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
         elif count == 1:
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
+            query1= "INSERT INTO 1_arrear (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
+            values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
         else:
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
+            query1= "INSERT INTO nil_arrear (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
+            values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
     wb.save(output_file)
     after_process()
     await asyncio.gather(*tasks)
     print("Process completed")
-async def ESE_main(file_path, exam, year, sem, cnx, cursor):
+async def ESE_main(file_path, exam, year, cnx, cursor):
     print("Process started")
     cols = columns_read()
     data = read_excel_to_array(file_path)
@@ -436,8 +434,8 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
         }
         qurey="USE all_data"
         cursor.execute(qurey)
-        query1= "INSERT INTO all_data1 (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-        values = (data[i][2],count,sem,exam,year)
+        query1= "INSERT INTO all_data1 (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
+        values = (data[i][2],count,exam,year)
         cursor.execute(query1,values)
         cnx.commit()
         if count >= 3:
@@ -445,32 +443,32 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action."
             for subject_detail in subject:
                 message += f"\n{subject_detail}"
-            tasks.append(send_sms_message(name,count,sem,exam,year,phone_number, message, cursor, cnx))
+            tasks.append(send_sms_message(name,count,exam,year,phone_number, message, cursor, cnx))
             qurey="USE 3_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO 3_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
+            query1= "INSERT INTO 3_arrear (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
+            values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
         elif count == 2:
             qurey="USE 2_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO 2_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
+            query1= "INSERT INTO 2_arrear (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
+            values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
         elif count == 1:
             qurey="USE 1_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO 1_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
+            query1= "INSERT INTO 1_arrear (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
+            values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
         else:
             qurey="USE nil_arrear_data"
             cursor.execute(qurey)
-            query1= "INSERT INTO nil_arrear (name,arrear_count,sem,exam,year) VALUES (%s,%s, %s, %s, %s)"
-            values = (data[i][2],count,sem,exam,year)
+            query1= "INSERT INTO nil_arrear (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
+            values = (data[i][2],count,exam,year)
             cursor.execute(query1,values)
             cnx.commit()
     wb.save(output_file)
@@ -605,8 +603,7 @@ def clear():
     arrear=request.form['arrear']
     year=request.form['year']
     exam=request.form['exam']
-    sem=request.form['sem']
-    clear_data(arrear,year,exam,sem)
+    clear_data(arrear,year,exam)
     return render_template('hod.html')
 @app.route('/login_page', methods=['POST'])
 def login_page():
@@ -640,12 +637,11 @@ def hod_data():
     if(flag==0):
         exam = request.form['form_sheet']
         year = request.form['year']  # Get year from form input
-        sem = request.form['sem']  # Get semester from form input
         arrear=request.form['arrears']
-        data=process_hod_data(year, sem, exam, arrear, cnx, cursor)
+        data=process_hod_data(year, exam, arrear, cnx, cursor)
         cursor.close()
         cnx.close()
-        return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
+        return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year)
     else:
         phone_no1=os.getenv("PH_NO1")
         ph_no1="+91"+str(phone_no1)
@@ -674,13 +670,12 @@ def upload_marks():
     if request.method == 'POST':
         exam = request.form['form_sheet']
         year = request.form['year']  # Get year from form input
-        sem = request.form['sem']  # Get semester from form input
         file = request.files['file']
         file.save(os.path.join(os.getcwd(), 'Marks1.xlsx'))
         if(flag==0):
             if exam=="cae1" or exam=="cae2":
                 loop = get_or_create_eventloop()
-                loop.run_until_complete(main('Marks1.xlsx', exam, year, sem, cnx, cursor))
+                loop.run_until_complete(main('Marks1.xlsx', exam, year, cnx, cursor))
                 cursor.close()
                 cnx.close()
                 data1=process_message_data()
@@ -689,7 +684,7 @@ def upload_marks():
                 return render_template('message.html',data1=data1,data2=data2,data3=data3)
             else:
                 loop=get_or_create_eventloop()
-                loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year,sem, cnx, cursor))
+                loop.run_until_complete(ESE_main('Marks1.xlsx',exam,year, cnx, cursor))
                 cursor.close()
                 cnx.close()
                 data1=process_message_data()
