@@ -127,17 +127,17 @@ def process_hod_data(year, exam, arrear,cnx,cursor):
         data = cursor.fetchall()
     elif arrear == 'two_arrear':
         cursor.execute("USE 2_arrear_data")
-        query = "SELECT name, arrear_count,year,exam FROM 2_arrear WHERE year = %s AND sem = %s"
+        query = "SELECT name, arrear_count,year,exam FROM 2_arrear WHERE year = %s AND exam = %s"
         cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     elif arrear == 'one_arrear':
         cursor.execute("USE 1_arrear_data")
-        query = "SELECT name, arrear_count,year,exam FROM 1_arrear WHERE year = %s AND sem = %s"
+        query = "SELECT name, arrear_count,year,exam FROM 1_arrear WHERE year = %s AND exam = %s"
         cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     elif arrear == 'nil_arrear':
         cursor.execute("USE nil_arrear_data")
-        query = "SELECT name, arrear_count,year,exam FROM nil_arrear WHERE year = %s AND sem = %s"
+        query = "SELECT name, arrear_count,year,exam FROM nil_arrear WHERE year = %s AND exam = %s"
         cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     else:
