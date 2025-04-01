@@ -87,7 +87,7 @@ async def send_sms_message(name,count,exam,year,ph_no, message, cursor, cnx):
         query="use status"
         cursor.execute(query)
         status="DONE"
-        query1="insert into status_data(name,arrear_count,sem,exam,year,Status) values (%s,%s,%s,%s,%s,%s)"
+        query1="insert into status_data(name,arrear_count,exam,year,Status) values (%s,%s,%s,%s,%s)"
         values=[name,count,exam,year,status]
         cursor.execute(query1,values)
         cnx.commit()
@@ -132,12 +132,12 @@ def process_hod_data(year, exam, arrear,cnx,cursor):
         data = cursor.fetchall()
     elif arrear == 'one_arrear':
         cursor.execute("USE 1_arrear_data")
-        query = "SELECT name, arrear_count,year,sem,exam FROM 1_arrear WHERE year = %s AND sem = %s"
+        query = "SELECT name, arrear_count,year,exam FROM 1_arrear WHERE year = %s AND sem = %s"
         cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     elif arrear == 'nil_arrear':
         cursor.execute("USE nil_arrear_data")
-        query = "SELECT name, arrear_count,year,sem,exam FROM nil_arrear WHERE year = %s AND sem = %s"
+        query = "SELECT name, arrear_count,year,exam FROM nil_arrear WHERE year = %s AND sem = %s"
         cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     else:
@@ -334,7 +334,7 @@ async def main(file_path, exam, year, cnx, cursor):
         }
         qurey="USE all_data"
         cursor.execute(qurey)
-        query1= "INSERT INTO all_data1 (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s, %s)"
+        query1= "INSERT INTO all_data1 (name,arrear_count,exam,year) VALUES (%s,%s, %s, %s)"
         values = (data[i][2],count,exam,year)
         cursor.execute(query1,values)
         cnx.commit()
