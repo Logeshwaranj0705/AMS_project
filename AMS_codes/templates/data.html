@@ -79,7 +79,6 @@
                                         <th>NAME</th>
                                         <th>ARREAR COUNT</th>
                                         <th>YEAR</th>
-                                        <th>SEMESTER</th>
                                         <th>EXAM</th>
                                     </tr>
                                 </thead>
@@ -89,7 +88,6 @@
                                         <td>{{ row.name }}</td>  <!-- Name -->
                                         <td>{{ row.arrear_count }}</td>  <!-- Arrear Count -->
                                         <td>{{ row.year }}</td>  <!-- Year -->
-                                        <td>{{ row.sem }}</td>  <!-- Semester -->
                                         <td>{{ row.exam }}</td>  <!-- Exam -->
                                     </tr>
                                     {% endfor %}
@@ -102,7 +100,6 @@
                         {% endif %}
                         <form action="/clear_data" method="post">
                             <input type="hidden" name="arrear" value="{{ arrear }}">
-                            <input type="hidden" name="sem" value="{{ sem }}">
                             <input type="hidden" name="exam" value="{{ exam }}">
                             <input type="hidden" name="year" value="{{ year }}">
                             <button class="btn btn-primary text-white" id="buttontag">CLEAR</button>
