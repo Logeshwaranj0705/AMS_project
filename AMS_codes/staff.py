@@ -891,7 +891,7 @@ def clear_rec():
         sendadmin2_msg(message,ph_no2)
         return render_template('Staff.html',flag=flag)
 @app.route('/clear_data_overall',methods=['POST'])
-def clear():
+def clear_overall():
     clear_data_overall()
     return render_template('hod.html')
 @app.route('/clear_data',methods=['POST'])
