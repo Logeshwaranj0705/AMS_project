@@ -89,13 +89,13 @@
     .navbar {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);}
     .navbar-brand {font-family: 'Montserrat', sans-serif;font-weight: 600;}
     .breadcrumb {background-color: transparent;font-size: 1rem;}
-    .card {transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;}
+    .card {transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;background-color: #fbfcfd1c;}
     .btn-primary { color: #fff; background-color: rgb(134, 4, 62); border: none; }
     .card:hover {transform: translateY(-10px);box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);}
     .no-hover {transition: none;box-shadow: none;}
     .no-hover:hover {transform: none;box-shadow: none;}
     .card h3, .card h3 {font-family: 'Montserrat', sans-serif;color: #333;}
-    .card-body {background-color: #f1f1f1;border-radius: 10px;}
+    .card-body {background-color: #f1f1f19d;border-radius: 10px;}
     a {color: #007bff;text-decoration: none;}
     a:hover {text-decoration: underline;}
     .pagination .page-link {color: #007bff;}
@@ -141,6 +141,10 @@
         justify-content: center;
         align-items: center; 
     }
+    
+    .download-link:hover {
+        text-decoration: underline;
+    }
     @keyframes scaleanimation{
         0%{
             transform: scale(0);
@@ -174,13 +178,6 @@
         <div class="circle3"></div>
     </div>
     <div class="overlay" id="overlay"></div>
-    <div class="popup" id="popup">
-        <button class="close-btn" onclick="closePopup()"><b>X</b></button>
-        <h2 style="color:whitesmoke">CAE Exam Formate:</h2>
-        <iframe src="https://itdept2025.blogspot.com/2025/02/blog-post.html" title="Image1" allowfullscreen></iframe>
-        <h2 style="color:whitesmoke">ESE Exam Formate:</h2>
-        <iframe src="https://itdept2025.blogspot.com/2025/02/sem-excel.html" title="Image2" allowfullscreen></iframe>
-    </div>
     <div class="newpopup" id="newpopup">
         <button class="close-btn" onclick="newclosePopup()"><b>X</b></button>
         <div class="caution-block">
@@ -201,49 +198,64 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <!-- Card for Marks Upload -->
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title text-center mb-4">Upload Marksheet</h4>
-                        <form action="/upload" method="post" enctype="multipart/form-data"> 
-                        <div class="mb-3">
-                            <label for="marksSelect" class="form-label">Examination:</label>
-                            <select class="form-select" id="marksSelect" name="form_sheet">
-                                <option value="cae1">CAE-1</option>
-                                <option value="cae2">CAE-2</option>
-                                <option value="ese">ESE</option>
-                            </select>
+                        <h4 class="card-title text-center mb-4 mt-4">Upload Marksheet</h4>
+                        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 text-center mb-3">
+                                    <a href="#" class="download-link" id="downloadLink">Download</a>
+                                </div>
                             </div>
+    
+                            <!-- Examination Selection -->
                             <div class="mb-3">
-                                <label for="marksSelect" class="form-label">Year:</label>
-                                <select class="form-select" id="marksSelect" name="year">
-                                        <option value="1-year">1-year</option>
-                                        <option value="2-year">2-year</option>
-                                        <option value="3-year">3-year</option>
-                                        <option value="4-year">4-year</option>
-                                    </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="marksSelect" class="form-label">Semester:</label>
-                                        <select class="form-select" id="marksSelect" name="sem">
-                                                <option value="sem-1">Sem 1</option>
-                                                <option value="sem-2">Sem 2</option>
-                                                <option value="sem-3">Sem 3</option>
-                                                <option value="sem-4">Sem 4</option>
-                                                <option value="sem-5">Sem 5</option>
-                                                <option value="sem-6">Sem 6</option>
-                                                <option value="sem-7">Sem 7</option>
-                                                <option value="sem-8">Sem 8</option>
-                                        </select>
+                                <label for="examSelect" class="form-label">Examination:</label>
+                                <select class="form-select" id="examSelect" name="form_sheet">
+                                    <option value="cae1">CAE-1</option>
+                                    <option value="cae2">CAE-2</option>
+                                    <option value="ese">ESE</option>
+                                    <option value="overall">Overall</option>
+                                </select>
                             </div>
-                        <!-- File Upload Input -->
+    
+                            <!-- Year Selection -->
+                            <div class="mb-3">
+                                <label for="yearSelect" class="form-label">Year:</label>
+                                <select class="form-select" id="yearSelect" name="year">
+                                    <option value="1-year">First Year</option>
+                                    <option value="2-year">Second Year</option>
+                                    <option value="3-year">Third Year</option>
+                                    <option value="4-year">Fourth Year</option>
+                                </select>
+                            </div>
+    
+                            <!-- Semester Selection -->
+                            <div class="mb-3" id="semesterContainer">
+                                <label for="semSelect" class="form-label">Semester:</label>
+                                <select class="form-select" id="semSelect" name="sem">
+                                    <option value="sem-1">Semester 1</option>
+                                    <option value="sem-2">Semester 2</option>
+                                    <option value="sem-3">Semester 3</option>
+                                    <option value="sem-4">Semester 4</option>
+                                    <option value="sem-5">Semester 5</option>
+                                    <option value="sem-6">Semester 6</option>
+                                    <option value="sem-7">Semester 7</option>
+                                    <option value="sem-8">Semester 8</option>
+                                </select>
+                            </div>
+    
+                            <!-- File Upload Input -->
                             <div class="mb-3">
                                 <label for="fileUpload" class="form-label">Upload File</label>
-                                <input type="file" class="form-control" id="file" name="file">
+                                <input type="file" class="form-control" id="fileUpload" name="file">
                             </div>
+    
+                            <!-- Error Message (Initially Hidden) -->
+                            <div id="fileErrorMsg" class="text-danger text-center mb-3" style="display: none;"><h5>File not uploaded!</h5></div>
                             <!-- Submit Button -->
                             <div class="text-center">
-                                <button class="btn btn-primary" id="submitButton" onclick="loadingscreen()">Submit Marks</button>
+                                <button type="submit" class="btn btn-primary">Submit Marks</button>
                             </div>
                         </form>
                     </div>
@@ -251,8 +263,95 @@
             </div>
         </div>
     </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const examSelect = document.getElementById("examSelect"); 
+            const yearSelect = document.getElementById("yearSelect");
+            const semSelect = document.getElementById("semSelect");
+            const semContainer = document.getElementById("semesterContainer");
+            const downloadLink = document.getElementById("downloadLink");
+    
+            // Semester mapping based on year selection
+            const semesters = {
+                "1-year": ["Semester 1", "Semester 2"],
+                "2-year": ["Semester 3", "Semester 4"],
+                "3-year": ["Semester 5", "Semester 6"],
+                "4-year": ["Semester 7", "Semester 8"]
+            };
+    
+            function updateDownloadText() {
+                const examValue = examSelect.value.toLowerCase();
+                let text = "Download"; // Default text
+    
+                if (examValue === "cae1") {
+                    text = "CAE-1 Format Download";
+                } else if (examValue === "cae2") {
+                    text = "CAE-2 Format Download";
+                } else if (examValue === "ese") {
+                    text = "ESE Format Download";
+                } else if (examValue === "overall") {
+                    text = "Overall Format Download";
+                }
+    
+                downloadLink.textContent = text;
+            }
+    
+            function updateSemesters() {
+                const selectedYear = yearSelect.value;
+                semSelect.innerHTML = ""; // Clear previous options
+    
+                semesters[selectedYear].forEach(sem => {
+                    const option = document.createElement("option");
+                    option.textContent = sem;
+                    option.value = sem.toLowerCase().replace(" ", "-");
+                    semSelect.appendChild(option);
+                });
+            }
+    
+            function handleExamChange() {
+                if (examSelect.value === "overall") {
+                    semContainer.style.display = "none"; // Hide semester
+                } else {
+                    semContainer.style.display = "block"; // Show semester
+                    updateSemesters();
+                }
+            }
+    
+            // Attach event listeners
+            examSelect.addEventListener("change", () => {
+                updateDownloadText();
+                handleExamChange();
+            });
+            yearSelect.addEventListener("change", updateSemesters);
+    
+            // Initialize on page load
+            updateDownloadText();
+            updateSemesters();
+        });
+    
+        document.getElementById("uploadForm").addEventListener("submit", function (event) {
+            const fileInput = document.getElementById("fileUpload");
+            const errorMsg = document.getElementById("fileErrorMsg");
+    
+            if (!fileInput.files.length) {  // If no file is selected
+                event.preventDefault();  // Stop form submission
+                errorMsg.style.display = "block"; // Show error message
+            } else {
+                errorMsg.style.display = "none"; // Hide error message
+            }
+        });
+    </script>
     <script>
         var flag = document.getElementById('flag').value;
+        function newPopup(){
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';                        
+        }
+        function closePopup(){
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';                        
+        }
         function shownewPopup() {
             document.getElementById('newpopup').style.display = 'block';
         }
@@ -265,6 +364,9 @@
         window.onload = function() {
             if (flag == 1) {
                 shownewPopup();
+            }
+            else{
+                newPopup();
             }
         };
     </script>
