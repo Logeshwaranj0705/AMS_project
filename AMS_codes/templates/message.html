@@ -17,7 +17,7 @@
     height:100%;}
     .table-container {max-height:250px; overflow-y:auto; overflow-x:auto; margin-top: 20px;}
     table {width: 100%;border-collapse: collapse;}
-    table th, table td {text-align: center;padding: 10px 25px 10px 25px;vertical-align: middle;}
+    table th, table td {text-align: center;padding: 10px;vertical-align: middle;}
     table th {background-color: rgb(134, 4, 62);color: white;}
     .new-span{color:red;}
     .text-center{font-size:medium}
@@ -250,6 +250,7 @@
                                             <th>NAME</th>
                                             <th>ARREAR COUNT</th>
                                             <th>YEAR</th>
+                                            <th>SEMESTER</th>
                                             <th>EXAM</th>
                                             <th>STATUS</th>
                                         </tr>
@@ -257,7 +258,7 @@
                                     <tbody>
                                         {% for row in data2 %}
                                         <tr>
-                                            {% for column in ['name', 'arrear_count', 'year',  'exam'] %}
+                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
@@ -299,6 +300,7 @@
                                             <th>NAME</th>
                                             <th>ARREAR COUNT</th>
                                             <th>YEAR</th>
+                                            <th>SEMESTER</th>
                                             <th>EXAM</th>
                                             <th>DATE</th>
                                             <th>STATUS</th>
@@ -307,7 +309,7 @@
                                     <tbody>
                                         {% for row in data3 %}
                                         <tr>
-                                            {% for column in ['name', 'arrear_count', 'year', 'exam','DATE'] %}
+                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','DATE'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
@@ -385,13 +387,14 @@
                                         <th>NAME</th>
                                         <th>ARREAR COUNT</th>
                                         <th>YEAR</th>
+                                        <th>SEMESTER</th>
                                         <th>EXAM</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for row in data1 %}
                                     <tr>
-                                        {% for column in ['name', 'arrear_count', 'year', 'exam'] %}
+                                        {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
                                             <td>{{ row[column] }}</td>
                                         {% endfor %}
                                     </tr>
@@ -421,6 +424,7 @@
             document.getElementById('container1').style.display = 'flex';
             document.getElementById('prev').style.marginTop = '10px';
             document.getElementById('next').style.marginTop = '10px';
+            document.getElementById('popup').style.width = '50%';
 
         }
         function recordPage(){
@@ -428,6 +432,7 @@
             document.getElementById('container2').style.display = 'flex';
             document.getElementById('prev').style.marginTop = '0px';
             document.getElementById('next').style.marginTop = '0px';
+            document.getElementById('popup').style.width = '55%';
         }
           window.onload = function() {
             document.querySelector('.popup_done').style.display = 'flex';
