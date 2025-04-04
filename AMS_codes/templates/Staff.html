@@ -253,14 +253,6 @@
     </div>
     <script>
         var flag = document.getElementById('flag').value;
-        function newPopup(){
-            document.getElementById('popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';                        
-        }
-        function closePopup(){
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';                        
-        }
         function shownewPopup() {
             document.getElementById('newpopup').style.display = 'block';
         }
@@ -273,9 +265,6 @@
         window.onload = function() {
             if (flag == 1) {
                 shownewPopup();
-            }
-            else{
-                newPopup();
             }
         };
     </script>
