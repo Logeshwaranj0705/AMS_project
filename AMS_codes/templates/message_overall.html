@@ -407,7 +407,7 @@
                                     <tbody>
                                         {% for row in data3 %}
                                         <tr>
-                                            {% for column in ['name', 'arrear_count', 'year', 'exam','DATE'] %}
+                                            {% for column in ['name', 'arrear_count', 'year', 'exam','date'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
@@ -543,7 +543,7 @@
         
         function confirmClear(event) {
             event.preventDefault();
-            let confirmAction = confirm("Are you sure you want to clear the record?");
+            let confirmAction = confirm("Are you sure you want to permently delete the record from the database?");
             if (confirmAction) {
                 event.target.form.submit();
             }
