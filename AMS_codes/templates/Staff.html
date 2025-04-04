@@ -91,11 +91,11 @@
     .breadcrumb {background-color: transparent;font-size: 1rem;}
     .card {transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;background-color: #fbfcfd1c;}
     .btn-primary { color: #fff; background-color: rgb(134, 4, 62); border: none; }
-    .card:hover {transform: translateY(-10px);box-shadow: 0 10px 20px rgba(0, 0, 0, 0.7);}
+    .card:hover {transform: translateY(-10px);box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);}
     .no-hover {transition: none;box-shadow: none;}
     .no-hover:hover {transform: none;box-shadow: none;}
     .card h3, .card h3 {font-family: 'Montserrat', sans-serif;color: #333;}
-    .card-body {background-color: #f1f1f19d;border-radius: 10px;}
+    .card-body {background-color: white;border-radius: 10px;}
     a {color: #007bff;text-decoration: none;}
     a:hover {text-decoration: underline;}
     .pagination .page-link {color: #007bff;}
@@ -255,7 +255,7 @@
                             <div id="fileErrorMsg" class="text-danger text-center mb-3" style="display: none;"><h5>File not uploaded!</h5></div>
                             <!-- Submit Button -->
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Submit Marks</button>
+                                <button type="submit" class="btn btn-primary" onclick="loadingscreen()">Submit Marks</button>
                             </div>
                         </form>
                     </div>
@@ -344,14 +344,6 @@
     </script>
     <script>
         var flag = document.getElementById('flag').value;
-        function newPopup(){
-            document.getElementById('popup').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';                        
-        }
-        function closePopup(){
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';                        
-        }
         function shownewPopup() {
             document.getElementById('newpopup').style.display = 'block';
         }
