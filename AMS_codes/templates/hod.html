@@ -81,13 +81,10 @@ body { background-image: url('https://www.sathyabama.ac.in/sites/default/files/i
 .card {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
-.btn-primary { color: #fff; background-color: rgb(134, 4, 62); border: none; 
+.btn-primary { color: #fff; border: none; 
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
+
 .no-hover {
     transition: none;
     box-shadow: none;
@@ -142,7 +139,7 @@ footer a:hover {
 footer { 
     background-color: rgb(134, 4, 62); color: #fff; bottom: 0; width: 100%; text-align: center; 
 }
-<@media (min-width:20px) and (max-width:500px){
+@media (min-width:20px) and (max-width:500px){
         .newpopup{top:34%;left:25;width:50%;height:32%}
 }
 </style>
@@ -191,39 +188,104 @@ footer {
                                                         <option value="cae1">CAE-1</option>
                                                         <option value="cae2">CAE-2</option>
                                                         <option value="ese">ESE</option>
+                                                        <option value="overall">Overall</option>
                                                     </select>
                                                     </div>
                                                     <div class="mb-3">
                                                     <label for="marksSelect" class="form-label">No of Arrears:</label>
                                                     <select class="form-select" id="marksSelect" name="arrears">
-                                                            <option value="three_arrear">3-Arrear</option>
-                                                            <option value="two_arrear">2-Arrear</option>
-                                                            <option value="one_arrear">1-Arrear</option>
-                                                            <option value="nil_arrear">Nil-Arrear</option>
+                                                        <option value="five_and_above">Five And Above</option>
+                                                            <option value="three_arrear">3 And Above Arrear</option>
+                                                            <option value="two_arrear"> Two Arrear</option>
+                                                            <option value="one_arrear">One Arrear</option>
+                                                            <option value="nil_arrear">Nil Arrear</option>
                                                         </select>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="marksSelect" class="form-label">Year:</label>
-                                                            <select class="form-select" id="marksSelect" name="year">
-                                                                    <option value="1-year">1-year</option>
-                                                                    <option value="2-year">2-year</option>
-                                                                    <option value="3-year">3-year</option>
-                                                                    <option value="4-year">4-year</option>
-                                                                </select>
-                                                                </div>
-                                                                <div class="mb-3">
-                                                                    <label for="marksSelect" class="form-label">Semester:</label>
-                                                                    <select class="form-select" id="marksSelect" name="sem">
-                                                                            <option value="sem-1">Sem 1</option>
-                                                                            <option value="sem-2">Sem 2</option>
-                                                                            <option value="sem-3">Sem 3</option>
-                                                                            <option value="sem-4">Sem 4</option>
-                                                                            <option value="sem-5">Sem 5</option>
-                                                                            <option value="sem-6">Sem 6</option>
-                                                                            <option value="sem-7">Sem 7</option>
-                                                                            <option value="sem-8">Sem 8</option>
-                                                                </select>
+                                                            <label for="yearSelect" class="form-label">Year:</label>
+                                                            <select class="form-select" id="yearSelect" name="year">
+                                                                <option value="1-year">First Year</option>
+                                                                <option value="2-year">Second Year</option>
+                                                                <option value="3-year">Third Year</option>
+                                                                <option value="4-year">Fourth Year</option>
+                                                            </select>
                                                         </div>
+                                                        
+                                                        <div class="mb-3">
+                                                            <label for="semSelect" class="form-label">Semester:</label>
+                                                            <select class="form-select" id="semSelect" name="sem">
+                                                                <!-- Options will be updated dynamically -->
+                                                            </select>
+                                                        </div>
+                                                        
+                                                        <script>
+                                                            document.addEventListener("DOMContentLoaded", function () {
+                                                                const examSelect = document.getElementById("marksSelect");
+                                                                const arrearsSelect = document.getElementsByName("arrears")[0]; // Select arrears dropdown
+                                                                const semSelect = document.getElementById("semSelect");
+                                                                const yearSelect = document.getElementById("yearSelect");
+                                                        
+                                                                const semesters = {
+                                                                    "1-year": ["Semester 1", "Semester 2"],
+                                                                    "2-year": ["Semester 3", "Semester 4"],
+                                                                    "3-year": ["Semester 5", "Semester 6"],
+                                                                    "4-year": ["Semester 7", "Semester 8"]
+                                                                };
+                                                        
+                                                                const arrearsOptions = {
+                                                                    "overall": ["Five And Above"],
+                                                                    "default": ["3 And Above Arrear", "Two Arrear", "One Arrear", "Nil Arrear"]
+                                                                };
+                                                        
+                                                                function updateSemesters() {
+                                                                    const selectedYear = yearSelect.value;
+                                                                    semSelect.innerHTML = ""; // Clear previous options
+                                                        
+                                                                    semesters[selectedYear].forEach(sem => {
+                                                                        const option = document.createElement("option");
+                                                                        option.textContent = sem;
+                                                                        option.value = sem.toLowerCase().replace(" ", "-"); // e.g., "Semester 1" -> "semester-1"
+                                                                        semSelect.appendChild(option);
+                                                                    });
+                                                                }
+                                                        
+                                                                function updateArrearsAndSem() {
+                                                                    const selectedExam = examSelect.value;
+                                                                    arrearsSelect.innerHTML = ""; // Clear arrears options
+                                                        
+                                                                    if (selectedExam === "overall") {
+                                                                        // Only show "Five And Above" and hide Semester dropdown
+                                                                        const option = document.createElement("option");
+                                                                        option.textContent = "Five And Above";
+                                                                        option.value = "five_and_above";
+                                                                        arrearsSelect.appendChild(option);
+                                                        
+                                                                        semSelect.parentElement.style.display = "none"; // Hide semester dropdown
+                                                                    } else {
+                                                                        // Show other arrears options and display Semester dropdown
+                                                                        arrearsOptions["default"].forEach(arrear => {
+                                                                            const option = document.createElement("option");
+                                                                            option.textContent = arrear;
+                                                                            option.value = arrear.toLowerCase().replace(/ /g, "_"); // e.g., "3 And Above Arrear" -> "3_and_above_arrear"
+                                                                            arrearsSelect.appendChild(option);
+                                                                        });
+                                                        
+                                                                        semSelect.parentElement.style.display = "block"; // Show semester dropdown
+                                                                    }
+                                                                }
+                                                        
+                                                                // Event Listeners
+                                                                yearSelect.addEventListener("change", updateSemesters);
+                                                                examSelect.addEventListener("change", updateArrearsAndSem);
+                                                        
+                                                                // Initialize on page load
+                                                                updateSemesters();
+                                                                updateArrearsAndSem();
+                                                            });
+                                                        </script>
+                                                        
+                                                        
+                                                        
                                                 <!-- File Upload Input -->
                                                     <!-- Submit Button -->
                                                     <div class="text-center">
