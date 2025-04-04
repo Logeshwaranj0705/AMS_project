@@ -309,7 +309,7 @@
                                     <tbody>
                                         {% for row in data3 %}
                                         <tr>
-                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','DATE'] %}
+                                            {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','date'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
                                             <td>{% if row.Status == 'PENDING' %}
