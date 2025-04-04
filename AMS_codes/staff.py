@@ -194,6 +194,32 @@ def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     else:
         print("Invalid arrear type")
     return data
+def clear_data_overall():
+    db_user = os.getenv("DB_USER")
+    db_password = os.getenv("DB_PASSWORD")
+    db_host = os.getenv("DB_HOST")
+    cnx = pymysql.connect(
+    cursorclass=pymysql.cursors.DictCursor,
+    host=db_host,
+    password=db_password,
+    port=15274,
+    user=db_user,)
+    cursor = cnx.cursor()
+    try:
+        # Mapping arrear type to database name
+        if arrear == 'three_arrear':
+            cursor.execute("USE 5_arrear_data")
+            quary='delete from 5_arrear'
+            values=(year,exam,sem)
+            cursor.execute(quary,values)
+        else:
+            print("Invalid arrear type")
+
+    finally:
+        cnx.commit()
+        cursor.close()
+        cnx.close()
+    return None
 def clear_data(arrear,year,exam,sem):
     # Establish a connection to the MySQL database
     db_user = os.getenv("DB_USER")
@@ -483,7 +509,11 @@ async def over_main(file_path, exam, year, cnx, cursor):
             query = "USE all_data_overall"
             cursor.execute(query)
             query1 = "INSERT INTO all_data (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
-            values = (name, arrear_count, sem, exam, year)
+            values = (name, arrear_count, exam, year)
+            query = "USE 5_arrear_data"
+            cursor.execute(query)
+            query1 = "INSERT INTO 5_arrear (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
+            values = (name, arrear_count, exam, year)
             cursor.execute(query1, values)
             cnx.commit()
             phone_number = "+91" + phone_number
@@ -860,6 +890,10 @@ def clear_rec():
         sendadmin1_msg(message,ph_no1)
         sendadmin2_msg(message,ph_no2)
         return render_template('Staff.html',flag=flag)
+@app.route('/clear_data_overall',methods=['POST'])
+def clear():
+    clear_data_overall()
+    return render_template('hod.html')
 @app.route('/clear_data',methods=['POST'])
 def clear():
     arrear=request.form['arrear']
