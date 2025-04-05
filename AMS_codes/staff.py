@@ -161,9 +161,9 @@ def process_hod_data_overall(year,exam,arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
         # Mapping arrear type to database name
     if arrear == 'five_arrear':
-        cursor.execute("USE ")
-        query = "SELECT name, arrear_count,year,sem,exam FROM 3_arrear WHERE year = %s AND sem = %s AND exam = %s"
-        cursor.execute(query, (year, sem, exam))
+        cursor.execute("USE 5_arrear_data")
+        query = "SELECT name, arrear_count,year,exam FROM 5_arrear WHERE year = %s AND sem = %s AND exam = %s"
+        cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     else:
         print("Invalid arrear type")
@@ -194,32 +194,6 @@ def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     else:
         print("Invalid arrear type")
     return data
-def clear_data_overall():
-    db_user = os.getenv("DB_USER")
-    db_password = os.getenv("DB_PASSWORD")
-    db_host = os.getenv("DB_HOST")
-    cnx = pymysql.connect(
-    cursorclass=pymysql.cursors.DictCursor,
-    host=db_host,
-    password=db_password,
-    port=15274,
-    user=db_user,)
-    cursor = cnx.cursor()
-    try:
-        # Mapping arrear type to database name
-        if arrear == 'three_arrear':
-            cursor.execute("USE 5_arrear_data")
-            quary='delete from 5_arrear'
-            values=(year,exam,sem)
-            cursor.execute(quary,values)
-        else:
-            print("Invalid arrear type")
-
-    finally:
-        cnx.commit()
-        cursor.close()
-        cnx.close()
-    return None
 def clear_data(arrear,year,exam,sem):
     # Establish a connection to the MySQL database
     db_user = os.getenv("DB_USER")
@@ -509,11 +483,7 @@ async def over_main(file_path, exam, year, cnx, cursor):
             query = "USE all_data_overall"
             cursor.execute(query)
             query1 = "INSERT INTO all_data (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
-            values = (name, arrear_count, exam, year)
-            query = "USE 5_arrear_data"
-            cursor.execute(query)
-            query1 = "INSERT INTO 5_arrear (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
-            values = (name, arrear_count, exam, year)
+            values = (name, arrear_count, sem, exam, year)
             cursor.execute(query1, values)
             cnx.commit()
             phone_number = "+91" + phone_number
@@ -644,7 +614,6 @@ async def ESE_main(file_path, exam, year, sem, cnx, cursor):
         cursor.execute(query1,values)
         cnx.commit()
         if count >= 3:
-            name=data[i][2]
             phone_number = "+91" + student_data['phone_number']
             message = f"Dear {student_data['name']}, you have {count} Arrears in {exam.upper()} End-semester Exam. Please take necessary action."
             for subject_detail in subject:
@@ -891,10 +860,6 @@ def clear_rec():
         sendadmin1_msg(message,ph_no1)
         sendadmin2_msg(message,ph_no2)
         return render_template('Staff.html',flag=flag)
-@app.route('/clear_data_overall',methods=['POST'])
-def clear_overall():
-    clear_data_overall()
-    return render_template('hod.html')
 @app.route('/clear_data',methods=['POST'])
 def clear():
     arrear=request.form['arrear']
