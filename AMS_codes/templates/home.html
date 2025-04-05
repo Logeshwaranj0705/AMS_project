@@ -11,10 +11,33 @@
     margin: 0;
     padding: 0;
 }
-nav{
-    background-color: black;
+nav {
+    background-color: rgb(134, 4, 62);
+    padding: 6px 0; /* Increases the height of the nav bar */
+}
+nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Ensures space between logo and logout button */
+}
+nav .container img {
+    margin-left: 7%; /* Moves the image to the left with a 20% margin */
+}
+nav .container button{
+    background-color:rgb(134, 4, 62); /* Bootstrap primary color */
     color: white;
-    padding:5px 5px 5px 0px;
+    border: none;
+    margin-right: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+nav button:hover {
+    background-color: #4d4d4d; /* Darker shade on hover */
+}
+nav form {
+    margin-left: auto; /* Pushes the logout button to the right */
 }
 li,h4,ul{
     display: inline;
@@ -42,6 +65,8 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-image: url('https://www.sathyabama.ac.in/sites/default/files/inline-images/DJI_0105-New-Low.jpg'); /* Replace with your image URL */
     background-size: cover;  /* Make the image cover the entire screen */
     background-position: center;  /* Center the image */
@@ -65,6 +90,7 @@ body {
     width: 100%;
     height: 100%;
     background-color:rgba(0,0,0,0.5);
+    flex: 1; /* Ensures the content takes up available space */
 }
 .about{
     margin:10px;
@@ -119,22 +145,28 @@ form{
     position:relative;
     display:inline-block
 }
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(134, 4, 62);
+    color: white;
+    padding: 8px 0;
+    text-align: center;
+}
     </style>
 </head>
 <body>
-    <div class="header">
-        <nav>
-            <form action="/home" method="post" enctype="multipart/form-data">
-                <button class="home" name="home">HOME</button>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <img style="width:200px; height:55px" class="navbar-brand px-2" src="https://erp.sathyabama.ac.in/assets/images/sathyabama_header-logo-A++.jpg">
+            <form action="/logout" method="post" enctype="multipart/form-data">
+                <button class="btn btn-primary" name="home">HOME</button>
+                <button class="btn btn-primary" name="about">ABOUT</button>
+                <button class="btn btn-primary" name="logout">LOGIN</button>
             </form>
-            <form action="/about" method="post" enctype="multipart/form-data">
-                <button class="about" name="about">ABOUT</button>
-            </form>
-            <form action="/login" method="post" enctype="multipart/form-data">
-                <button class="login" name="login">LOGIN</button>
-            </form>
-        </nav>
-    </div>
+        </div>
+    </nav>
     <div class="overlay">
         <div class="proj" >
             <center>
@@ -153,5 +185,26 @@ form{
                 <p>"We're thrilled to have you join our dynamic and innovative community. Here, you'll embark on a journey of exploration, learning, and collaboration in the ever-evolving world of technology. Whether you're a seasoned professional or just beginning your IT adventure, you'll find endless opportunities to grow, excel, and make a meaningful impact. Together, let's push boundaries, harness the power of technology, and pave the way for a brighter future."</p>
             </center>
         </div>
+        <div class="icons" style="margin-top: 10px; text-align: center;">
+            <a href="https://www.facebook.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://x.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://www.instagram.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 30px; height: 30px;">
+            </a>
+            <a id="a" href="mailto:adminit@sathyabama.ac.in" style="margin: 0 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" style="width: 30px; height: 30px;">
+                <span style="font-size: large; color: #fff;">Contact admin</span>
+            </a>
+        </div>
     </div>
+    <footer>
+        <div>
+            <p>&copy; 2025 Sathyabama Institute of Science and Technology. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
+</html>
