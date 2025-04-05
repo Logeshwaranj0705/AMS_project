@@ -143,7 +143,6 @@
     }
     
     .download-link:hover {
-        text-decoration: underline;
     }
     @keyframes scaleanimation{
         0%{
@@ -201,12 +200,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title text-center mb-4 mt-4">Upload Marksheet</h4>
-                        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-center mb-3">
-                                    <a href="#" class="download-link" id="downloadLink">Download</a>
-                                </div>
+                        <form action="/download_format" method="post" enctype="multipart/form-data">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 text-center mb-3">
+                                <button class="btn btn-primary" id="downloadLink">Download</button>
                             </div>
+                        </div></form>
+                        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
     
                             <!-- Examination Selection -->
                             <div class="mb-3">
@@ -250,10 +250,7 @@
                                 <label for="fileUpload" class="form-label">Upload File</label>
                                 <input type="file" class="form-control" id="fileUpload" name="file">
                             </div>
-    
-                            <!-- Error Message (Initially Hidden) -->
                             <div id="fileErrorMsg" class="text-danger text-center mb-3" style="display: none;"><h5>File not uploaded!</h5></div>
-                            <!-- Submit Button -->
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary" onclick="loadingscreen()">Submit Marks</button>
                             </div>
