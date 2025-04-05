@@ -7,35 +7,79 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/ta/6/69/Sathyabama_logo.png">
 </head>
-<style>body, html {
-    height: 100%;
-    margin: 0;
-}
-.bg-image {
-    background-image: url('https://www.sathyabama.ac.in/sites/default/files/2020-01/DJI_0221.jpg'); /* Replace with your image URL */
-    background-size: cover;
-    background-position: center;
-    height: 100%;
-}
-.login-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.login-form {
-    background: rgba(x, y, z, 0);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    border-style:solid;
-    border-color:gray;
-    border-width:2px;}
-@media (min-width:20px) and (max-width:500px){
-    .login-form{max-width:375px ;}
-}
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .bg-image {
+        background-image: url('https://www.sathyabama.ac.in/sites/default/files/2020-01/DJI_0221.jpg'); /* Replace with your image URL */
+        background-size: cover;
+        background-position: center;
+        height: 100%;
+    }
+
+    .login-container {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .login-form {
+        background: rgba(x, y, z, 0);
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400px;
+        border-style: solid;
+        border-color: gray;
+        border-width: 2px;
+    }
+
+    @media (min-width: 20px) and (max-width: 500px) {
+        .login-form {
+            max-width: 375px;
+        }
+    }
+
+    .icons {
+        margin-top: 20px; /* Add spacing between the login form and icons */
+        text-align: center;
+    }
+
+    .icons a {
+        margin: 0 10px;
+        text-decoration: none;
+        display: inline-flex; /* Ensures alignment for all icons, including the one with text */
+        align-items: center; /* Vertically aligns the icon and text */
+        gap: 8px; /* Adds spacing between the icon and text */
+        color: inherit; /* Ensures consistent text color */
+    }
+
+    .icons img {
+        width: 30px;
+        height: 30px;
+    }
+
+    #a span {
+        font-size: large;
+        color: #fff; /* Ensures the text color matches the design */
+    }
+
+    footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center; /* Centers the content */
+        padding: 10px 0; /* Adds vertical spacing */
+        font-size: 14px; /* Adjusts the font size */
+        color: white; /* Ensures the text is visible */
+        background: rgba(0, 0, 0, 0.5); /* Semi-transparent background to blend with bg-image */
+    }
 </style>
 <body>
     <div class="bg-image">
@@ -44,9 +88,9 @@
                 <img src="https://erp.sathyabama.ac.in/assets/images/sathyabama_header-logo-A++.jpg" class="img-fluid pb-3">
                 <form action="/login_page" method="post" enctype="multipart/form-data">
                     <select class="custom-select ng-pristine ng-valid ng-touched" fdprocessedid="158ns" name="login_user">
-                        <option class="p-3" >HOD</option>
-                        <option class="p-3" >Staff</option>
-                    </select>
+                        <option class="p-3">HOD</option>
+                        <option class="p-3">Staff</option>
+                    </select>
                     <div class="form-group">
                         <label for="username" class="text-white pt-3"><b>Email</b></label>
                         <input type="email" class="form-control" id="username" name="email_user" placeholder="Enter Email" required>
@@ -61,8 +105,27 @@
                     <a class="text-white d-flex justify-content-center mt-2" href="https://erp.sathyabama.ac.in/account/reset-password">Forgot Your Password?</a>
                 </form>
             </div>
+            <div class="icons">
+                <a href="https://www.facebook.com" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook">
+                </a>
+                <a href="https://x.com" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X">
+                </a>
+                <a href="https://www.instagram.com" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+                </a>
+                <a id="a" href="mailto:adminit@sathyabama.ac.in">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail">
+                    <span>Contact admin</span>
+                </a>
+            </div>
         </div>
     </div>
+
+    <footer>
+        &copy; 2025 Sathyabama Institute of Science and Technology. All Rights Reserved.
+    </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
