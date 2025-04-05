@@ -10,8 +10,7 @@
 <style>
         a {
             text-decoration: none;
-            color: white; 
-            background-color: var(--primary-color);
+            background-color:rgb(134, 4, 62) ;
             padding: 7px;
             border-radius: 4px;
         }
@@ -213,7 +212,7 @@
                         <h4 class="card-title text-center mb-4 mt-4">Upload Marksheet</h4>
                         <div class="row justify-content-center">
                             <div class="col-md-6 text-center mb-3">
-                                <a id="downloadLink" href="{{url_for('download_file_format')}}" download="cae_format.xlsx" value="">Download Excel File</a>
+                                <a id="downloadLink" href="{{url_for('download_file_format')}}" download="cae_format.xlsx" value="" style="text-decoration: none;color: white; ">Download Excel File</a>
                             </div>
                         </div>
                         <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
