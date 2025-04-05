@@ -202,8 +202,7 @@
                         <h4 class="card-title text-center mb-4 mt-4">Upload Marksheet</h4>
                         <div class="row justify-content-center">
                             <div class="col-md-6 text-center mb-3">
-                                <input type="hidden" id="hiddenInput" name="hiddenValue">
-                                <button class="btn btn-primary" id="downloadLink">Download</button>
+                                <a id="downloadLink" href="{{url_for('download_file_format')}}" download="" value="">Download Excel File</a>
                             </div>
                         </div>
                         <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
@@ -278,24 +277,33 @@
             };
     
             function updateDownloadText() {
+                var downloadLink = document.getElementById('downloadLink');
                 const examValue = examSelect.value.toLowerCase();
                 let text = "Download"; // Default text
     
                 if (examValue === "cae1") {
-                    const dynamicValue = "cae";
-                    setHiddenInputValue(dynamicValue);
                     text = "CAE-1 Format Download";
+                    downloadLink.setAttribute('download', 'cae_format.xlsx');
+                    downloadLink.setAttribute('value', examValue);
+                    var newHref = "{{ url_for('download_file_format') }}?filename=" + 'cae_format.xlsx' + "&value=" + examValue;
+                    downloadLink.setAttribute('href', newHref);
                 } else if (examValue === "cae2") {
-                    const dynamicValue = "cae";
-                    setHiddenInputValue(dynamicValue);
+                    downloadLink.setAttribute('download', 'cae_format.xlsx');
+                    downloadLink.setAttribute('value', examValue);
+                    var newHref = "{{ url_for('download_file_format') }}?filename=" + 'cae_format.xlsx' + "&value=" + examValue;
+                    downloadLink.setAttribute('href', newHref);
                     text = "CAE-2 Format Download";
                 } else if (examValue === "ese") {
-                    const dynamicValue = "ese";
-                    setHiddenInputValue(dynamicValue);
+                    downloadLink.setAttribute('download', 'ese_format.xlsx');
+                    downloadLink.setAttribute('value', examValue);
+                    var newHref = "{{ url_for('download_file_format') }}?filename=" + 'ese_format.xlsx' + "&value=" + examValue;
+                    downloadLink.setAttribute('href', newHref);
                     text = "ESE Format Download";
                 } else if (examValue === "overall") {
-                    const dynamicValue = "overall";
-                    setHiddenInputValue(dynamicValue);
+                    downloadLink.setAttribute('download', 'overall_format.xlsx');
+                    downloadLink.setAttribute('value', examValue);
+                    var newHref = "{{ url_for('download_file_format') }}?filename=" + 'overall_format.xlsx' + "&value=" + examValue;
+                    downloadLink.setAttribute('href', newHref);
                     text = "Overall Format Download";
                 }
     
@@ -357,9 +365,6 @@
         }
         function loadingscreen(){
             document.getElementById('popup_load').style.display = 'flex';
-        }
-        function setHiddenInputValue(value) {
-            document.getElementById("hiddenInput").value = value;
         }
         window.onload = function() {
             if (flag == 1) {
