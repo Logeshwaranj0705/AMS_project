@@ -162,7 +162,7 @@ def process_hod_data_overall(year,exam,arrear,cnx,cursor):
         # Mapping arrear type to database name
     if arrear == 'five_and_above':
         cursor.execute("USE 5_arrear_data")
-        query = "SELECT name, arrear_count,year,exam FROM 5_arrear WHERE year = %s AND sem = %s AND exam = %s"
+        query = "SELECT name, arrear_count,year,exam FROM 5_arrear WHERE year = %s  AND exam = %s"
         cursor.execute(query, (year, exam))
         data = cursor.fetchall()
     else:
