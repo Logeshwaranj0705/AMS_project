@@ -362,7 +362,7 @@
                                             {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
-                                            <td>{% if row.Status == 'PENDING' %}
+                                            <td>{% if row.status == 'PENDING' %}
                                                     <div class="circle" aria-label="Pending status">
                                                         <div class="line line1"></div>
                                                         <div class="line line2"></div>
@@ -412,7 +412,7 @@
                                             {% for column in ['name', 'arrear_count', 'year', 'sem', 'exam','date'] %}
                                                 <td>{{ row[column] }}</td>
                                             {% endfor %}
-                                            <td>{% if row.Status == 'PENDING' %}
+                                            <td>{% if row.status == 'PENDING' %}
                                                     <div class="circle" aria-label="Pending status">
                                                         <div class="line line1"></div>
                                                         <div class="line line2"></div>
