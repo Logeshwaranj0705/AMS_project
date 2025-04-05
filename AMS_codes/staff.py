@@ -813,14 +813,15 @@ def download_file():
         return str(e)
 @app.route('/download_format')
 def download_file_format():
-    exam = request.form['hiddenValue']
+    filename = request.args.get('filename', 'cae_format.xlsx')
+    value = request.args.get('value', '')
     try:
-        if(exam=="cae"):
-            return send_file(os.path.join(os.getcwd(), 'templates', 'cae_format.xlsx'), as_attachment=True)
-        elif(exam=="ese"):
-            return send_file(os.path.join(os.getcwd(), 'templates', 'ese_format.xlsx'), as_attachment=True)
+        if(value=="cae"):
+            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'cae_format.xlsx'), as_attachment=True)
+        elif(value=="ese"):
+            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'ese_format.xlsx'), as_attachment=True)
         else:
-            return send_file(os.path.join(os.getcwd(), 'templates', 'overall_format.xlsx'), as_attachment=True)
+            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'overall_format.xlsx'), as_attachment=True)
     except Exception as e:
         return str(e)
 @app.route('/clear_rec_overall',methods=['POST'])
