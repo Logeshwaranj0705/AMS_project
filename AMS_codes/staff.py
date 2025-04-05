@@ -482,7 +482,7 @@ async def over_main(file_path, exam, year, cnx, cursor):
             query = "USE all_data_overall"
             cursor.execute(query)
             query1 = "INSERT INTO all_data (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
-            values = (name, arrear_count, sem, exam, year)
+            values = (name, arrear_count, exam, year)
             cursor.execute(query1, values)
             cnx.commit()
             phone_number = "+91" + phone_number
