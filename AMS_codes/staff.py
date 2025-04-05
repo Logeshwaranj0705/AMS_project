@@ -490,7 +490,7 @@ async def over_main(file_path, exam, year, cnx, cursor):
             values = (name, arrear_count, exam, year)
             cursor.execute(query1, values)
             cnx.commit()
-            query2 = "5_arrear_data"
+            query2 = "USE 5_arrear_data"
             cursor.execute(query2)
             query3 = "INSERT INTO 5_arrear (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
             values = (name, arrear_count, exam, year)
