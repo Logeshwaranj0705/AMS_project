@@ -813,9 +813,9 @@ def download_file():
         return str(e)
 @app.route('/download_format')
 def download_file_format():
-    exam = request.form['hidden_value']
+    exam = request.form['hiddenValue']
     try:
-        if(exam=="cae1" or exam=="cae2"):
+        if(exam=="cae"):
             return send_file(os.path.join(os.getcwd(), 'templates', 'cae_format.xlsx'), as_attachment=True)
         elif(exam=="ese"):
             return send_file(os.path.join(os.getcwd(), 'templates', 'ese_format.xlsx'), as_attachment=True)
