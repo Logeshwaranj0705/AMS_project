@@ -160,7 +160,7 @@ async def send_sms_message1(name,count,exam,year,ph_no, message, cursor, cnx):
 def process_hod_data_overall(year,exam,arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
         # Mapping arrear type to database name
-    if arrear == '5_arrear':
+    if arrear == 'five_and_above':
         cursor.execute("USE 5_arrear_data")
         query = "SELECT name, arrear_count,year,exam FROM 5_arrear WHERE year = %s AND sem = %s AND exam = %s"
         cursor.execute(query, (year, exam))
@@ -171,7 +171,7 @@ def process_hod_data_overall(year,exam,arrear,cnx,cursor):
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
         # Mapping arrear type to database name
-    if arrear == 'three_arrear':
+    if arrear == '3_and_above_arrear':
         cursor.execute("USE 3_arrear_data")
         query = "SELECT name, arrear_count,year,sem,exam FROM 3_arrear WHERE year = %s AND sem = %s AND exam = %s"
         cursor.execute(query, (year, sem, exam))
@@ -903,18 +903,14 @@ def hod_data():
         sem = request.form['sem']  # Get semester from form input
         arrear=request.form['arrears']
         if(exam=="overall"):
-            print(arrear)
             data=process_hod_data_overall(year,exam,arrear,cnx,cursor)
             cursor.close()
             cnx.close()
-            print(data)
             return render_template('data_overall.html',data=data,arrear=arrear,exam=exam,year=year)
         else:
-            print(arrear)
             data=process_hod_data(year, sem, exam, arrear, cnx, cursor)
             cursor.close()
             cnx.close()
-            print(data)
             return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
     else:
         phone_no1=os.getenv("PH_NO1")
