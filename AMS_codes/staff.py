@@ -980,7 +980,7 @@ def upload_marks():
                 data_overall1=process_message_data_overall()
                 data_overall2=process_message_data_overall1()
                 data_overall3=process_message_data_overall2()
-                return render_template('message_overall.html',data1=data1,data2=data2,data3=data3)
+                return render_template('message_overall.html',data_overall1=data_overall1,data_overall2=data_overall2,data_overall3=data_overall3)
         else:
             phone_no1=os.getenv("PH_NO1")
             ph_no1="+91"+str(phone_no1)
