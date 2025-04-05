@@ -906,11 +906,13 @@ def hod_data():
             data=process_hod_data_overall(year,exam,arrear,cnx,cursor)
             cursor.close()
             cnx.close()
+            print(data)
             return render_template('data_overall.html',data=data,arrear=arrear,exam=exam,year=year)
         else:
             data=process_hod_data(year, sem, exam, arrear, cnx, cursor)
             cursor.close()
             cnx.close()
+            print(data)
             return render_template('data.html',data=data,arrear=arrear,exam=exam,year=year,sem=sem)
     else:
         phone_no1=os.getenv("PH_NO1")
