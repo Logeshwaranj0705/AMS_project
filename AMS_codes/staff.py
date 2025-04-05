@@ -161,7 +161,6 @@ def process_hod_data_overall(year,exam,arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
         # Mapping arrear type to database name
     if arrear == 'five_and_above':
-        print(5)
         cursor.execute("USE 5_arrear_data")
         query = "SELECT name, arrear_count,year,exam FROM 5_arrear WHERE year = %s AND sem = %s AND exam = %s"
         cursor.execute(query, (year, exam))
@@ -171,27 +170,22 @@ def process_hod_data_overall(year,exam,arrear,cnx,cursor):
     return data
 def process_hod_data(year, sem, exam, arrear,cnx,cursor):
     data = None  # Initialize `data` to avoid UnboundLocalError
-    print(sem,year,exam,arrear)
     if arrear == '3_and_above_arrear':
-        print(3)
         cursor.execute("USE 3_arrear_data")
         query = "SELECT name, arrear_count,year,sem,exam FROM 3_arrear WHERE year = %s AND sem = %s AND exam = %s"
         cursor.execute(query, (year, sem, exam))
         data = cursor.fetchall()
     elif arrear == 'two_arrear':
-        print(2)
         cursor.execute("USE 2_arrear_data")
         query = "SELECT name, arrear_count,year,sem,exam FROM 2_arrear WHERE year = %s AND sem = %s AND exam = %s"
         cursor.execute(query, (year, sem, exam))
         data = cursor.fetchall()
     elif arrear == 'one_arrear':
-        print(1)
         cursor.execute("USE 1_arrear_data")
         query = "SELECT name, arrear_count,year,sem,exam FROM 1_arrear WHERE year = %s AND sem = %s AND exam = %s"
         cursor.execute(query, (year, sem, exam))
         data = cursor.fetchall()
     elif arrear == 'nil_arrear':
-        print(0)
         cursor.execute("USE nil_arrear_data")
         query = "SELECT name, arrear_count,year,sem,exam FROM nil_arrear WHERE year = %s AND sem = %s AND exam = %s"
         cursor.execute(query, (year, sem, exam))
