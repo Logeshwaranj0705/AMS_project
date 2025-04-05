@@ -811,6 +811,18 @@ def download_file():
         return send_file(os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx'), as_attachment=True)
     except Exception as e:
         return str(e)
+@app.route('/download_format')
+def download_file_format():
+    exam = request.form['form_sheet']
+    try:
+        if(exam=="cae1" or exam=="cae2"):
+            return send_file(os.path.join(os.getcwd(), 'templates', 'cae_format.xlsx'), as_attachment=True)
+        elif(exam=="ese"):
+            return send_file(os.path.join(os.getcwd(), 'templates', 'ese_format.xlsx'), as_attachment=True)
+        else:
+            return send_file(os.path.join(os.getcwd(), 'templates', 'overall_format.xlsx'), as_attachment=True)
+    except Exception as e:
+        return str(e)
 @app.route('/clear_rec_overall',methods=['POST'])
 def clear_rec_overall():
     flag=0
