@@ -207,7 +207,7 @@ def clear_data(arrear,year,exam,sem):
     cursor = cnx.cursor()
     try:
         # Mapping arrear type to database name
-        if arrear == 'three_arrear':
+        if arrear == '3_and_above_arrear':
             cursor.execute("USE 3_arrear_data")
             quary='delete from 3_arrear where year=%s and exam=%s and sem=%s'
             values=(year,exam,sem)
@@ -226,6 +226,11 @@ def clear_data(arrear,year,exam,sem):
             cursor.execute("USE nil_arrear_data")
             quary='delete from nil_arrear where year=%s and exam=%s and sem=%s'
             values=(year,exam,sem)
+            cursor.execute(quary,values)
+        elif arrear == 'five_and_above':
+            cursor.execute("USE 5_arrear_data")
+            quary='delete from 5_arrear where year=%s and exam=%s'
+            values=(year,exam)
             cursor.execute(quary,values)
         else:
             print("Invalid arrear type")
@@ -306,7 +311,7 @@ def staff_del_data_overall():
     cursor=cnx.cursor()
     query="USE all_data_overall"
     cursor.execute(query)
-    query1="DELETE FROM all_data"
+    query1="DELETE FROM all_data_o"
     cursor.execute(query1)
     cnx.commit()
     cursor.close()
@@ -421,7 +426,7 @@ def process_message_data_overall():
     data1 = None 
     query="USE all_data_overall"
     cursor.execute(query)
-    query1="SELECT * FROM all_data"
+    query1="SELECT * FROM all_data_o"
     cursor.execute(query1)
     data1 = cursor.fetchall()
     cursor.close()
