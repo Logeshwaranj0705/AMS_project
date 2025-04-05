@@ -8,188 +8,127 @@
     <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/ta/6/69/Sathyabama_logo.png">
 </head>
 <style>
-    .newpopup {
-        text-align: center;
-        display: none;
-        position: fixed;
-        top: 40%;
-        left: 33%;
-        width: 35%;
-        height: 25%;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        padding: 20px;
-        margin-top: 10px;
-        z-index: 9999;
-    }
-    .popup {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 70%;
-        height: 80%;
-        background-color: rgba(0, 0, 0, 0.8);
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        padding: 20px;
-        margin-top: 10px;
-        z-index: 999;
-    }
-    .popup iframe {
-        width: 100%;
-        height: 40%;
-        border: none;
-        border-radius: 8px;
-    }
-    .overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-    }
-    .close-btn {
-        position: absolute;
-        top: 0px;
-        right: 0px;
-        border: 0px;
-        padding: 5px 10px;
-        border-top-right-radius: 10px;
-    }
-    .close-btn:hover {
-        background-color: red;
-        color: white;
-    }
-    .caution {
-        font-size: 35px;
-        color: red;
-        border: solid 6px;
-        text-align: center;
-        border-radius: 50%;
-        width: 50px;
-        height: 55px;
-        animation: moveup 1s ease-in-out infinite;
-    }
-    .caution-block {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 40%;
-    }
-    @keyframes moveup {
-        50% {
-            font-size: 30px;
+        .newpopup{
+            text-align: center;
+            display:none;
+            position:fixed;top: 40%;left: 33%;
+            width: 35%;
+            height: 25%;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin-top:10px;
+            z-index: 9999;
         }
-        100% {
-            font-size: 36px;
+        .popup {display: none;position: fixed;top: 50%;left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 80%;
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin-top:10px;
+            z-index: 999;
         }
+        .popup iframe {
+            width: 100%;
+            height: 40%;
+            border: none;
+            border-radius: 8px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .close-btn {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            border:0px;
+            padding: 5px 10px;
+            border-top-right-radius:10px;
+        }
+        .close-btn:hover{
+            background-color:red;
+            color:white;
+        }
+        .caution{
+            font-size:35px;
+            color:red;
+            border:solid 6px;
+            text-align: center;
+            border-radius:50%;
+            width:50px;
+            height:55px;
+            animation:moveup 1s ease-in-out infinite;
+        }
+        .caution-block{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            height:40%;
+        }
+        @keyframes moveup{
+            50%{
+                font-size:30px;
+            }
+            100%{
+                font-size:36px;
+            }
+        }
+    nav{background-color: rgb(134, 4, 62);}
+    html,body{ background-image: url('https://www.sathyabama.ac.in/sites/default/files/2020-01/LIBERAY.jpg') ; background-size: cover;background-repeat: no-repeat;height:100% }
+    .navbar {box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);}
+    .navbar-brand {font-family: 'Montserrat', sans-serif;font-weight: 600;}
+    .breadcrumb {background-color: transparent;font-size: 1rem;}
+    .card {transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;background-color: #fbfcfd1c;}
+    .btn-primary { color: #fff; background-color: rgb(134, 4, 62); border: none; }
+    .card:hover {transform: translateY(-10px);box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);}
+    .no-hover {transition: none;box-shadow: none;}
+    .no-hover:hover {transform: none;box-shadow: none;}
+    .card h3, .card h3 {font-family: 'Montserrat', sans-serif;color: #333;}
+    .card-body {background-color: white;border-radius: 10px;}
+    a {color: #007bff;text-decoration: none;}
+    a:hover {text-decoration: underline;}
+    .pagination .page-link {color: #007bff;}
+    .pagination .page-link.active { background-color: #007bff;border-color: #007bff;}
+    footer {background-color: rgb(134, 4, 62);color: #fff;}
+    footer a {color: #fff;text-decoration: none;}
+    footer {background-color: rgb(134, 4, 62); color: #fff; bottom: 0; width: 100%; text-align: center; position: fixed; }
+    @media (min-width:20px) and (max-width:500px){
+        .popup{height:60%;width:75%}
+        .newpopup{top:34%;left:25;width:50%;height:32%}
     }
-    nav {
-        background-color: rgb(134, 4, 62);
-    }
-    html, body {
-        background-image: url('https://www.sathyabama.ac.in/sites/default/files/2020-01/LIBERAY.jpg');
-        background-size: cover;
-        background-repeat: no-repeat;
-        height: 100%;
-    }
-    .navbar {
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    }
-    .navbar-brand {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 600;
-    }
-    .breadcrumb {
-        background-color: transparent;
-        font-size: 1rem;
-    }
-    .card {
-        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-        background-color: #fbfcfd1c;
-    }
-    .btn-primary {
-        color: #fff;
-        background-color: rgb(134, 4, 62);
-        border: none;
-    }
-    .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-    .no-hover {
-        transition: none;
-        box-shadow: none;
-    }
-    .no-hover:hover {
-        transform: none;
-        box-shadow: none;
-    }
-    .card h3, .card h3 {
-        font-family: 'Montserrat', sans-serif;
-        color: #333;
-    }
-    .card-body {
+    .circle1{
+        margin:2px;
         background-color: white;
-        border-radius: 10px;
-    }
-    a {
-        color: #007bff;
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-    .pagination .page-link {
-        color: #007bff;
-    }
-    .pagination .page-link.active {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-    footer {
-        background-color: rgb(134, 4, 62);
-        color: #fff;
-        bottom: 0;
-        width: 100%;
-        text-align: center;
-        position: fixed;
-    }
-    .circle1 {
-        margin: 2px;
-        background-color: white;
-        width: 2%;
-        height: 8%;
+        width:2%;
+        height:8%;
         border-radius: 100%;
-        animation: scaleanimation 2s infinite;
+        animation:scaleanimation 2s infinite;
     }
-    .circle2 {
-        background-color: white;
-        margin: 2px;
-        width: 2%;
-        height: 8%;
+    .circle2{background-color: white;
+        margin:2px;
+        width:2%;
+        height:8%;
         border-radius: 100%;
-        animation: scaleanimation 2s infinite 0.5s;
-    }
-    .circle3 {
-        background-color: white;
-        margin: 2px;
-        width: 2%;
-        height: 8%;
+        animation:scaleanimation 2s infinite 0.5s;}
+    .circle3{background-color: white;
+        margin:2px;
+        width:2%;
+        height:8%;
         border-radius: 100%;
-        animation: scaleanimation 2s infinite 1s;
-    }
-    .popup_load {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
+        animation:scaleanimation 2s infinite 1s;}
+    .popup_load{
+        display: none;position: fixed;top: 50%;left: 50%;
         transform: translate(-50%, -50%);
         width: 30%;
         height: 20%;
@@ -197,39 +136,42 @@
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         padding: 20px;
-        margin-top: 10px;
+        margin-top:10px;
         z-index: 999;
         justify-content: center;
-        align-items: center;
+        align-items: center; 
     }
-    @keyframes scaleanimation {
-        0% {
+    
+    .download-link:hover {
+    }
+    @keyframes scaleanimation{
+        0%{
             transform: scale(0);
-            opacity: 0;
+            opacity:0;
         }
-        50% {
-            transform: scale(1);
-            opacity: 1;
+        50%{
+            tranfrom:scale(1);
+            opacity:1;
         }
-        100% {
-            transform: scale(0.5);
+        100%{
+            tranform:scale(0.5)
+        }
+
+    }
+    @media (min-width:20px) and (max-width:768px){
+        .circle1{
+            width:4%;
+        }
+        .circle2{
+            width:4%;
+        }
+        .circle3{
+            width:4%;
         }
     }
-    @media (min-width: 20px) and (max-width: 768px) {
-        .circle1 {
-            width: 4%;
-        }
-        .circle2 {
-            width: 4%;
-        }
-        .circle3 {
-            width: 4%;
-        }
-    }
-</style>
+    </style>
 <body>
-    <div class="popup_load" id="popup_load">
-        <h6 style="color:white;margin:5px">PROCESSING DATA</h6>
+    <div class="popup_load" id="popup_load"><h6 style="color:white;margin:5px">PROCESSING DATA</h6>
         <div class="circle1"></div>
         <div class="circle2"></div>
         <div class="circle3"></div>
@@ -238,14 +180,12 @@
     <div class="newpopup" id="newpopup">
         <button class="close-btn" onclick="newclosePopup()"><b>X</b></button>
         <div class="caution-block">
-            <div class="caution"><b>!</b></div>
-        </div>
-        <div style="font-size:x-large;"><h3></h3><b>Server Under Maintenance</b></h3></div>
+        <div class="caution"><b>!</b>
+        </div></div>
+        <div style="font-size:x-large;"><h3></h3><b>Server Under Maintance</b></h3></div>
         <p>@Contact the admin for any queries or to report any problems</p>
     </div>
-
     <input type="hidden" id="flag" value="{{ flag if flag is not none else 0 }}">
-
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <img style="width:200px; height:55px" class="navbar-brand px-2" src="https://erp.sathyabama.ac.in/assets/images/sathyabama_header-logo-A++.jpg">
@@ -254,26 +194,21 @@
             </form>
         </div>
     </nav>
-
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title text-center mb-4 mt-4">Upload Marksheet</h4>
-                        <!-- Form for download -->
-                        <form id="downloadForm" action="/download_format" method="post" enctype="multipart/form-data">
-                            <!-- Hidden field to store the selected exam -->
-                            <input type="hidden" id="examInput" name="exam" value="">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-center mb-3">
-                                    <button class="btn btn-primary" id="downloadLink">Download</button>
-                                </div>
+                        <form action="/download_format" method="post" enctype="multipart/form-data">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 text-center mb-3">
+                                <button class="btn btn-primary" id="downloadLink">Download</button>
                             </div>
-                        </form>
-
-                        <!-- Upload Form -->
+                        </div></form>
                         <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+    
+                            <!-- Examination Selection -->
                             <div class="mb-3">
                                 <label for="examSelect" class="form-label">Examination:</label>
                                 <select class="form-select" id="examSelect" name="form_sheet">
@@ -283,7 +218,8 @@
                                     <option value="overall">Overall</option>
                                 </select>
                             </div>
-
+    
+                            <!-- Year Selection -->
                             <div class="mb-3">
                                 <label for="yearSelect" class="form-label">Year:</label>
                                 <select class="form-select" id="yearSelect" name="year">
@@ -293,22 +229,30 @@
                                     <option value="4-year">Fourth Year</option>
                                 </select>
                             </div>
-
+    
+                            <!-- Semester Selection -->
                             <div class="mb-3" id="semesterContainer">
                                 <label for="semSelect" class="form-label">Semester:</label>
-                                <select class="form-select" id="semSelect" name="semester">
-                                    <!-- Dynamic semester options will appear here -->
+                                <select class="form-select" id="semSelect" name="sem">
+                                    <option value="sem-1">Semester 1</option>
+                                    <option value="sem-2">Semester 2</option>
+                                    <option value="sem-3">Semester 3</option>
+                                    <option value="sem-4">Semester 4</option>
+                                    <option value="sem-5">Semester 5</option>
+                                    <option value="sem-6">Semester 6</option>
+                                    <option value="sem-7">Semester 7</option>
+                                    <option value="sem-8">Semester 8</option>
                                 </select>
                             </div>
-
-                            <!-- File Upload -->
+    
+                            <!-- File Upload Input -->
                             <div class="mb-3">
-                                <label for="fileUpload" class="form-label">Upload File:</label>
-                                <input class="form-control" type="file" id="fileUpload" name="fileUpload" required>
+                                <label for="fileUpload" class="form-label">Upload File</label>
+                                <input type="file" class="form-control" id="fileUpload" name="file">
                             </div>
-
+                            <div id="fileErrorMsg" class="text-danger text-center mb-3" style="display: none;"><h5>File not uploaded!</h5></div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary" id="uploadBtn">Upload</button>
+                                <button type="submit" class="btn btn-primary" onclick="loadingscreen()">Submit Marks</button>
                             </div>
                         </form>
                     </div>
@@ -316,20 +260,15 @@
             </div>
         </div>
     </div>
-
-    <footer class="mt-5 py-3">
-        <p>© 2025 Sathyabama Institute of Science and Technology</p>
-    </footer>
-
+    
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const examSelect = document.getElementById("examSelect");
+            const examSelect = document.getElementById("examSelect"); 
             const yearSelect = document.getElementById("yearSelect");
             const semSelect = document.getElementById("semSelect");
             const semContainer = document.getElementById("semesterContainer");
             const downloadLink = document.getElementById("downloadLink");
-            const examInput = document.getElementById("examInput");  // Hidden input field for exam value
-            
+    
             // Semester mapping based on year selection
             const semesters = {
                 "1-year": ["Semester 1", "Semester 2"],
@@ -337,11 +276,11 @@
                 "3-year": ["Semester 5", "Semester 6"],
                 "4-year": ["Semester 7", "Semester 8"]
             };
-
+    
             function updateDownloadText() {
                 const examValue = examSelect.value.toLowerCase();
                 let text = "Download"; // Default text
-
+    
                 if (examValue === "cae1") {
                     text = "CAE-1 Format Download";
                 } else if (examValue === "cae2") {
@@ -351,15 +290,14 @@
                 } else if (examValue === "overall") {
                     text = "Overall Format Download";
                 }
-
+    
                 downloadLink.textContent = text;
-                examInput.value = examSelect.value;  // Set the hidden field value to the selected exam
             }
-
+    
             function updateSemesters() {
                 const selectedYear = yearSelect.value;
                 semSelect.innerHTML = ""; // Clear previous options
-
+    
                 semesters[selectedYear].forEach(sem => {
                     const option = document.createElement("option");
                     option.textContent = sem;
@@ -367,7 +305,7 @@
                     semSelect.appendChild(option);
                 });
             }
-
+    
             function handleExamChange() {
                 if (examSelect.value === "overall") {
                     semContainer.style.display = "none"; // Hide semester
@@ -376,18 +314,54 @@
                     updateSemesters();
                 }
             }
-
+    
             // Attach event listeners
             examSelect.addEventListener("change", () => {
                 updateDownloadText();
                 handleExamChange();
             });
             yearSelect.addEventListener("change", updateSemesters);
-
+    
             // Initialize on page load
             updateDownloadText();
             updateSemesters();
         });
+    
+        document.getElementById("uploadForm").addEventListener("submit", function (event) {
+            const fileInput = document.getElementById("fileUpload");
+            const errorMsg = document.getElementById("fileErrorMsg");
+    
+            if (!fileInput.files.length) {  // If no file is selected
+                event.preventDefault();  // Stop form submission
+                errorMsg.style.display = "block"; // Show error message
+            } else {
+                errorMsg.style.display = "none"; // Hide error message
+            }
+        });
     </script>
+    <script>
+        var flag = document.getElementById('flag').value;
+        function shownewPopup() {
+            document.getElementById('newpopup').style.display = 'block';
+        }
+        function newclosePopup() {
+            document.getElementById('newpopup').style.display = 'none';
+        }
+        function loadingscreen(){
+            document.getElementById('popup_load').style.display = 'flex';
+        }
+        window.onload = function() {
+            if (flag == 1) {
+                shownewPopup();
+            }
+            else{
+                newPopup();
+            }
+        };
+    </script>
+    <footer class="p-3">
+        &copy; 2023 Sathyabama Institute of Science and Technology. All rights reserved.
+    </footer>
+
 </body>
 </html>
