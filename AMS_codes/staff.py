@@ -481,9 +481,15 @@ async def over_main(file_path, exam, year, cnx, cursor):
             message = f"Dear {name}, you have {arrear_count} Arrears in {exam.upper()}. Please take necessary action."
             query = "USE all_data_overall"
             cursor.execute(query)
-            query1 = "INSERT INTO all_data (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
+            query1 = "INSERT INTO all_data_o (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
             values = (name, arrear_count, exam, year)
             cursor.execute(query1, values)
+            cnx.commit()
+            query2 = "5_arrear_data"
+            cursor.execute(query2)
+            query3 = "INSERT INTO 5_arrear (name, arrear_count, exam, year) VALUES (%s, %s, %s, %s)"
+            values = (name, arrear_count, exam, year)
+            cursor.execute(query3, values)
             cnx.commit()
             phone_number = "+91" + phone_number
             tasks.append(send_sms_message1(name, arrear_count, exam, year, phone_number, message, cursor, cnx))
