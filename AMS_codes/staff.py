@@ -817,11 +817,11 @@ def download_file_format():
     value = request.args.get('value', '')
     try:
         if(value=="cae"):
-            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'cae_format.xlsx'), as_attachment=True)
+            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx'), as_attachment=True)
         elif(value=="ese"):
-            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'ese_format.xlsx'), as_attachment=True)
+            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx'), as_attachment=True)
         else:
-            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'overall_format.xlsx'), as_attachment=True)
+            return send_file_dir(os.path.join(os.getcwd(), 'templates', 'newsheet.xlsx'), as_attachment=True)
     except Exception as e:
         return str(e)
 @app.route('/clear_rec_overall',methods=['POST'])
