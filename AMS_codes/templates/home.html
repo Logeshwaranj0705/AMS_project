@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMS/About_page</title>
+    <title>AMS/Home_page</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/ta/6/69/Sathyabama_logo.png">
     <style>
@@ -64,24 +64,34 @@ h4:hover{
 body {
     margin: 0;
     padding: 0;
-    height: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-image: url('https://www.sathyabama.ac.in/sites/default/files/inline-images/DJI_0105-New-Low.jpg'); /* Replace with your image URL */
     background-size: cover;  /* Make the image cover the entire screen */
     background-position: center;  /* Center the image */
     background-repeat: no-repeat;  /* Prevent the image from repeating */
     background-color: rgba(0, 0, 0, 0.5);
-
 }
-
-.overlay {
-    position: relative; /* Keeps the overlay positioned within the page */
-    top: 0px; /* Height of the nav bar */
+.para1{
+    p{
+        margin-top: 70px;
+        font-size: 18px;
+        text-align: justify;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.5;
+        font-family: 'Aptos', sans-serif;
+        color: #f0f0f0;
+    }
+}
+.overlay{
     width: 100%;
-    height: calc(100vh - 60px - 40px); /* Full viewport height minus nav (60px) and footer (40px) */
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-    z-index: 0; /* Ensures it stays behind the content */
+    height: 100%;
+    background-color:rgba(0,0,0,0.5);
+    flex: 1; /* Ensures the content takes up available space */
 }
-
 .about{
     margin:10px;
     color:white;
@@ -131,24 +141,8 @@ a{
     text-decoration: none;
     color: inherit;
 }
-.abt{
-    padding: 50px;
-    color: azure;
-}
-.mission{
-    p{
-        margin-top: 40px;
-        font-size: 18px;
-        text-align: justify;
-        max-width: 800px;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1.5;
-        font-family: 'Aptos',sana-serif;
-        color: #f0f0f0;
-    }
-}
 form{
+    
     position:relative;
     display:inline-block
 }
@@ -168,44 +162,51 @@ footer {
         <div class="container">
             <img style="width:200px; height:55px" class="navbar-brand px-2" src="https://erp.sathyabama.ac.in/assets/images/sathyabama_header-logo-A++.jpg">
             <form1 class="mx-auto">
-            <form action="/home" method="post" enctype="multipart/form-data">
-                <button class="btn btn-primary" name="home">HOME</button></form>
-            <form action="/about" method="post" enctype="multipart/form-data">
-                <button class="btn btn-primary "  name="about">ABOUT</button></form>
-            <form action="/login" method="post" enctype="multipart/form-data">
-                <button class="btn btn-primary" name="logout">LOGIN</button>
+            <form  action="/home" method="post" enctype="multipart/form-data">
+                <button class="btn " name="home">HOME</button></form>
+            <form  action="/about" method="post" enctype="multipart/form-data">
+                <button class="btn " name="about">ABOUT</button></form>
+            <form  action="/login" method="post" enctype="multipart/form-data">
+                <button class="btn " name="logout">LOGIN</button>
             </form>
             </form1>
         </div>
     </nav>
     <div class="overlay">
-        <div class="abt">
+        <div class="proj" >
             <center>
-                <h2>ARREAR MANAGEMENT SYSTEM</h2>
+                <h2 style="color: #e8e8e8;font-size: 30px;margin-top: 20px;">SATHYABAMA INSTITUTE OF SCIENCE AND TECHNOLOGY</h2>
             </center>
         </div>
-        <div class="mission">
+        <div class="IT">
             <center>
-                <p>Our Arrear Management System is designed to keep parents informed and help institutions manage student records efficiently. The system automatically sends SMS notifications to the parents of students who have three or more arrears, ensuring they are aware of their child’s academic status. Additionally, our system segregates student records based on the number of arrears, allowing administrators to easily categorize and access data at any time. This feature enables faculty to monitor student performance, take necessary actions, and provide timely support to those in need, ultimately improving academic outcomes.</p>
+                <h3>
+                    DEPARTMENT OF INFORMATION TECHNOLOGY
+                </h3>
             </center>
         </div>
-        <br>
+        <div class="para1">       
+            <center>
+                <p>"We're thrilled to have you join our dynamic and innovative community. Here, you'll embark on a journey of exploration, learning, and collaboration in the ever-evolving world of technology. Whether you're a seasoned professional or just beginning your IT adventure, you'll find endless opportunities to grow, excel, and make a meaningful impact. Together, let's push boundaries, harness the power of technology, and pave the way for a brighter future."</p>
+            </center>
+        </div>
         <div class="icons" style="margin-top: 10px; text-align: center;">
-           
+            
             <a href="https://www.facebook.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 30px; height: 30px;">
             </a>
             
             <a href="https://www.instagram.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 30px; height: 30px;">
-            </a>
-            <a href="https://x.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
+            </a><a href="https://x.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X" style="width: 30px; height: 30px;">
             </a>
+            
             <a id="a" href="mailto:adminit@sathyabama.ac.in" style="margin: 0 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" style="width: 30px; height: 30px;">
                 <span style="font-size: large; color: #fff;">Contact admin</span>
             </a>
+            
         </div>
     </div>
     <footer>
@@ -213,4 +214,5 @@ footer {
             <p>&copy; 2025 Sathyabama Institute of Science and Technology. All rights reserved.</p>
         </div>
     </footer>
-    </div>
+</body>
+</html>
