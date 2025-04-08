@@ -471,7 +471,8 @@
                 <div class="text-center">
                     <div class="mb-2">
                         <a href="{{url_for('download_file')}}" download="newsheet.xlsx">Download Excel File</a>
-                        <a style="color:white" onclick="statuspopup()" role="button" aria-label="View message status">Message Status</a>
+                      <a class="text-white" onclick="showPopup()" role="button" aria-label="View message status">Message Status</a>
+
                     </div>
                 </div>
             </div>
@@ -556,6 +557,37 @@
                 document.querySelector('.popup_done').style.display = 'none';
             }, 4000); 
         };
+        
     </script>
+    <script>
+        let currentContainer = 1;
+    
+        function showPopup() {
+            document.getElementById("overlay").style.display = "block";
+            document.getElementById("popup").style.display = "block";
+            showContainer(currentContainer);
+        }
+    
+        function closePopup() {
+            document.getElementById("overlay").style.display = "none";
+            document.getElementById("popup").style.display = "none";
+        }
+    
+        function showContainer(num) {
+            document.getElementById("container1").style.display = (num === 1) ? "block" : "none";
+            document.getElementById("container2").style.display = (num === 2) ? "block" : "none";
+        }
+    
+        function showNext() {
+            currentContainer = 2;
+            showContainer(currentContainer);
+        }
+    
+        function showPrev() {
+            currentContainer = 1;
+            showContainer(currentContainer);
+        }
+    </script>
+    
 </body>
 </html>
