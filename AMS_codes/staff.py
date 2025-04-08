@@ -817,7 +817,9 @@ def download_file_format():
     value = request.args.get('value', '')
     print(value)
     try:
-        if(value=="cae"):
+        if(value=="cae1"):
+            return send_file(os.path.join(os.getcwd(), 'templates', 'cae_format.xlsx'), as_attachment=True)
+        elif(value=="cae2"):
             return send_file(os.path.join(os.getcwd(), 'templates', 'cae_format.xlsx'), as_attachment=True)
         elif(value=="ese"):
             return send_file(os.path.join(os.getcwd(), 'templates', 'ese_format.xlsx'), as_attachment=True)
