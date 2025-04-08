@@ -34,7 +34,7 @@ nav .container button{
     font-size: 16px;
 }
 nav button:hover {
-    background-color: #4d4d4d; /* Darker shade on hover */
+    background-color: rgb(134, 4, 62); /* Darker shade on hover */
 }
 nav form {
     margin-left: auto; /* Pushes the logout button to the right */
@@ -167,13 +167,15 @@ footer {
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
         <div class="container">
             <img style="width:200px; height:55px" class="navbar-brand px-2" src="https://erp.sathyabama.ac.in/assets/images/sathyabama_header-logo-A++.jpg">
+            <form1 class="mx-auto">
             <form action="/home" method="post" enctype="multipart/form-data">
                 <button class="btn btn-primary" name="home">HOME</button></form>
             <form action="/about" method="post" enctype="multipart/form-data">
-                <button class="btn btn-primary" name="about">ABOUT</button></form>
+                <button class="btn btn-primary "  name="about">ABOUT</button></form>
             <form action="/login" method="post" enctype="multipart/form-data">
                 <button class="btn btn-primary" name="logout">LOGIN</button>
             </form>
+            </form1>
         </div>
     </nav>
     <div class="overlay">
@@ -189,14 +191,16 @@ footer {
         </div>
         <br>
         <div class="icons" style="margin-top: 10px; text-align: center;">
+           
             <a href="https://www.facebook.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" style="width: 30px; height: 30px;">
             </a>
-            <a href="https://x.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X" style="width: 30px; height: 30px;">
-            </a>
+            
             <a href="https://www.instagram.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" style="width: 30px; height: 30px;">
+            </a>
+            <a href="https://x.com" target="_blank" style="margin: 0 10px; text-decoration: none; display: inline-block;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/X_logo_2023.svg" alt="X" style="width: 30px; height: 30px;">
             </a>
             <a id="a" href="mailto:adminit@sathyabama.ac.in" style="margin: 0 10px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" style="width: 30px; height: 30px;">
