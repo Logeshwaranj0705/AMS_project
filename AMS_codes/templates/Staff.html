@@ -295,12 +295,12 @@
                 if (examValue === "cae1") {
                     text = "CAE-1 Format Download";
                     downloadLink.setAttribute('download', 'cae_format.xlsx');
-                    downloadLink.setAttribute('value', examValue);
+                    downloadLink.setAttribute('value', 'cae');
                     var newHref = "{{ url_for('download_file_format') }}?filename=" + 'cae_format.xlsx' + "&value=" + examValue;
                     downloadLink.setAttribute('href', newHref);
                 } else if (examValue === "cae2") {
                     downloadLink.setAttribute('download', 'cae_format.xlsx');
-                    downloadLink.setAttribute('value', examValue);
+                    downloadLink.setAttribute('value', 'cae');
                     var newHref = "{{ url_for('download_file_format') }}?filename=" + 'cae_format.xlsx' + "&value=" + examValue;
                     downloadLink.setAttribute('href', newHref);
                     text = "CAE-2 Format Download";
