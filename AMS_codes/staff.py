@@ -66,17 +66,25 @@ async def login_main(login,email,password):
         stat='none'
         return stat
 def sendadmin1_msg(message,ph_no):
-    message = twilio_client.messages.create(
+    try:
+        message = twilio_client.messages.create(
             from_='+15392212587',
             to=f"{ph_no}",
             body=message
         )
+        print(f"Message sent to {ph_no} regarding arrears.")
+    except Exception as e:
+        print(f"Failed to send message to {ph_no}: {str(e)}")
 def sendadmin2_msg(message,ph_no):
-    message = twilio_client.messages.create(
+    try:
+        message = twilio_client.messages.create(
             from_='+15392212587',
             to=f"{ph_no}",
             body=message
         )
+        print(f"Message sent to {ph_no} regarding arrears.")
+    except Exception as e:
+        print(f"Failed to send message to {ph_no}: {str(e)}")
 async def send_sms_message(name,count,sem,exam,year,ph_no, message, cursor, cnx):
     try:
         message = twilio_client.messages.create(
