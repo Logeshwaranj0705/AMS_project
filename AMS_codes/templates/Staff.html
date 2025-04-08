@@ -204,7 +204,7 @@
             </form>
         </div>
     </nav>
-    <div class="container mt-5 mb-2">
+    <div class="container mt-4 mb-3">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
@@ -271,6 +271,7 @@
     </div>
     
     <script>
+        
         document.addEventListener("DOMContentLoaded", function () {
             const examSelect = document.getElementById("examSelect"); 
             const yearSelect = document.getElementById("yearSelect");
@@ -385,6 +386,34 @@
             }
         };
     </script>
+    <script>
+    function loadingscreen(event) {
+        const fileInput = document.getElementById("fileUpload");
+        const popup = document.getElementById("popup_load");
+        const errorMsg = document.getElementById("fileErrorMsg");
+
+        if (!fileInput.files.length) {
+            // Show error message
+            errorMsg.style.display = "block";
+            // Prevent form submission
+            event.preventDefault();
+            return false;
+        } else {
+            // Hide error message if previously shown
+            errorMsg.style.display = "none";
+            // Show the processing popup
+            popup.style.display = "flex";
+            return true;
+        }
+    }
+
+    // Attach event to form submission
+    document.getElementById("uploadForm").addEventListener("submit", function (e) {
+        if (!loadingscreen(e)) {
+            e.preventDefault(); // Stop form from submitting if no file
+        }
+    });
+</script>
     <footer class="p-3">
         &copy; 2023 Sathyabama Institute of Science and Technology. All rights reserved.
     </footer>
