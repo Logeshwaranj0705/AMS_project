@@ -180,13 +180,15 @@
             width: 90%;
         }
         #container1 {
-            max-height: 75%;
+            min-height: 90%;
             min-width: 90%;
+            overflow-y:scroll;
         }
         #container2 {
-            max-height: 75%;
+            min-height: 90%;
             min-width: 90%;
             display: none;
+            overflow-y:scroll;
         }
         .next_page {
             display: flex;
@@ -445,8 +447,8 @@
             </div>
         </div>
         <div class="next_page">
-            <button id="prev" class="btn btn-primary" style="margin:10px;margin-bottom:0px;z-index:1;" onclick="messagePage()">PREV</button>
-            <button id="next" class="btn btn-primary" style="margin:10px;margin-bottom:0px;z-index:1;" onclick="recordPage()">NEXT</button>
+            <button id="prev" class="btn btn-primary" style="margin:10px;margin-bottom:0px;z-index:1;bottom:0;" onclick="messagePage()">PREV</button>
+            <button id="next" class="btn btn-primary" style="margin:10px;margin-bottom:0px;z-index:1;bottom:0;" onclick="recordPage()">NEXT</button>
         </div>
     </div>
     <header class="sticky-top" role="banner">
